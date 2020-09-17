@@ -15,8 +15,8 @@ Dependencies:
 
 ### Build
 ```bash
-git clone https://github.com/teratide/flitter.git
-cd flitter/cpp/illex
+git clone https://github.com/abs-tudelft/illex.git
+cd illex
 mkdir build && cd build
 cmake ..
 make
