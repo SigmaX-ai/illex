@@ -1,0 +1,34 @@
+name: Check
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+env:
+  ARROW_VERSION: '1.0.1'
+
+jobs:
+  test:
+    name: 'Test'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Apache Arrow
+      run: |
+        wget https://apache.bintray.com/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb
+        sudo apt-get install -y ./apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb
+        sudo apt-get update
+        sudo apt-get install -y libarrow-dev=$ARROW_VERSION-1
+    - name: Install zeromq
+      run: sudo apt-get install -y libzmqpp-dev
+    - name: CMake
+      env:
+        CC: gcc-9
+        CXX: g++-9
+      run: cmake . -DBUILD_TESTS=ON
+    - name: Build
+      run: make -j
+    - name: Test
+      run: make test
