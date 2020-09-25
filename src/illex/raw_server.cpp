@@ -15,6 +15,7 @@
 #include <thread>
 #include <future>
 #include <string>
+#include <tuple>
 #include <rapidjson/prettywriter.h>
 #include <concurrentqueue.h>
 #include <putong/timer.h>
@@ -77,10 +78,15 @@ auto RawServer::SendJSONs(const ProductionOptions &options, StreamStatistics *st
       std::this_thread::sleep_for(std::chrono::seconds(1));
 #endif
     }
-    SPDLOG_DEBUG("Popped string {} from production queue.", message_str);
+    SPDLOG_DEBUG("Popped string {}.", message_str);
 
     // Attempt to send the message.
-    client.send(reinterpret_cast<std::byte *>(message_str.data()), message_str.length());
+    auto send_result = client.send(reinterpret_cast<std::byte *>(message_str.data()), message_str.length());
+
+    auto send_result_socket = std::get<1>(send_result);
+    if (!send_result_socket != kissnet::socket_status::valid) {
+      return Status(Error::RawError, "Socket not valid after send: " + std::to_string(send_result_socket));
+    }
 
     result.num_messages++;
   }
@@ -97,7 +103,6 @@ auto RawServer::SendJSONs(const ProductionOptions &options, StreamStatistics *st
 }
 
 auto RawServer::Close() -> Status {
-  spdlog::info("Raw server shutting down...");
   try {
     server->close();
   } catch (const std::exception &e) {
@@ -117,15 +122,15 @@ static void LogSendStats(const StreamStatistics &result) {
 auto RunRawServer(const RawProtocol &protocol_options, const ProductionOptions &production_options) -> Status {
   spdlog::info("Starting Raw server.");
   RawServer server;
-  RETURN_ON_ERROR(RawServer::Create(protocol_options, &server));
+  ILLEX_ROE(RawServer::Create(protocol_options, &server));
 
   spdlog::info("Streaming {} messages.", production_options.num_jsons);
   StreamStatistics stats;
-  RETURN_ON_ERROR(server.SendJSONs(production_options, &stats));
+  ILLEX_ROE(server.SendJSONs(production_options, &stats));
   LogSendStats(stats);
 
   spdlog::info("Raw server shutting down.");
-  RETURN_ON_ERROR(server.Close());
+  ILLEX_ROE(server.Close());
 
   return Status::OK();
 }

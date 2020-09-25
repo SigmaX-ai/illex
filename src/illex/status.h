@@ -20,7 +20,7 @@
 
 namespace illex {
 
-#define RETURN_ON_ERROR(s) if (!s.ok()) return s;
+#define ILLEX_ROE(s) if (!s.ok()) return s
 
 enum class Error {
   GenericError,

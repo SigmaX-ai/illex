@@ -126,15 +126,15 @@ static void LogSendStats(const StreamStatistics &result) {
 auto RunZMQServer(const ZMQProtocol &protocol_options, const ProductionOptions &production_options) -> Status {
   spdlog::info("Starting ZMQ push server.");
   ZMQServer server;
-  RETURN_ON_ERROR(ZMQServer::Create(protocol_options, &server));
+  ILLEX_ROE(ZMQServer::Create(protocol_options, &server));
 
   spdlog::info("Streaming {} JSONs.", production_options.num_jsons);
   StreamStatistics stats;
-  RETURN_ON_ERROR(server.SendJSONs(production_options, &stats));
+  ILLEX_ROE(server.SendJSONs(production_options, &stats));
   LogSendStats(stats);
 
   spdlog::info("ZMQ server shutting down.");
-  RETURN_ON_ERROR(server.Close());
+  ILLEX_ROE(server.Close());
 
   return Status::OK();
 }
