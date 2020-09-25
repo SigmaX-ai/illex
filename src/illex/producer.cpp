@@ -24,6 +24,14 @@ namespace illex {
 
 namespace rj = rapidjson;
 
+/**
+ * \brief A thread producing JSONs
+ * \param thread_id The ID of this thread.
+ * \param opt Production options for this thread.
+ * \param num_items Number of JSONs to produce.
+ * \param q The queue to store the produced JSONs in.
+ * \param size The number of characters generated.
+ */
 void ProductionDroneThread(size_t thread_id,
                            const ProductionOptions &opt,
                            size_t num_items,
@@ -70,7 +78,7 @@ void ProductionDroneThread(size_t thread_id,
       spdlog::error("[Drone {}] Could not place JSON string in queue.", thread_id);
     }
   }
-
+  SPDLOG_DEBUG("[Drone {}] Done producing.", thread_id);
   size.set_value(drone_size);
 }
 
@@ -80,37 +88,56 @@ void ProductionHiveThread(const ProductionOptions &opt,
   putong::Timer t;
   ProductionStats result;
 
-  const auto num_threads = std::thread::hardware_concurrency();
-  const auto jsons_per_thread = opt.num_jsons / num_threads;
+  // Number of JSONs to produce per thread
+  const auto jsons_per_thread = opt.num_jsons / opt.num_threads;
 
-  spdlog::info("[Hive] Starting {} JSON producer drones.", num_threads);
-  t.Start();
+  // Remainder for the first thread.
+  size_t remainder = 0;
+  if (jsons_per_thread == 0) {
+    remainder = opt.num_jsons;
+  } else {
+    remainder = opt.num_jsons % jsons_per_thread;
+  }
+
+  spdlog::info("[Hive] Starting {} JSON producer drones.", opt.num_threads);
+
+  // Set up some vectors for the threads and futures.
   std::vector<std::thread> threads;
   std::vector<std::future<size_t>> futures;
-  threads.reserve(num_threads);
-  for (int thread = 0; thread < num_threads; thread++) {
-    std::promise<size_t> p;
-    futures.push_back(p.get_future());
+  threads.reserve(opt.num_threads);
+  futures.reserve(opt.num_threads);
+
+  // Spawn threads
+  t.Start();
+  for (int thread = 0; thread < opt.num_threads; thread++) {
+    // Set up promise for the number of characters produced
+    std::promise<size_t> promise_num_chars;
+    futures.push_back(promise_num_chars.get_future());
     // Spawn the threads and let the first thread do the remainder of the work.
     threads.emplace_back(ProductionDroneThread,
                          thread,
                          opt,
-                         jsons_per_thread + (thread != 0 ? 0 : opt.num_jsons % jsons_per_thread),
+                         jsons_per_thread + (thread == 0 ? remainder : 0),
                          q,
-                         std::move(p));
+                         std::move(promise_num_chars));
   }
+
+  // Wait for all threads to complete.
   for (auto &thread : threads) {
     thread.join();
   }
   t.Stop();
+
+  // Get all futures and calculate total number of characters generated.
   size_t total_size = 0;
   for (auto &f : futures) {
     total_size += f.get();
   }
   result.time = t.seconds();
+
   // Print some stats.
   spdlog::info("[Hive] Drones finished.");
-  spdlog::info("Produced {} JSONs in {:.4f} seconds.", opt.num_jsons, result.time);
+  spdlog::info("  Produced {} JSONs in {:.4f} seconds.", opt.num_jsons, result.time);
   spdlog::info("  {:.1f} JSONs/second (avg).", opt.num_jsons / result.time);
   spdlog::info("  {:.2f} gigabits/second (avg).",
                static_cast<double>(total_size * 8) / result.time * 1E-9);
