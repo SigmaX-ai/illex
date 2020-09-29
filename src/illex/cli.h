@@ -38,11 +38,6 @@ struct AppOptions {
   /// @brief Construct an instance of the application options parser.
   static auto FromArguments(int argc, char *argv[], AppOptions *out) -> Status;
 
-  /// @brief Returns the return code for failure.
-  static auto failure() -> int { return -1; };
-  /// @brief Returns the return code for success.
-  static auto success() -> int { return 0; };
-
   /// The subcommand to run.
   SubCommand sub = SubCommand::NONE;
 
