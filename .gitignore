@@ -2,4 +2,4 @@ debug/
 build/
 .idea/
 examples/*.as
-
+doc/

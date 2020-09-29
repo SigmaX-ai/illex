@@ -1,19 +1,19 @@
-# An incredibly simple random JSON generator.
-Generates random JSONs based on Arrow schemas.
+# Illex
 
-## Install
+A random JSON generator based on Arrow schemas.
 
-### Requirements
-To build:
-- CMake 3.14+
-- A C++17 compiler.
+# Install
 
-Dependencies:
-- [Arrow 1.0.1](https://github.com/apache/arrow)
-- [zmqpp 4.1.2+](https://github.com/zeromq/zmqpp)
-- [zmq 4.3.2+](https://github.com/zeromq/libzmq)
+* Requirements
+  * To build:
+    - CMake 3.14+
+    - A C++17 compiler.
+  * Dependencies:
+    - [Arrow 1.0.1](https://github.com/apache/arrow)
+    - [zmqpp 4.1.2+](https://github.com/zeromq/zmqpp)
+    - [zmq 4.3.2+](https://github.com/zeromq/libzmq)
 
-### Build
+## Build
 ```bash
 git clone https://github.com/abs-tudelft/illex.git
 cd illex
@@ -23,7 +23,7 @@ make
 make install
 ```
 
-### Usage
+# Usage
 
 There are two subcommands, `file` and `stream`.
 
@@ -43,15 +43,15 @@ More detailed options can be found by running:
 illex --help <subcommand>
 ```
 
-#### Usage for `file`
+## Usage for `file`
 `todo`
 Subcommand to generate a file with JSONs.
 
-#### Usage for `stream`
+## Usage for `stream`
 `todo`
 Subcommand to generate a TCP stream of JSONs.
 
-### Example
+## Example
 
 After running [tripreport.py](examples/tripreport.py) in the examples folder,
 you could run: 
@@ -86,5 +86,5 @@ This results in the following output:
 }
 ```
 
-Because this thing sprouts random JSONs, it's called Illex, like the little 
+Because this thing spouts random JSONs, it's called Illex, like the little 
 squid species.
