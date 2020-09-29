@@ -24,7 +24,7 @@ auto RunStream(const StreamOptions &opt) -> Status {
   if (std::holds_alternative<ZMQProtocol>(opt.protocol)) {
     return RunZMQServer(std::get<ZMQProtocol>(opt.protocol), opt.production);
   } else {
-    return RunRawServer(std::get<RawProtocol>(opt.protocol), opt.production);
+    return RunRawServer(std::get<RawProtocol>(opt.protocol), opt.production, opt.statistics);
   }
 }
 

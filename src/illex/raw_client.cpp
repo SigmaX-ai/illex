@@ -29,7 +29,7 @@ auto RawClient::Create(RawProtocol protocol, std::string host, RawClient *out) -
   out->protocol = protocol;
   out->client = std::make_shared<RawSocket>(kissnet::endpoint(endpoint));
 
-  spdlog::info("Connecting to {}...", endpoint);
+  SPDLOG_DEBUG("Client connecting to {}...", endpoint);
   out->client->connect();
 
   return Status::OK();
@@ -60,7 +60,7 @@ static void EnqueueAllJSONsInBuffer(std::string *json_buffer,
       json_buffer->append(json_start, json_end - json_start);
 
       // Copy the JSON string into the consumption queue.
-      SPDLOG_DEBUG("Received JSON: {}", *json_buffer);
+      SPDLOG_DEBUG("Client received JSON: {}", *json_buffer);
       queue->enqueue(*json_buffer);
       (*counter)++;
 
@@ -98,11 +98,11 @@ auto RawClient::ReceiveJSONs(Queue *queue) -> Status {
       auto sock_status = std::get<1>(recv_status).get_value();
       // Perhaps the server disconnected because it's done sending JSONs.
       if (sock_status == kissnet::socket_status::cleanly_disconnected) {
-        SPDLOG_DEBUG("Raw server has cleanly disconnected.");
+        SPDLOG_DEBUG("Server has cleanly disconnected.");
         return Status::OK();
       } else if (sock_status != kissnet::socket_status::valid) {
         // Otherwise, if it's not valid, there is something wrong.
-        return Status(Error::RawError, "Raw server error. Status: " + std::to_string(sock_status));
+        return Status(Error::RawError, "Server error. Status: " + std::to_string(sock_status));
       }
       // We must now handle the received bytes in the TCP buffer.
       EnqueueAllJSONsInBuffer(&json_string, &recv_buffer, bytes_received, queue, &this->received_);
@@ -116,7 +116,7 @@ auto RawClient::ReceiveJSONs(Queue *queue) -> Status {
 }
 
 auto RawClient::Close() -> Status {
-  spdlog::info("Raw client shutting down...");
+  SPDLOG_DEBUG("Closing client.");
   client->close();
   return Status::OK();
 }

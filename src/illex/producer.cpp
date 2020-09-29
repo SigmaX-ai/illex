@@ -67,11 +67,11 @@ void ProductionDroneThread(size_t thread_id,
 
     // Place the JSON in the queue.
     if (!q->enqueue(std::move(json_str))) {
-      spdlog::error("[Drone {}] Could not place JSON string in queue.", thread_id);
+      spdlog::error("Drone {} could not place JSON string in queue.", thread_id);
       // TODO(johanpel): allow threads to return with an error state.
     }
   }
-  SPDLOG_DEBUG("[Drone {}] Done producing.", thread_id);
+  SPDLOG_DEBUG("Drone {} done.", thread_id);
   size.set_value(drone_size);
 }
 
@@ -92,7 +92,7 @@ void ProductionHiveThread(const ProductionOptions &opt,
     remainder = opt.num_jsons % jsons_per_thread;
   }
 
-  spdlog::info("[Hive] Starting {} JSON producer drones.", opt.num_threads);
+  SPDLOG_DEBUG("Starting {} JSON producer drones.", opt.num_threads);
 
   // Set up some vectors for the threads and futures.
   std::vector<std::thread> threads;
@@ -131,7 +131,6 @@ void ProductionHiveThread(const ProductionOptions &opt,
   result.time = t.seconds();
 
   // Print some stats.
-  spdlog::info("[Hive] Drones finished.");
   spdlog::info("  Produced {} JSONs in {:.4f} seconds.", opt.num_jsons, result.time);
   spdlog::info("  {:.1f} JSONs/second (avg).", opt.num_jsons / result.time);
   spdlog::info("  {:.2f} gigabits/second (avg).",

@@ -43,7 +43,7 @@ auto RawServer::Create(RawProtocol protocol_options, RawServer *out) -> Status {
     return Status(Error::RawError, e.what());
   }
   out->server->listen();
-  spdlog::info("Listening on port {}", out->protocol.port);
+  SPDLOG_DEBUG("Listening on port {}", out->protocol.port);
   return Status::OK();
 }
 
@@ -123,17 +123,22 @@ static void LogSendStats(const StreamStatistics &result) {
                static_cast<double>(result.num_bytes * 8) / result.time * 1E-9);
 }
 
-auto RunRawServer(const RawProtocol &protocol_options, const ProductionOptions &production_options) -> Status {
-  spdlog::info("Starting Raw server.");
+auto RunRawServer(const RawProtocol &protocol_options,
+                  const ProductionOptions &production_options,
+                  bool statistics) -> Status {
+  SPDLOG_DEBUG("Starting Raw server.");
   RawServer server;
   ILLEX_ROE(RawServer::Create(protocol_options, &server));
 
-  spdlog::info("Streaming {} messages.", production_options.num_jsons);
+  SPDLOG_DEBUG("Streaming {} messages.", production_options.num_jsons);
   StreamStatistics stats;
   ILLEX_ROE(server.SendJSONs(production_options, &stats));
-  LogSendStats(stats);
 
-  spdlog::info("Raw server shutting down.");
+  if (statistics) {
+    LogSendStats(stats);
+  }
+
+  SPDLOG_DEBUG("Raw server shutting down.");
   ILLEX_ROE(server.Close());
 
   return Status::OK();

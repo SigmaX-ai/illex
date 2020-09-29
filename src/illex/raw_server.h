@@ -64,8 +64,11 @@ class RawServer {
  * \brief Use a RawServer to stream the specified JSONs out.
  * \param protocol_options Protocol options for the server.
  * \param production_options Options for JSON production.
+ * \param statistics Whether to measure and log statistics.
  * \return Status::OK if successful, some error otherwise.
  */
-auto RunRawServer(const RawProtocol &protocol_options, const ProductionOptions &production_options) -> Status;
+auto RunRawServer(const RawProtocol &protocol_options,
+                  const ProductionOptions &production_options,
+                  bool statistics) -> Status;
 
 }

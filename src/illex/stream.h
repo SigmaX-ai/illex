@@ -30,6 +30,8 @@ struct StreamOptions {
   StreamProtocol protocol;
   /// Options for the JSON production facilities.
   ProductionOptions production;
+  /// Whether to log statistics
+  bool statistics = true;
 };
 
 /// @brief Streaming statistics.
