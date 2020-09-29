@@ -24,14 +24,6 @@ namespace illex {
 
 namespace rj = rapidjson;
 
-/**
- * \brief A thread producing JSONs
- * \param thread_id The ID of this thread.
- * \param opt Production options for this thread.
- * \param num_items Number of JSONs to produce.
- * \param q The queue to store the produced JSONs in.
- * \param size The number of characters generated.
- */
 void ProductionDroneThread(size_t thread_id,
                            const ProductionOptions &opt,
                            size_t num_items,
@@ -76,6 +68,7 @@ void ProductionDroneThread(size_t thread_id,
     // Place the JSON in the queue.
     if (!q->enqueue(std::move(json_str))) {
       spdlog::error("[Drone {}] Could not place JSON string in queue.", thread_id);
+      // TODO(johanpel): allow threads to return with an error state.
     }
   }
   SPDLOG_DEBUG("[Drone {}] Done producing.", thread_id);
@@ -124,7 +117,9 @@ void ProductionHiveThread(const ProductionOptions &opt,
 
   // Wait for all threads to complete.
   for (auto &thread : threads) {
-    thread.join();
+    if (thread.joinable()) {
+      thread.join();
+    }
   }
   t.Stop();
 

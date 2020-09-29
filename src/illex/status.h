@@ -20,7 +20,10 @@
 
 namespace illex {
 
-#define ILLEX_ROE(s) if (!s.ok()) return s
+#define ILLEX_ROE(s) { \
+  auto status = s;       \
+  if (!status.ok()) return status; \
+}
 
 enum class Error {
   GenericError,

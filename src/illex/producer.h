@@ -52,11 +52,12 @@ struct ProductionStats {
 };
 
 /**
- * \brief A production drone thread. Produces JSONs into a queue.
- * \param thread_id The id of this thread.
- * \param opt The options this thread must use to produce.
- * \param num_items The number of JSONs it has to produce.
- * \param[out] size
+ * \brief A thread producing JSONs
+ * \param thread_id The ID of this thread.
+ * \param opt Production options for this thread.
+ * \param num_items Number of JSONs to produce.
+ * \param q The queue to store the produced JSONs in.
+ * \param size The number of characters generated.
  */
 void ProductionDroneThread(size_t thread_id,
                            const ProductionOptions &opt,
