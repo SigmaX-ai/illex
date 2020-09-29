@@ -33,7 +33,10 @@ namespace kn = kissnet;
 auto RawServer::Create(RawProtocol protocol_options, RawServer *out) -> Status {
   out->protocol = protocol_options;
   out->server = std::make_shared<RawSocket>(kn::endpoint("0.0.0.0:" + std::to_string(out->protocol.port)));
-  //out->server->set_non_blocking(true);
+  if (protocol_options.reuse) {
+    out->server->set_reuse();
+  }
+
   try {
     out->server->bind();
   } catch (const std::runtime_error &e) {
@@ -48,7 +51,7 @@ auto RawServer::SendJSONs(const ProductionOptions &options, StreamStatistics *st
   // Check for some potential misuse.
   assert(stats != nullptr);
   if (this->server == nullptr) {
-    return Status(Error::GenericError, "RawServer uninitialized. Use RawServer::Create().");
+    return Status(Error::RawError, "RawServer uninitialized. Use RawServer::Create().");
   }
 
   StreamStatistics result;
@@ -68,7 +71,7 @@ auto RawServer::SendJSONs(const ProductionOptions &options, StreamStatistics *st
   // Start a timer.
   t.Start();
 
-  // Attempt to pull all produced messages from the production queue and send them over the ZMQ socket.
+  // Attempt to pull all produced messages from the production queue and send them over the socket.
   for (size_t m = 0; m < options.num_jsons; m++) {
     // Get the message
     std::string message_str;
@@ -78,13 +81,14 @@ auto RawServer::SendJSONs(const ProductionOptions &options, StreamStatistics *st
       std::this_thread::sleep_for(std::chrono::seconds(1));
 #endif
     }
-    SPDLOG_DEBUG("Popped string {}.", message_str);
+    SPDLOG_DEBUG("Popped string: {}", message_str.substr(0, message_str.find('\n')));
 
     // Attempt to send the message.
     auto send_result = client.send(reinterpret_cast<std::byte *>(message_str.data()), message_str.length());
 
     auto send_result_socket = std::get<1>(send_result);
-    if (!send_result_socket != kissnet::socket_status::valid) {
+    if (send_result_socket != kissnet::socket_status::valid) {
+      producer.join();
       return Status(Error::RawError, "Socket not valid after send: " + std::to_string(send_result_socket));
     }
 

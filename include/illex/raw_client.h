@@ -31,9 +31,9 @@ struct RawClient {
  public:
   /**
    * \brief Construct a new raw client.
-   * \param protocol The protocol options.
-   * \param host The hostname to connect to.
-   * \param out The raw client that will be populated by this function.
+   * \param[in] protocol The protocol options.
+   * \param[in] host The hostname to connect to.
+   * \param[out] out The raw client that will be populated by this function.
    * \return Status::OK() if successful, some error otherwise.
    */
   static auto Create(RawProtocol protocol, std::string host, RawClient *out) -> Status;
@@ -62,4 +62,4 @@ struct RawClient {
 
 };
 
-}  // namespace flitter
+}

@@ -50,7 +50,9 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
   auto *sub_stream = app.add_subcommand("stream", "Stream raw JSONs over a TCP network socket.");
   AddCommonOpts(sub_stream, &result.stream.production, &schema_file);
   auto *port_opt = sub_stream->add_option("-p,--port", stream_port, "Port (default=" + std::to_string(ZMQ_PORT) + ").");
-  auto *zmq_flag = sub_stream->add_flag("-z,--zeromq", "Use the ZeroMQ push-pull protocol for the stream.");
+  // auto *zmq_flag = sub_stream->add_flag("-z,--zeromq", "Use the ZeroMQ push-pull protocol for the stream.");
+  auto *no_reuse_flag = sub_stream->add_flag("--disable-socket-reuse",
+                                             "Don't allow reuse of the server socket (need to wait for timeout).");
 
 
   // Attempt to parse the CLI arguments.
@@ -76,16 +78,20 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
     status = ReadSchemaFromFile(schema_file, &result.stream.production.schema);
 
     // Check which streaming protocol to use.
-    if (*zmq_flag) {
-      ZMQProtocol zmq;
-      if (*port_opt) {
-        zmq.port = stream_port;
-      }
-      result.stream.protocol = zmq;
-    } else {
+//    if (*zmq_flag) {
+//      ZMQProtocol zmq;
+//      if (*port_opt) {
+//        zmq.port = stream_port;
+//      }
+//      result.stream.protocol = zmq;
+//    } else
+    {
       RawProtocol raw;
       if (*port_opt) {
         raw.port = stream_port;
+      }
+      if (*no_reuse_flag) {
+        raw.reuse = false;
       }
       result.stream.protocol = raw;
     }

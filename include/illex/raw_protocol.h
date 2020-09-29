@@ -37,6 +37,8 @@ struct RawProtocol {
   uint16_t port;
   /// Buffer size.
   size_t buffer_size = RAW_BUFFER_SIZE;
+  /// Allow reuse of socket address.
+  bool reuse = true;
 };
 
 }

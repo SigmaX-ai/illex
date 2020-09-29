@@ -57,4 +57,4 @@ struct ZMQClient {
   std::shared_ptr<zmqpp::socket> socket;
 };
 
-}  // namespace flitter
+}
