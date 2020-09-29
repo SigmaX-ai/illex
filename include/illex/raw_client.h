@@ -18,6 +18,7 @@
 #include <utility>
 
 #include <kissnet.hpp>
+#include <putong/timer.h>
 
 #include "illex/log.h"
 #include "illex/status.h"
@@ -40,10 +41,11 @@ struct RawClient {
 
   /**
    * \brief Receive JSONs on this raw stream client and put them in queue.
-   * \param queue The queue to put the JSONs in.
+   * \param queue           The queue to put the JSONs in.
+   * \param latency_timer   A timer that is started on arrival of the TCP packet. Ignored when it is nullptr. (TODO)
    * \return Status::OK() if successful, some error otherwise.
    */
-  auto ReceiveJSONs(Queue *queue) -> Status;
+  auto ReceiveJSONs(Queue *queue, putong::Timer<> *latency_timer = nullptr) -> Status;
 
   /**
    * \brief Close this raw client.

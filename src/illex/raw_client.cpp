@@ -83,7 +83,9 @@ static void EnqueueAllJSONsInBuffer(std::string *json_buffer,
   tcp_buffer->fill(std::byte(0x00));
 }
 
-auto RawClient::ReceiveJSONs(Queue *queue) -> Status {
+auto RawClient::ReceiveJSONs(Queue *queue, putong::Timer<> *latency_timer) -> Status {
+  bool first = true;
+
   // Buffer for the JSON string.
   std::string json_string;
   // TCP receive buffer.
@@ -94,9 +96,16 @@ auto RawClient::ReceiveJSONs(Queue *queue) -> Status {
     try {
       // Attempt to receive some bytes.
       auto recv_status = client->recv(recv_buffer);
+
+      // Start the latency timer.
+      if (first && latency_timer != nullptr) {
+        latency_timer->Start();
+        first = false;
+      }
+
+      // Perhaps the server disconnected because it's done sending JSONs, check the status.
       auto bytes_received = std::get<0>(recv_status);
       auto sock_status = std::get<1>(recv_status).get_value();
-      // Perhaps the server disconnected because it's done sending JSONs.
       if (sock_status == kissnet::socket_status::cleanly_disconnected) {
         SPDLOG_DEBUG("Server has cleanly disconnected.");
         return Status::OK();
