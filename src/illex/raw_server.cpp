@@ -77,8 +77,9 @@ auto RawServer::SendJSONs(const ProductionOptions &options, StreamStatistics *st
     std::string message_str;
     while (!production_queue.try_dequeue(message_str)) {
 #ifndef NDEBUG
+      // Slow this down a bit in debug.
       SPDLOG_DEBUG("Nothing in queue... {}");
-      std::this_thread::sleep_for(std::chrono::seconds(1));
+      std::this_thread::sleep_for(std::chrono::milliseconds(500));
 #endif
     }
     SPDLOG_DEBUG("Popped string: {}", message_str.substr(0, message_str.find('\n')));
