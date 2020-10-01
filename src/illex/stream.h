@@ -32,6 +32,8 @@ struct StreamOptions {
   ProductionOptions production;
   /// Whether to log statistics
   bool statistics = true;
+  /// Repeat indefinitely
+  bool repeat = true;
 };
 
 /// @brief Streaming statistics.

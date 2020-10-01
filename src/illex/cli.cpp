@@ -53,6 +53,8 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
   // auto *zmq_flag = sub_stream->add_flag("-z,--zeromq", "Use the ZeroMQ push-pull protocol for the stream.");
   auto *no_reuse_flag = sub_stream->add_flag("--disable-socket-reuse",
                                              "Don't allow reuse of the server socket (need to wait for timeout).");
+  auto
+      *repeat = sub_stream->add_flag("--repeat", "Indefinitely repeat creating the server and streaming the messages.");
 
 
   // Attempt to parse the CLI arguments.
@@ -87,12 +89,9 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
 //    } else
     {
       RawProtocol raw;
-      if (*port_opt) {
-        raw.port = stream_port;
-      }
-      if (*no_reuse_flag) {
-        raw.reuse = false;
-      }
+      if (*port_opt) raw.port = stream_port;
+      if (*no_reuse_flag) raw.reuse = false;
+      if (*repeat) result.stream.repeat = true;
       result.stream.protocol = raw;
     }
   } else {

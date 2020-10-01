@@ -20,12 +20,15 @@
 namespace illex {
 
 auto RunStream(const StreamOptions &opt) -> Status {
+  do {
+    if (std::holds_alternative<ZMQProtocol>(opt.protocol)) {
+      ILLEX_ROE(RunZMQServer(std::get<ZMQProtocol>(opt.protocol), opt.production));
+    } else {
+      ILLEX_ROE(RunRawServer(std::get<RawProtocol>(opt.protocol), opt.production, opt.statistics));
+    }
+  } while (opt.repeat);
 
-  if (std::holds_alternative<ZMQProtocol>(opt.protocol)) {
-    return RunZMQServer(std::get<ZMQProtocol>(opt.protocol), opt.production);
-  } else {
-    return RunRawServer(std::get<RawProtocol>(opt.protocol), opt.production, opt.statistics);
-  }
+  return Status::OK();
 }
 
 }
