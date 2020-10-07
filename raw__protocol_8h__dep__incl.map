@@ -1,0 +1,14 @@
+<map id="include/illex/raw_protocol.h" name="include/illex/raw_protocol.h">
+<area shape="rect" id="node2" href="$protocol_8h.html" title="include/illex/protocol.h" alt="" coords="283,80,433,107"/>
+<area shape="rect" id="node12" href="$raw__client_8h.html" title="include/illex/raw_client.h" alt="" coords="457,80,621,107"/>
+<area shape="rect" id="node3" href="$stream_8h.html" title="src/illex/stream.h" alt="" coords="297,155,419,181"/>
+<area shape="rect" id="node4" href="$zmq__server_8h.html" title="src/illex/zmq_server.h" alt="" coords="167,229,317,256"/>
+<area shape="rect" id="node7" href="$main_8cpp.html" title="src/illex/main.cpp" alt="" coords="5,379,129,405"/>
+<area shape="rect" id="node8" href="$stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="465,304,601,331"/>
+<area shape="rect" id="node9" href="$zmq__server_8cpp.html" title="src/illex/zmq_server.cpp" alt="" coords="276,304,440,331"/>
+<area shape="rect" id="node10" href="$raw__server_8h.html" title="src/illex/raw_server.h" alt="" coords="459,229,606,256"/>
+<area shape="rect" id="node5" href="$cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="169,379,278,405"/>
+<area shape="rect" id="node6" href="$cli_8h.html" title="src/illex/cli.h" alt="" coords="105,304,200,331"/>
+<area shape="rect" id="node11" href="$raw__server_8cpp.html" title="src/illex/raw_server.cpp" alt="" coords="625,304,785,331"/>
+<area shape="rect" id="node13" href="$raw__client_8cpp.html" title="src/illex/raw_client.cpp" alt="" coords="462,155,617,181"/>
+</map>

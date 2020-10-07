@@ -1,0 +1,9 @@
+<map id="src/illex/stream.h" name="src/illex/stream.h">
+<area shape="rect" id="node4" href="$protocol_8h.html" title="illex/protocol.h" alt="" coords="244,80,351,107"/>
+<area shape="rect" id="node13" href="$status_8h.html" title="illex/status.h" alt="" coords="912,80,1008,107"/>
+<area shape="rect" id="node16" href="$document_8h.html" title="illex/document.h" alt="" coords="783,155,900,181"/>
+<area shape="rect" id="node22" href="$producer_8h.html" title="illex/producer.h" alt="" coords="554,80,665,107"/>
+<area shape="rect" id="node6" href="$raw__protocol_8h.html" title="illex/raw_protocol.h" alt="" coords="230,155,365,181"/>
+<area shape="rect" id="node10" href="$zmq__protocol_8h.html" title="illex/zmq_protocol.h" alt="" coords="67,155,205,181"/>
+<area shape="rect" id="node18" href="$value_8h.html" title="illex/value.h" alt="" coords="840,229,931,256"/>
+</map>

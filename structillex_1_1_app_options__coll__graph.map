@@ -1,0 +1,6 @@
+<map id="illex::AppOptions" name="illex::AppOptions">
+<area shape="rect" id="node2" href="$structillex_1_1_stream_options.html" title="Options for the stream subcommand. " alt="" coords="5,184,145,211"/>
+<area shape="rect" id="node3" href="$structillex_1_1_production_options.html" title="Options for the random JSON production facility. " alt="" coords="71,95,231,121"/>
+<area shape="rect" id="node5" href="$structillex_1_1_file_options.html" title="Options for the file subcommand. " alt="" coords="169,184,288,211"/>
+<area shape="rect" id="node4" href="$structillex_1_1_generate_options.html" title="Options for pseudo&#45;random generators. " alt="" coords="76,5,227,32"/>
+</map>
