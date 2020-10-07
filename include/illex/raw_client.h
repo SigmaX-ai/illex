@@ -34,10 +34,11 @@ struct RawClient {
    * \brief Construct a new raw client.
    * \param[in] protocol The protocol options.
    * \param[in] host The hostname to connect to.
+   * \param[in] seq Starting sequence number.
    * \param[out] out The raw client that will be populated by this function.
    * \return Status::OK() if successful, some error otherwise.
    */
-  static auto Create(RawProtocol protocol, std::string host, RawClient *out) -> Status;
+  static auto Create(RawProtocol protocol, std::string host, uint64_t seq, RawClient *out) -> Status;
 
   /**
    * \brief Receive JSONs on this raw stream client and put them in queue.
@@ -45,7 +46,7 @@ struct RawClient {
    * \param latency_timer   A timer that is started on arrival of the TCP packet. Ignored when it is nullptr. (TODO)
    * \return Status::OK() if successful, some error otherwise.
    */
-  auto ReceiveJSONs(Queue *queue, putong::Timer<> *latency_timer = nullptr) -> Status;
+  auto ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer = nullptr) -> Status;
 
   /**
    * \brief Close this raw client.
@@ -57,9 +58,15 @@ struct RawClient {
   [[nodiscard]] auto received() const -> size_t { return received_; }
 
  private:
+  /// The next available sequence number.
+  uint64_t seq = 0;
+  /// The number of received JSONs.
   size_t received_ = 0;
+  /// The host name to connect to.
   std::string host = "localhost";
+  /// The protocol options.
   illex::RawProtocol protocol;
+  /// The TCP socket.
   std::shared_ptr<RawSocket> client;
 
 };

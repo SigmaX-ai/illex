@@ -41,7 +41,7 @@ auto ZMQClient::Create(ZMQProtocol protocol, std::string host, ZMQClient *out) -
   return Status::OK();
 }
 
-auto ZMQClient::ReceiveJSONs(Queue *queue) -> Status {
+auto ZMQClient::ReceiveJSONs(JSONQueue *queue) -> Status {
   // Loop while the socket is still valid.
   while (*socket) {
     zmqpp::message message;

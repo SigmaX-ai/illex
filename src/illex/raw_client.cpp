@@ -23,10 +23,12 @@ namespace illex {
 
 using TCPBuffer = std::array<std::byte, illex::RAW_BUFFER_SIZE>;
 
-auto RawClient::Create(RawProtocol protocol, std::string host, RawClient *out) -> Status {
-  auto endpoint = out->host + ":" + std::to_string(out->protocol.port);
+auto RawClient::Create(RawProtocol protocol, std::string host, uint64_t seq, RawClient *out) -> Status {
+  out->seq = seq;
   out->host = std::move(host);
   out->protocol = protocol;
+
+  auto endpoint = out->host + ":" + std::to_string(out->protocol.port);
   out->client = std::make_shared<RawSocket>(kissnet::endpoint(endpoint));
 
   SPDLOG_DEBUG("Client connecting to {}...", endpoint);
@@ -35,19 +37,29 @@ auto RawClient::Create(RawProtocol protocol, std::string host, RawClient *out) -
   return Status::OK();
 }
 
-static void EnqueueAllJSONsInBuffer(std::string *json_buffer,
+/**
+ * \brief Enqueue all JSONs in the TCP buffer.
+ * \param[out]      json_buffer     Reusable JSON string buffer.
+ * \param[in,out]   tcp_buffer      The TCP buffer that is cleared after all JSONs are queued.
+ * \param[in]       tcp_valid_bytes Number of valid bytes in the TCP buffer.
+ * \param[out]      queue           The queue to enqueue the JSON queue items in.
+ * \param[in,out]   seq             The sequence number for the next JSON item, is increased when item is enqueued.
+ * \return The number of JSONs enqueued.
+ */
+static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
                                     TCPBuffer *tcp_buffer,
-                                    size_t valid_bytes,
-                                    Queue *queue,
-                                    size_t *counter) {
+                                    size_t tcp_valid_bytes,
+                                    JSONQueue *queue,
+                                    uint64_t *seq) -> size_t {
+  size_t queued = 0;
   // TODO(johanpel): implement mechanism to allow newlines within JSON objects,
   //   this only works for non-pretty printed JSONs now.
   auto *recv_chars = reinterpret_cast<char *>(tcp_buffer->data());
 
   // Scan the buffer for a newline.
   char *json_start = recv_chars;
-  char *json_end = recv_chars + valid_bytes;
-  size_t remaining = valid_bytes;
+  char *json_end = recv_chars + tcp_valid_bytes;
+  size_t remaining = tcp_valid_bytes;
   do {
     json_end = std::strchr(json_start, '\n');
     if (json_end == nullptr) {
@@ -60,9 +72,10 @@ static void EnqueueAllJSONsInBuffer(std::string *json_buffer,
       json_buffer->append(json_start, json_end - json_start);
 
       // Copy the JSON string into the consumption queue.
-      SPDLOG_DEBUG("Client received JSON: {}", *json_buffer);
-      queue->enqueue(*json_buffer);
-      (*counter)++;
+      SPDLOG_DEBUG("Client received JSON[{}]: {}", *seq, *json_buffer);
+      queue->enqueue(JSONQueueItem{*seq, *json_buffer});
+      (*seq)++;
+      queued++;
 
       // Clear the JSON string buffer.
       // The implementation of std::string is allowed to change its allocated buffer here, but there
@@ -74,19 +87,21 @@ static void EnqueueAllJSONsInBuffer(std::string *json_buffer,
       json_start = json_end + 1;
 
       // Calculate the remaining number of bytes in the buffer.
-      remaining = (recv_chars + valid_bytes) - json_start;
+      remaining = (recv_chars + tcp_valid_bytes) - json_start;
     }
     // Repeat until there are no remaining bytes.
   } while (remaining > 0);
 
   // Clear the buffer when finished.
   tcp_buffer->fill(std::byte(0x00));
+
+  return queued;
 }
 
-auto RawClient::ReceiveJSONs(Queue *queue, putong::Timer<> *latency_timer) -> Status {
+auto RawClient::ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer) -> Status {
   bool first = true;
 
-  // Buffer for the JSON string.
+  // Buffer to store the JSON string, is reused to prevent allocations.
   std::string json_string;
   // TCP receive buffer.
   TCPBuffer recv_buffer{};
@@ -114,7 +129,7 @@ auto RawClient::ReceiveJSONs(Queue *queue, putong::Timer<> *latency_timer) -> St
         return Status(Error::RawError, "Server error. Status: " + std::to_string(sock_status));
       }
       // We must now handle the received bytes in the TCP buffer.
-      EnqueueAllJSONsInBuffer(&json_string, &recv_buffer, bytes_received, queue, &this->received_);
+      this->received_ += EnqueueAllJSONsInBuffer(&json_string, &recv_buffer, bytes_received, queue, &this->seq);
     } catch (const std::exception &e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());

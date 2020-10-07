@@ -22,5 +22,15 @@
 #include "illex/document.h"
 
 namespace illex {
-  using Queue = moodycamel::ConcurrentQueue<std::string>;
+
+/// An item in a JSON queue.
+struct JSONQueueItem {
+  /// Sequence number.
+  uint64_t seq = 0;
+  /// Raw JSON string.
+  std::string string;
+};
+
+/// A JSON queue for downstream tools.
+using JSONQueue = moodycamel::ConcurrentQueue<JSONQueueItem>;
 }

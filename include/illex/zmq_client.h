@@ -42,7 +42,7 @@ struct ZMQClient {
    * \param queue The queue to put the JSONs in.
    * \return Status::OK() if successful, some error otherwise.
    */
-  auto ReceiveJSONs(Queue *queue) -> Status;
+  auto ReceiveJSONs(JSONQueue *queue) -> Status;
 
   /**
    * \brief Close this ZMQClient.
