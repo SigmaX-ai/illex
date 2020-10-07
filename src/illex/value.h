@@ -146,6 +146,21 @@ struct FixedSizeArray : public Value {
   size_t length_;
 };
 
+/// @brief Array value generator for variable-length arrays.
+struct Array : public Value {
+  /// @brief Construct a new FixedSizeArray generator, with a given length and value generator.
+  Array(std::shared_ptr<Value> item_generator, size_t max_length = 16, size_t min_length = 0);
+  /// @brief Returns an array of fixed length, with items generated through its value generator.
+  auto Get() -> rj::Value override;
+ private:
+  size_t min_length;
+  size_t max_length;
+  /// The generator for the array values.
+  std::shared_ptr<Value> item_;
+  /// Length distribution
+  std::uniform_int_distribution<int32_t> length;
+};
+
 /// @brief Member generator.
 class Member {
  public:

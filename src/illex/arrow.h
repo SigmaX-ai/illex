@@ -70,6 +70,8 @@ class FieldAnalyzer : public arrow::TypeVisitor {
  protected:
   /// @brief Visit a StringType.
   auto Visit(const arrow::StringType &type) -> arrow::Status override;
+  /// @brief Visit a ListType.
+  auto Visit(const arrow::ListType &type) -> arrow::Status override;
   /// @brief Visit a FixedSizeListType.
   auto Visit(const arrow::FixedSizeListType &type) -> arrow::Status override;
   /// @brief Visit a StructType.

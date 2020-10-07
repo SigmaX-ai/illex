@@ -79,6 +79,22 @@ DateString::DateString() {
   timezone = std::uniform_int_distribution<int8_t>(-12, 12);
 }
 
+Array::Array(std::shared_ptr<Value> item_generator, size_t max_length, size_t min_length)
+    : min_length(min_length), max_length(max_length), item_(std::move(item_generator)) {
+  length = std::uniform_int_distribution<int32_t>(min_length, max_length);
+}
+
+auto Array::Get() -> rapidjson::Value {
+  rapidjson::Value result(rapidjson::kArrayType);
+  auto len = this->length(*context_.engine_);
+  result.SetArray();
+  result.Reserve(len, *context_.allocator_);
+  for (size_t i = 0; i < len; i++) {
+    result.PushBack(item_->Get(), *context_.allocator_);
+  }
+  return result;
+}
+
 FixedSizeArray::FixedSizeArray(size_t length, std::shared_ptr<Value> item_generator)
     : length_(length), item_(std::move(item_generator)) {}
 

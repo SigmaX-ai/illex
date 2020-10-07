@@ -114,6 +114,19 @@ auto FieldAnalyzer::Visit(const arrow::FixedSizeListType &type) -> arrow::Status
   return arrow::Status::OK();
 }
 
+auto FieldAnalyzer::Visit(const arrow::ListType &type) -> arrow::Status {
+  auto min = GetUInt64Meta(*field_, META(MIN_LENGTH)).value_or(std::numeric_limits<uint64_t>::min());
+  auto max = GetUInt64Meta(*field_, META(MAX_LENGTH)).value_or(8);
+  // Create a member generator to store the child generator in delivered by a field analyzer.
+  auto mg = std::make_shared<Member>();
+  mg->SetContext(member_out_->context());
+  auto fa = FieldAnalyzer(mg.get());
+  assert(type.num_fields() == 1);
+  fa.Analyze(*type.field(0));
+  member_out_->SetValue(std::make_shared<Array>(mg->value(), max, min));
+  return arrow::Status::OK();
+}
+
 auto FieldAnalyzer::Visit(const arrow::StructType &type) -> arrow::Status {
   auto result = std::make_shared<Object>();
   result->SetContext(member_out_->context());
