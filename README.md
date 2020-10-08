@@ -15,7 +15,7 @@ A random JSON generator based on Arrow schemas.
 
 ## Build
 ```bash
-git clone https://github.com/abs-tudelft/illex.git
+git clone https://github.com/teratide/illex.git
 cd illex
 mkdir build && cd build
 cmake ..
