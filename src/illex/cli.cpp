@@ -23,7 +23,7 @@ namespace illex {
 
 /// @brief Common options for all subcommands
 static void AddCommonOpts(CLI::App *sub, ProductionOptions *prod, std::string *schema_file) {
-  sub->add_option("i,-i,--input",
+  sub->add_option("input,-i,--input",
                   *schema_file,
                   "An Arrow schema to generate the JSON from.")->required()->check(CLI::ExistingFile);
   sub->add_option("-m,--num-jsons", prod->num_jsons, "Number of JSONs to send (default=1).");
@@ -35,11 +35,12 @@ static void AddCommonOpts(CLI::App *sub, ProductionOptions *prod, std::string *s
 
 auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Status {
   AppOptions result;
+  std::string schema_file;
+  uint16_t stream_port = 0;
 
   CLI::App app{std::string(AppOptions::name) + ": " + AppOptions::desc};
 
-  std::string schema_file;
-  uint16_t stream_port = 0;
+  app.require_subcommand();
 
   // File mode:
   auto *sub_file = app.add_subcommand("file", "Generate a file with JSONs.");
