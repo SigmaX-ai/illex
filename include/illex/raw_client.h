@@ -57,11 +57,16 @@ struct RawClient {
   /// \brief Return the number of received JSONs
   [[nodiscard]] auto received() const -> size_t { return received_; }
 
+  /// \brief Return the number of received bytes
+  [[nodiscard]] auto bytes_received() const -> size_t { return bytes_received_; }
+
  private:
   /// The next available sequence number.
   uint64_t seq = 0;
   /// The number of received JSONs.
   size_t received_ = 0;
+  /// The number of received bytes.
+  size_t bytes_received_ = 0;
   /// The host name to connect to.
   std::string host = "localhost";
   /// The protocol options.
