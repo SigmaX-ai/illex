@@ -128,6 +128,7 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer) -
         // Otherwise, if it's not valid, there is something wrong.
         return Status(Error::RawError, "Server error. Status: " + std::to_string(sock_status));
       }
+      this->bytes_received_ += bytes_received;
       // We must now handle the received bytes in the TCP buffer.
       this->received_ += EnqueueAllJSONsInBuffer(&json_string, &recv_buffer, bytes_received, queue, &this->seq);
     } catch (const std::exception &e) {
