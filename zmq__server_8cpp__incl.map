@@ -1,13 +1,13 @@
 <map id="src/illex/zmq_server.cpp" name="src/illex/zmq_server.cpp">
-<area shape="rect" id="node10" href="$log_8h.html" title="illex/log.h" alt="" coords="316,80,393,107"/>
-<area shape="rect" id="node13" href="$zmq__server_8h.html" title="illex/zmq_server.h" alt="" coords="897,80,1025,107"/>
-<area shape="rect" id="node21" href="$document_8h.html" title="illex/document.h" alt="" coords="1183,319,1300,345"/>
-<area shape="rect" id="node27" href="$producer_8h.html" title="illex/producer.h" alt="" coords="659,244,770,271"/>
-<area shape="rect" id="node28" href="$stream_8h.html" title="illex/stream.h" alt="" coords="869,162,969,189"/>
-<area shape="rect" id="node33" href="$arrow_8h.html" title="illex/arrow.h" alt="" coords="1305,244,1397,271"/>
-<area shape="rect" id="node15" href="$zmq__protocol_8h.html" title="illex/zmq_protocol.h" alt="" coords="159,319,297,345"/>
-<area shape="rect" id="node18" href="$status_8h.html" title="illex/status.h" alt="" coords="963,319,1059,345"/>
-<area shape="rect" id="node23" href="$value_8h.html" title="illex/value.h" alt="" coords="1397,393,1488,420"/>
-<area shape="rect" id="node29" href="$protocol_8h.html" title="illex/protocol.h" alt="" coords="331,244,437,271"/>
-<area shape="rect" id="node30" href="$raw__protocol_8h.html" title="illex/raw_protocol.h" alt="" coords="373,319,507,345"/>
+<area shape="rect" id="node10" href="$log_8h.html" title="illex/log.h" alt="" coords="1659,80,1737,107"/>
+<area shape="rect" id="node13" href="$zmq__server_8h.html" title="illex/zmq_server.h" alt="" coords="794,80,922,107"/>
+<area shape="rect" id="node21" href="$document_8h.html" title="illex/document.h" alt="" coords="390,319,507,345"/>
+<area shape="rect" id="node28" href="$producer_8h.html" title="illex/producer.h" alt="" coords="236,244,347,271"/>
+<area shape="rect" id="node29" href="$stream_8h.html" title="illex/stream.h" alt="" coords="619,162,719,189"/>
+<area shape="rect" id="node34" href="$arrow_8h.html" title="illex/arrow.h" alt="" coords="371,244,463,271"/>
+<area shape="rect" id="node15" href="$zmq__protocol_8h.html" title="illex/zmq_protocol.h" alt="" coords="1087,319,1226,345"/>
+<area shape="rect" id="node18" href="$status_8h.html" title="illex/status.h" alt="" coords="655,319,751,345"/>
+<area shape="rect" id="node24" href="$value_8h.html" title="illex/value.h" alt="" coords="202,393,293,420"/>
+<area shape="rect" id="node30" href="$protocol_8h.html" title="illex/protocol.h" alt="" coords="997,244,1103,271"/>
+<area shape="rect" id="node31" href="$raw__protocol_8h.html" title="illex/raw_protocol.h" alt="" coords="877,319,1012,345"/>
 </map>
