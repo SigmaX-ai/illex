@@ -1,4 +1,4 @@
-<map id="src/illex/arrow.h" name="src/illex/arrow.h">
+<map id="include/illex/arrow.h" name="include/illex/arrow.h">
 <area shape="rect" id="node4" href="$value_8h.html" title="illex/value.h" alt="" coords="240,155,331,181"/>
 <area shape="rect" id="node9" href="$document_8h.html" title="illex/document.h" alt="" coords="323,80,440,107"/>
 <area shape="rect" id="node10" href="$status_8h.html" title="illex/status.h" alt="" coords="576,80,672,107"/>
