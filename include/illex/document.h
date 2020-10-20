@@ -16,6 +16,7 @@
 
 #include <random>
 #include <utility>
+#include <rapidjson/rapidjson.h>
 
 #include "illex/value.h"
 

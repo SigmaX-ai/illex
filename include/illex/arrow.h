@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#pragma once
+
 #include <memory>
 #include <arrow/api.h>
 
 #include "illex/value.h"
 #include "illex/document.h"
 #include "illex/status.h"
-
-#pragma once
 
 namespace illex {
 

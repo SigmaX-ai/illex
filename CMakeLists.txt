@@ -92,14 +92,11 @@ add_compile_unit(
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
   SRCS
-    src/illex/arrow.cpp
     src/illex/cli.cpp
-    src/illex/document.cpp
     src/illex/file.cpp
     src/illex/producer.cpp
     src/illex/raw_server.cpp
     src/illex/stream.cpp
-    src/illex/value.cpp
     src/illex/zmq_server.cpp
   TSTS
     test/illex/test_arrow.cpp
