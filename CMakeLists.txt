@@ -74,6 +74,9 @@ add_compile_unit(
   SRCS
     src/illex/zmq_client.cpp
     src/illex/raw_client.cpp
+    src/illex/document.cpp
+    src/illex/arrow.cpp
+    src/illex/value.cpp
   DEPS
     kissnet
     putong

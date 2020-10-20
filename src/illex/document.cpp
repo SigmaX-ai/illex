@@ -14,6 +14,8 @@
 
 #include <iostream>
 #include <utility>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/prettywriter.h>
 
 #include "illex/value.h"
 #include "illex/document.h"
@@ -36,5 +38,21 @@ void DocumentGenerator::SetRoot(std::shared_ptr<Value> root) {
 auto DocumentGenerator::root() -> std::shared_ptr<Value> { return root_; }
 
 auto DocumentGenerator::Get() -> rj::Value { return root_->Get(); }
+
+auto DocumentGenerator::GetString(bool pretty) -> std::string {
+  rapidjson::StringBuffer buffer;
+  // Generate a value.
+  auto json = this->Get();
+  // Check whether we must pretty-prent the JSON
+  if (pretty) {
+    rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
+    writer.SetFormatOptions(rj::PrettyFormatOptions::kFormatSingleLineArray);
+    json.Accept(writer);
+  } else {
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    json.Accept(writer);
+  }
+  return std::string(buffer.GetString());
+}
 
 }

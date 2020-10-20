@@ -47,6 +47,9 @@ class DocumentGenerator {
   /// @brief Generate a root value.
   auto Get() -> rj::Value;
 
+  /// @brief Generate a JSON into a raw JSON string. When pretty is true, it is a pretty-printed JSON.
+  auto GetString(bool pretty = false) -> std::string;
+
   /// @brief Return the context of this DocumentGenerator.
   auto context() -> Context { return context_; }
  protected:
