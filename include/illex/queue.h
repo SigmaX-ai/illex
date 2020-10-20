@@ -17,7 +17,7 @@
 #include <future>
 #include <cstdint>
 #include <arrow/api.h>
-#include <concurrentqueue.h>
+#include <blockingconcurrentqueue.h>
 
 #include "illex/document.h"
 
@@ -32,5 +32,6 @@ struct JSONQueueItem {
 };
 
 /// A JSON queue for downstream tools.
-using JSONQueue = moodycamel::ConcurrentQueue<JSONQueueItem>;
+using JSONQueue = moodycamel::BlockingConcurrentQueue<JSONQueueItem>;
+
 }
