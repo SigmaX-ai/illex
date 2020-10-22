@@ -7,5 +7,5 @@ var searchData=
   ['setroot',['SetRoot',['../classillex_1_1_document_generator.html#a4af031c7c67bacfcc41df2915d9715e3',1,'illex::DocumentGenerator']]],
   ['setvalue',['SetValue',['../classillex_1_1_member.html#a313220bb37668f3ddbef4f1fc70353a1',1,'illex::Member']]],
   ['startlogger',['StartLogger',['../namespaceillex.html#a3ce95e1487109601311cdc1ba71ecc77',1,'illex']]],
-  ['string',['String',['../structillex_1_1_string.html#ab7c63e3776e204bfb11a6b181263a4b2',1,'illex::String']]]
+  ['string',['String',['../structillex_1_1_string.html#af1ce2c0e5fc8cbedb7db0e2c6812a902',1,'illex::String']]]
 ];
