@@ -94,7 +94,7 @@ struct String : public Value {
   /// @brief Construct a new string value generator, with associated string length distribution and limits.
   explicit String(double length_mean = 16.,
                   double length_stddev = 8.,
-                  size_t length_clip_max = std::numeric_limits<size_t>::max(),
+                  size_t length_clip_max = 256,
                   size_t length_clip_min = 0);
 
   /// @brief Returns a string value with some random characters between a-z.
