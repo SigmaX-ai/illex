@@ -103,6 +103,7 @@ auto RawServer::SendJSONs(const ProductionOptions &options, StreamStatistics *st
   // Wait for the producer thread to stop, and obtain the statistics.
   producer.join();
   result.producer = producer_stats_future.get();
+  *stats = result;
 
   return Status::OK();
 }
