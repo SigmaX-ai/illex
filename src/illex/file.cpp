@@ -23,7 +23,8 @@
 
 namespace illex {
 
-// TODO(johanpel): convert file generation to make use of production facilities in producer.h
+// TODO(johanpel): convert file generation to make use of production facilities in
+//  producer.h
 
 auto RunFile(const FileOptions &opt) -> Status {
   // Generate the document:

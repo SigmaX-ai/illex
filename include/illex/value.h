@@ -44,40 +44,40 @@ struct Context {
  */
 class Value {
  public:
-  /// @brief Returns a value from this generator.
+  /// \brief Returns a value from this generator.
   virtual auto Get() -> rj::Value = 0;
-  /// @brief Set the context for this generator.
+  /// \brief Set the context for this generator.
   void SetContext(Context context);
  protected:
   /// The context for the generator.
   Context context_;
 };
 
-/// @brief Null value generator.
+/// \brief Null value generator.
 class Null : public Value {
  public:
-  /// @brief Returns a null value (always).
+  /// \brief Returns a null value (always).
   auto Get() -> rj::Value override;
 };
 
-/// @brief Boolean value generator.
+/// \brief Boolean value generator.
 class Bool : public Value {
  public:
-  /// @brief Returns an either "true" or "false" value.
+  /// \brief Returns an either "true" or "false" value.
   auto Get() -> rj::Value override;
 };
 
-/// @brief Number value generator for integers.
+/// \brief Number value generator for integers.
 template<typename T>
 class Int : public Value {
  public:
-  /// @brief Construct a new number value generator with given maximum and minimum value.
+  /// \brief Construct a new number value generator with given maximum and minimum value.
   explicit Int(T max = std::numeric_limits<T>::max(),
                T min = std::numeric_limits<T>::min()) {
     dist_ = std::uniform_int_distribution<T>(min, max);
   }
 
-  /// @brief Returns a numeric value representing an integer.
+  /// \brief Returns a numeric value representing an integer.
   auto Get() -> rj::Value override {
     rj::Value result;
     result.Set(dist_(*context_.engine_));
@@ -88,16 +88,16 @@ class Int : public Value {
   std::uniform_int_distribution<T> dist_;
 };
 
-/// @brief String value generator. Lengths follow a normal distribution.
+/// \brief String value generator. Lengths follow a normal distribution.
 struct String : public Value {
  public:
-  /// @brief Construct a new string value generator, with associated string length distribution and limits.
+  /// \brief Construct a new string value generator.
   explicit String(double length_mean = 16.,
                   double length_stddev = 8.,
                   size_t length_clip_max = 256,
                   size_t length_clip_min = 0);
 
-  /// @brief Returns a string value with some random characters between a-z.
+  /// \brief Returns a string value with some random characters between a-z.
   auto Get() -> rj::Value override;
  private:
   /// Maximum length for generated stings.
@@ -110,11 +110,11 @@ struct String : public Value {
   std::uniform_int_distribution<> chars_dist_;
 };
 
-/// @brief String value generator for ISO 8601-like date and time.
+/// \brief String value generator for ISO 8601-like date and time.
 struct DateString : public Value {
  public:
   DateString();
-  /// @brief Returns a string value formatted according to an ISO 8601 date and time.
+  /// \brief Returns a string value formatted according to an ISO 8601 date and time.
   auto Get() -> rj::Value override;
  private:
   /// Year distribution.
@@ -133,11 +133,11 @@ struct DateString : public Value {
   std::uniform_int_distribution<int8_t> timezone;
 };
 
-/// @brief Array value generator for fixed-length arrays.
+/// \brief Array value generator for fixed-length arrays.
 struct FixedSizeArray : public Value {
-  /// @brief Construct a new FixedSizeArray generator, with a given length and value generator.
+  /// \brief Construct a FixedSizeArray generator with a given length and value generator.
   FixedSizeArray(size_t length, std::shared_ptr<Value> item_generator);
-  /// @brief Returns an array of fixed length, with items generated through its value generator.
+  /// \brief Return an array of fixed length with items generated through its value gen.
   auto Get() -> rj::Value override;
  private:
   /// The generator for the array values.
@@ -146,11 +146,13 @@ struct FixedSizeArray : public Value {
   size_t length_;
 };
 
-/// @brief Array value generator for variable-length arrays.
+/// \brief Array value generator for variable-length arrays.
 struct Array : public Value {
-  /// @brief Construct a new FixedSizeArray generator, with a given length and value generator.
-  explicit Array(std::shared_ptr<Value> item_generator, size_t max_length = 16, size_t min_length = 0);
-  /// @brief Returns an array of fixed length, with items generated through its value generator.
+  /// \brief Construct a FixedSizeArray generator with a given length and value generator.
+  explicit Array(std::shared_ptr<Value> item_generator,
+                 size_t max_length = 16,
+                 size_t min_length = 0);
+  /// \brief Return array of fixed length, with items generated through its value gen.
   auto Get() -> rj::Value override;
  private:
   size_t min_length;
@@ -161,30 +163,34 @@ struct Array : public Value {
   std::uniform_int_distribution<int32_t> length;
 };
 
-/// @brief Member generator.
+/// \brief Member generator.
 class Member {
  public:
-  /// @brief Construct a new, unpopulated member generator. This will always generate "": null.
+  /**
+   * \brief Construct a new, unpopulated member generator.
+   *
+   * This will always generate "": null.
+   */
   Member();
-  /// @brief Construct a new member generator with a populated name and value generator.
+  /// \brief Construct a new member generator with a populated name and value generator.
   Member(std::string name, std::shared_ptr<Value> value);
 
-  /// @brief Set the context for this generator to operate in.
+  /// \brief Set the context for this generator to operate in.
   void SetContext(Context context);
 
-  /// @brief Return the context of this member generator.
+  /// \brief Return the context of this member generator.
   auto context() -> Context;
 
-  /// @brief Set the value generator of this member generator.
+  /// \brief Set the value generator of this member generator.
   void SetValue(std::shared_ptr<Value> value);
 
-  /// @brief Return the value generator of this member generator.
+  /// \brief Return the value generator of this member generator.
   [[nodiscard]] auto value() const -> std::shared_ptr<Value>;
 
-  /// @brief Set the name of the members that are generated.
+  /// \brief Set the name of the members that are generated.
   void SetName(std::string name) { name_ = std::move(name); }
 
-  /// @brief Return the name of the members that are generated.
+  /// \brief Return the name of the members that are generated.
   [[nodiscard]] auto name() const -> std::string { return name_; }
 
   /**
@@ -201,16 +207,16 @@ class Member {
   std::shared_ptr<Value> value_;
 };
 
-/// @brief Object value generator.
+/// \brief Object value generator.
 class Object : public Value {
  public:
-  /// @brief Construct a new, empty object generator.
+  /// \brief Construct a new, empty object generator.
   Object() = default;
-  /// @brief Construct a new object generator, and populate its members.
+  /// \brief Construct a new object generator, and populate its members.
   explicit Object(const std::vector<Member> &members);
-  /// @brief Returns an object, with members generated by its member generators.
+  /// \brief Returns an object, with members generated by its member generators.
   auto Get() -> rj::Value override;
-  /// @brief Add a member generator to this object generator.
+  /// \brief Add a member generator to this object generator.
   void AddMember(Member member);
  protected:
   /// The member generators of this object generator.

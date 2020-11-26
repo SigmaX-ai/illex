@@ -24,7 +24,9 @@ auto RunStream(const StreamOptions &opt) -> Status {
     if (std::holds_alternative<ZMQProtocol>(opt.protocol)) {
       ILLEX_ROE(RunZMQServer(std::get<ZMQProtocol>(opt.protocol), opt.production));
     } else {
-      ILLEX_ROE(RunRawServer(std::get<RawProtocol>(opt.protocol), opt.production, opt.statistics));
+      ILLEX_ROE(RunRawServer(std::get<RawProtocol>(opt.protocol),
+                             opt.production,
+                             opt.statistics));
     }
   } while (opt.repeat);
 

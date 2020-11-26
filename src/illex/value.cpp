@@ -28,7 +28,10 @@ void Value::SetContext(Context context) {
   context_ = context;
 }
 
-String::String(double length_mean, double length_stddev, size_t length_clip_max, size_t length_clip_min)
+String::String(double length_mean,
+               double length_stddev,
+               size_t length_clip_max,
+               size_t length_clip_min)
     : length_clip_max_(length_clip_max), length_clip_min_(length_clip_min) {
   len_dist_ = std::normal_distribution<>(length_mean, length_stddev);
   chars_dist_ = std::uniform_int_distribution<>('a', 'z');
@@ -114,7 +117,8 @@ void Member::AddTo(rapidjson::Value *object) {
   object->AddMember(name, val, *context_.allocator_);
 }
 
-Member::Member(std::string name, std::shared_ptr<Value> value) : name_(std::move(name)), value_(std::move(value)) {}
+Member::Member(std::string name, std::shared_ptr<Value> value)
+    : name_(std::move(name)), value_(std::move(value)) {}
 
 Member::Member() { value_ = std::make_shared<Null>(); }
 

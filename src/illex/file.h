@@ -23,7 +23,7 @@
 
 namespace illex {
 
-/// @brief Options for the file subcommand.
+/// \brief Options for the file subcommand.
 struct FileOptions {
   /// Production options
   ProductionOptions production;
@@ -31,7 +31,7 @@ struct FileOptions {
   std::string out_path;
 };
 
-/// @brief Run the file subcommand.
+/// \brief Run the file subcommand.
 auto RunFile(const FileOptions &opt) -> Status;
 
 }

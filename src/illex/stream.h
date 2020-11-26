@@ -24,7 +24,7 @@
 
 namespace illex {
 
-/// @brief Options for the stream subcommand.
+/// \brief Options for the stream subcommand.
 struct StreamOptions {
   /// Properties of the message protocol.
   StreamProtocol protocol;
@@ -36,7 +36,7 @@ struct StreamOptions {
   bool repeat = true;
 };
 
-/// @brief Streaming statistics.
+/// \brief Streaming statistics.
 struct StreamStatistics {
   /// Number of messages transmitted.
   size_t num_messages = 0;
@@ -48,7 +48,7 @@ struct StreamStatistics {
   ProductionStats producer;
 };
 
-/// @brief Run the stream subcommand.
+/// \brief Run the stream subcommand.
 auto RunStream(const StreamOptions &options) -> Status;
 
 }

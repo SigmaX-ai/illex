@@ -25,17 +25,17 @@
 
 namespace illex {
 
-/// @brief The subcommands that can be run.
+/// \brief The subcommands that can be run.
 enum class SubCommand { NONE, FILE, STREAM };
 
-/// @brief Application options parser.
+/// \brief Application options parser.
 struct AppOptions {
   /// The name of the application.
   constexpr static auto name = "illex";
   /// A description of the application.
   constexpr static auto desc = "A JSON generator based on Arrow Schemas.";
 
-  /// @brief Construct an instance of the application options parser.
+  /// \brief Construct an instance of the application options parser.
   static auto FromArguments(int argc, char *argv[], AppOptions *out) -> Status;
 
   /// The subcommand to run.

@@ -38,12 +38,16 @@ struct RawClient {
    * \param[out] out The raw client that will be populated by this function.
    * \return Status::OK() if successful, some error otherwise.
    */
-  static auto Create(RawProtocol protocol, std::string host, uint64_t seq, RawClient *out) -> Status;
+  static auto Create(RawProtocol protocol,
+                     std::string host,
+                     uint64_t seq,
+                     RawClient *out) -> Status;
 
   /**
    * \brief Receive JSONs on this raw stream client and put them in queue.
    * \param queue           The queue to put the JSONs in.
-   * \param latency_timer   A timer that is started on arrival of the TCP packet. Ignored when it is nullptr. (TODO)
+   * \param latency_timer   A timer that is started on arrival of the TCP packet.
+   *                        Ignored when it is nullptr. (TODO)
    * \return Status::OK() if successful, some error otherwise.
    */
   auto ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer = nullptr) -> Status;

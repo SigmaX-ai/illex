@@ -23,7 +23,10 @@ namespace illex {
 
 using TCPBuffer = std::array<std::byte, illex::RAW_BUFFER_SIZE>;
 
-auto RawClient::Create(RawProtocol protocol, std::string host, uint64_t seq, RawClient *out) -> Status {
+auto RawClient::Create(RawProtocol protocol,
+                       std::string host,
+                       uint64_t seq,
+                       RawClient *out) -> Status {
   out->seq = seq;
   out->host = std::move(host);
   out->protocol = protocol;
@@ -40,10 +43,12 @@ auto RawClient::Create(RawProtocol protocol, std::string host, uint64_t seq, Raw
 /**
  * \brief Enqueue all JSONs in the TCP buffer.
  * \param[out]      json_buffer     Reusable JSON string buffer.
- * \param[in,out]   tcp_buffer      The TCP buffer that is cleared after all JSONs are queued.
+ * \param[in,out]   tcp_buffer      The TCP buffer that is cleared after all JSONs are
+ *                                   queued.
  * \param[in]       tcp_valid_bytes Number of valid bytes in the TCP buffer.
  * \param[out]      queue           The queue to enqueue the JSON queue items in.
- * \param[in,out]   seq             The sequence number for the next JSON item, is increased when item is enqueued.
+ * \param[in,out]   seq             The sequence number for the next JSON item, is
+ *                                  increased when item is enqueued.
  * \return The number of JSONs enqueued.
  */
 static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
@@ -65,7 +70,8 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
     if (json_end == nullptr) {
       // Append the remaining characters to the JSON buffer.
       json_buffer->append(json_start, remaining);
-      // We appended everything up to the end of the buffer, so we can set remaining bytes to 0.
+      // We appended everything up to the end of the buffer, so we can set remaining
+      // bytes to 0.
       remaining = 0;
     } else {
       // There is a newline. Only append the remaining characters to the json_msg.
@@ -77,10 +83,10 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
       (*seq)++;
       queued++;
 
-      // Clear the JSON string buffer.
-      // The implementation of std::string is allowed to change its allocated buffer here, but there
-      // are no implementations that actually do it, they retain the allocated buffer.
-      // An implementation using std::vector<char> might be desired here just to make sure.
+      // Clear the JSON string buffer. The implementation of std::string is allowed to
+      // change its allocated buffer here, but there are no implementations that actually
+      // do it, they retain the allocated buffer. An implementation using
+      // std::vector<char> might be desired here just to make sure.
       json_buffer->clear();
 
       // Move the start to the character after the newline.
@@ -118,7 +124,8 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer) -
         first = false;
       }
 
-      // Perhaps the server disconnected because it's done sending JSONs, check the status.
+      // Perhaps the server disconnected because it's done sending JSONs, check the
+      // status.
       auto bytes_received = std::get<0>(recv_status);
       auto sock_status = std::get<1>(recv_status).get_value();
       if (sock_status == kissnet::socket_status::cleanly_disconnected) {
@@ -126,11 +133,16 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer) -
         return Status::OK();
       } else if (sock_status != kissnet::socket_status::valid) {
         // Otherwise, if it's not valid, there is something wrong.
-        return Status(Error::RawError, "Server error. Status: " + std::to_string(sock_status));
+        return Status(Error::RawError,
+                      "Server error. Status: " + std::to_string(sock_status));
       }
       this->bytes_received_ += bytes_received;
       // We must now handle the received bytes in the TCP buffer.
-      this->received_ += EnqueueAllJSONsInBuffer(&json_string, &recv_buffer, bytes_received, queue, &this->seq);
+      this->received_ += EnqueueAllJSONsInBuffer(&json_string,
+                                                 &recv_buffer,
+                                                 bytes_received,
+                                                 queue,
+                                                 &this->seq);
     } catch (const std::exception &e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());

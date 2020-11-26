@@ -25,7 +25,8 @@ auto ZMQClient::Create(ZMQProtocol protocol, std::string host, ZMQClient *out) -
   out->protocol = std::move(protocol);
 
   try {
-    const std::string endpoint = "tcp://" + out->host + ":" + std::to_string(out->protocol.port);
+    const std::string
+        endpoint = "tcp://" + out->host + ":" + std::to_string(out->protocol.port);
     // Initialize the ZeroMQ context.
     out->context = std::make_shared<zmqpp::context>();
     // Create a pull socket.

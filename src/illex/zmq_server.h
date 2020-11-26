@@ -67,6 +67,7 @@ class ZMQServer {
  * \param production_options Options for JSON production.
  * \return Status::OK if successful, some error otherwise.
  */
-auto RunZMQServer(const ZMQProtocol &protocol_options, const ProductionOptions &production_options) -> Status;
+auto RunZMQServer(const ZMQProtocol &protocol_options,
+                  const ProductionOptions &production_options) -> Status;
 
 }

@@ -36,7 +36,8 @@ TEST(Arrow, Empty) {
 }
 
 TEST(Arrow, UInt64) {
-  auto schema = arrow::Schema({std::make_shared<arrow::Field>("uint64", arrow::uint64(), false)});
+  auto schema =
+      arrow::Schema({std::make_shared<arrow::Field>("uint64", arrow::uint64(), false)});
   ASSERT_EQ(GenerateJSON(schema), R"({"uint64":1537163486874432223})");
 }
 
@@ -51,20 +52,24 @@ TEST(Arrow, UInt64Meta) {
   // Is this test good enough?
   for (int i = 0; i < 64; i++) {
     auto json = GenerateJSON(schema, 0);
-    ASSERT_TRUE(json == R"({"uint64":1})" || json == R"({"uint64":2})" || json == R"({"uint64":3})");
+    ASSERT_TRUE(json == R"({"uint64":1})" || json == R"({"uint64":2})"
+                    || json == R"({"uint64":3})");
   }
 }
 
 TEST(Arrow, String) {
-  auto schema = arrow::Schema({std::make_shared<arrow::Field>("str", arrow::utf8(), false)});
+  auto schema =
+      arrow::Schema({std::make_shared<arrow::Field>("str", arrow::utf8(), false)});
   ASSERT_EQ(GenerateJSON(schema), R"({"str":"htgwxfziuvfnabo"})");
 }
 
 TEST(Arrow, FixedSizeList) {
   auto list_item = std::make_shared<arrow::Field>("item", arrow::uint64(), false);
-  auto list_field = std::make_shared<arrow::Field>("fsl", arrow::fixed_size_list(list_item, 3), false);
+  auto list_field =
+      std::make_shared<arrow::Field>("fsl", arrow::fixed_size_list(list_item, 3), false);
   auto schema = arrow::Schema({list_field});
-  ASSERT_EQ(GenerateJSON(schema), R"({"fsl":[1537163486874432223,18143445020509408007,5528658168453055457]})");
+  ASSERT_EQ(GenerateJSON(schema),
+            R"({"fsl":[1537163486874432223,18143445020509408007,5528658168453055457]})");
 }
 
 }

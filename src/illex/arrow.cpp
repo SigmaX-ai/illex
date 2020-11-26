@@ -55,8 +55,8 @@ SchemaAnalyzer::SchemaAnalyzer(DocumentGenerator *out) : out_(out) {
 
 auto FieldAnalyzer::Analyze(const arrow::Field &field) -> bool {
   field_ = &field;
-  // TODO(johanpel): field could have nullable probability in metadata and could be a feature of the value generators.
-  //  as well as other randomization parameters.
+  // TODO(johanpel): field could have nullable probability in metadata and could be a
+  //  feature of the value generators as well as other randomization parameters.
   if (field.nullable()) {
     spdlog::error("For field: {}", field.name());
     spdlog::error("  Nullable fields are not supported.");
@@ -71,8 +71,10 @@ auto FieldAnalyzer::Analyze(const arrow::Field &field) -> bool {
 
 auto FieldAnalyzer::Visit(const arrow::UInt64Type &type) -> arrow::Status {
   // Check for meta, use numeric limits otherwise.
-  auto max = GetUInt64Meta(*field_, META(MAX)).value_or(std::numeric_limits<uint64_t>::max());
-  auto min = GetUInt64Meta(*field_, META(MIN)).value_or(std::numeric_limits<uint64_t>::min());
+  auto max =
+      GetUInt64Meta(*field_, META(MAX)).value_or(std::numeric_limits<uint64_t>::max());
+  auto min =
+      GetUInt64Meta(*field_, META(MIN)).value_or(std::numeric_limits<uint64_t>::min());
 
   // Check if min doesn't exceed max.
   if (min > max) {
@@ -104,7 +106,8 @@ auto FieldAnalyzer::Visit(const arrow::Date64Type &type) -> arrow::Status {
 }
 
 auto FieldAnalyzer::Visit(const arrow::FixedSizeListType &type) -> arrow::Status {
-  // Create a member generator to store the child generator in delivered by a field analyzer.
+  // Create a member generator to store the child generator in delivered by a field
+  // analyzer.
   auto mg = std::make_shared<Member>();
   mg->SetContext(member_out_->context());
   auto fa = FieldAnalyzer(mg.get());
@@ -115,9 +118,11 @@ auto FieldAnalyzer::Visit(const arrow::FixedSizeListType &type) -> arrow::Status
 }
 
 auto FieldAnalyzer::Visit(const arrow::ListType &type) -> arrow::Status {
-  auto min = GetUInt64Meta(*field_, META(MIN_LENGTH)).value_or(std::numeric_limits<uint64_t>::min());
+  auto min = GetUInt64Meta(*field_, META(MIN_LENGTH))
+      .value_or(std::numeric_limits<uint64_t>::min());
   auto max = GetUInt64Meta(*field_, META(MAX_LENGTH)).value_or(8);
-  // Create a member generator to store the child generator in delivered by a field analyzer.
+  // Create a member generator to store the child generator in delivered by a field
+  // analyzer.
   auto mg = std::make_shared<Member>();
   mg->SetContext(member_out_->context());
   auto fa = FieldAnalyzer(mg.get());
@@ -144,15 +149,17 @@ auto FieldAnalyzer::Visit(const arrow::StructType &type) -> arrow::Status {
   return arrow::Status::OK();
 }
 
-auto ReadSchemaFromFile(const std::string &file, std::shared_ptr<arrow::Schema> *out) -> Status {
+auto ReadSchemaFromFile(const std::string &file,
+                        std::shared_ptr<arrow::Schema> *out) -> Status {
   // TODO(johanpel): use filesystem lib for path
   auto rfos = arrow::io::ReadableFile::Open(file);
 
   if (!rfos.ok()) { return Status(Error::IOError, rfos.status().message()); }
   auto fis = rfos.ValueOrDie();
 
-  // Dictionaries are not supported yet, hence nullptr. If there are actual dictionaries, the function will return an
-  // error status, which is propagated to the caller of this function.
+  // Dictionaries are not supported yet, hence nullptr. If there are actual dictionaries,
+  // the function will return an error status, which is propagated to the caller of this
+  // function.
   auto rsch = arrow::ipc::ReadSchema(fis.get(), nullptr);
 
   if (rsch.ok()) { *out = rsch.ValueOrDie(); }
@@ -163,14 +170,16 @@ auto ReadSchemaFromFile(const std::string &file, std::shared_ptr<arrow::Schema> 
   return Status::OK();
 }
 
-auto FromArrowSchema(const arrow::Schema &schema, GenerateOptions options) -> DocumentGenerator {
+auto FromArrowSchema(const arrow::Schema &schema,
+                     GenerateOptions options) -> DocumentGenerator {
   DocumentGenerator doc(options.seed);
   auto sa = SchemaAnalyzer(&doc);
   sa.Analyze(schema);
   return doc;
 }
 
-auto GetMeta(const arrow::Schema &schema, const std::string &key) -> std::optional<std::string> {
+auto GetMeta(const arrow::Schema &schema,
+             const std::string &key) -> std::optional<std::string> {
   if (schema.metadata() != nullptr) {
     std::unordered_map<std::string, std::string> meta;
     schema.metadata()->ToUnorderedMap(&meta);
@@ -182,7 +191,8 @@ auto GetMeta(const arrow::Schema &schema, const std::string &key) -> std::option
   return std::nullopt;
 }
 
-auto GetMeta(const arrow::Field &field, const std::string &key) -> std::optional<std::string> {
+auto GetMeta(const arrow::Field &field,
+             const std::string &key) -> std::optional<std::string> {
   if (field.metadata() != nullptr) {
     std::unordered_map<std::string, std::string> meta;
     field.metadata()->ToUnorderedMap(&meta);
@@ -194,7 +204,8 @@ auto GetMeta(const arrow::Field &field, const std::string &key) -> std::optional
   return std::nullopt;
 }
 
-auto GetUInt64Meta(const arrow::Field &field, const std::string &key) -> std::optional<uint64_t> {
+auto GetUInt64Meta(const arrow::Field &field, const std::string &key) -> std::optional<
+    uint64_t> {
   auto str = GetMeta(field, key);
   uint64_t int_value = 0;
   size_t parsed = 0;
@@ -202,22 +213,25 @@ auto GetUInt64Meta(const arrow::Field &field, const std::string &key) -> std::op
     try {
       int_value = std::stoul(str.value(), &parsed, 10);
     } catch (const std::invalid_argument &e) {
-      spdlog::warn("Metadata key {} set for field {}, but value {} is not a valid UInt64.",
+      spdlog::warn("Metadata key {} set for field {}, "
+                   "but value {} is not a valid UInt64.",
                    key,
                    field.name(),
                    str.value());
       return std::nullopt;
     } catch (const std::out_of_range &e) {
-      spdlog::warn("Metadata key {} set for field {}, but value {} is out of range for UInt64.",
-                   key,
-                   field.name(),
-                   str.value());
+      spdlog::warn(
+          "Metadata key {} set for field {}, but value {} is out of range for UInt64.",
+          key,
+          field.name(),
+          str.value());
       return std::nullopt;
     }
     // Warn if there is garbage at the end.
     if (parsed != str.value().length()) {
       spdlog::warn(
-          "Metadata key {} with value {} for field {} is parsed as {}, but seems to contain additional garbage.",
+          "Metadata key {} with value {} for field {} is parsed as {}, "
+          "but seems to contain additional garbage.",
           key,
           field.name(),
           str.value(),

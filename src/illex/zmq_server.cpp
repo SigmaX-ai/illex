@@ -51,11 +51,13 @@ auto ZMQServer::Create(ZMQProtocol protocol_options, ZMQServer *out) -> Status {
   return Status::OK();
 }
 
-auto ZMQServer::SendJSONs(const ProductionOptions &options, StreamStatistics *stats) -> Status {
+auto ZMQServer::SendJSONs(const ProductionOptions &options,
+                          StreamStatistics *stats) -> Status {
   // Check for some potential misuse.
   assert(stats != nullptr);
   if ((this->context == nullptr) || (this->socket == nullptr)) {
-    return Status(Error::GenericError, "ZMQServer uninitialized. Use ZMQServer::Create().");
+    return Status(Error::GenericError,
+                  "ZMQServer uninitialized. Use ZMQServer::Create().");
   }
 
   StreamStatistics result;
@@ -67,9 +69,13 @@ auto ZMQServer::SendJSONs(const ProductionOptions &options, StreamStatistics *st
   // Spawn production hive thread.
   std::promise<ProductionStats> production_stats;
   auto producer_stats_future = production_stats.get_future();
-  auto producer = std::thread(ProductionHiveThread, options, &production_queue, std::move(production_stats));
+  auto producer = std::thread(ProductionHiveThread,
+                              options,
+                              &production_queue,
+                              std::move(production_stats));
 
-  // Attempt to pull all produced messages from the production queue and send them over the ZMQ socket.
+  // Attempt to pull all produced messages from the production queue and send them over
+  // the ZMQ socket.
   for (size_t m = 0; m < options.num_jsons; m++) {
     // Get the message
     std::string message_str;
@@ -117,13 +123,16 @@ auto ZMQServer::Close() -> Status {
 }
 
 static void LogSendStats(const StreamStatistics &result) {
-  spdlog::info("Streamed {} messages in {:.4f} seconds.", result.num_messages, result.time);
+  spdlog::info("Streamed {} messages in {:.4f} seconds.",
+               result.num_messages,
+               result.time);
   spdlog::info("  {:.1f} messages/second (avg).", result.num_messages / result.time);
   spdlog::info("  {:.2f} gigabits/second (avg).",
                static_cast<double>(result.num_bytes * 8) / result.time * 1E-9);
 }
 
-auto RunZMQServer(const ZMQProtocol &protocol_options, const ProductionOptions &production_options) -> Status {
+auto RunZMQServer(const ZMQProtocol &protocol_options,
+                  const ProductionOptions &production_options) -> Status {
   spdlog::info("Starting ZMQ push server.");
   ZMQServer server;
   ILLEX_ROE(ZMQServer::Create(protocol_options, &server));
