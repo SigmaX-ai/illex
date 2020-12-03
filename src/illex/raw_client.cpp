@@ -55,7 +55,9 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
                                     TCPBuffer *tcp_buffer,
                                     size_t tcp_valid_bytes,
                                     JSONQueue *queue,
-                                    uint64_t *seq) -> size_t {
+                                    uint64_t *seq,
+                                    std::vector<putong::SplitTimer<NUM_SPLITS>> *latency_timers)
+-> size_t {
   size_t queued = 0;
   // TODO(johanpel): implement mechanism to allow newlines within JSON objects,
   //   this only works for non-pretty printed JSONs now.
@@ -76,6 +78,9 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
     } else {
       // There is a newline. Only append the remaining characters to the json_msg.
       json_buffer->append(json_start, json_end - json_start);
+
+      // Start the latency timers. Only from this point onward we know it's a JSON.
+      (*latency_timers)[(*seq)].Start();
 
       // Copy the JSON string into the consumption queue.
       SPDLOG_DEBUG("Client received JSON[{}]: {}", *seq, *json_buffer);
@@ -104,9 +109,9 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
   return queued;
 }
 
-auto RawClient::ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer) -> Status {
-  bool first = true;
-
+auto RawClient::ReceiveJSONs(JSONQueue *queue,
+                             std::vector<putong::SplitTimer<NUM_SPLITS>> *latency_timers)
+-> Status {
   // Buffer to store the JSON string, is reused to prevent allocations.
   std::string json_string;
   // TCP receive buffer.
@@ -117,12 +122,9 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer) -
     try {
       // Attempt to receive some bytes.
       auto recv_status = client->recv(recv_buffer);
-
-      // Start the latency timer.
-      if (first && latency_timer != nullptr) {
-        latency_timer->Start();
-        first = false;
-      }
+      // TODO: latency timers should start here, but are instead started before JSONs
+      //  are pushed into the queue, since otherwise it's not yet known which timers need
+      //  to be started.
 
       // Perhaps the server disconnected because it's done sending JSONs, check the
       // status.
@@ -142,7 +144,7 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer) -
                                                  &recv_buffer,
                                                  bytes_received,
                                                  queue,
-                                                 &this->seq);
+                                                 &this->seq, latency_timers);
     } catch (const std::exception &e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());

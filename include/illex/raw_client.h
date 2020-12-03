@@ -25,6 +25,8 @@
 #include "illex/queue.h"
 #include "illex/raw_protocol.h"
 
+#define NUM_SPLITS 4
+
 namespace illex {
 
 /// A streaming client using the Raw protocol.
@@ -50,7 +52,8 @@ struct RawClient {
    *                        Ignored when it is nullptr. (TODO)
    * \return Status::OK() if successful, some error otherwise.
    */
-  auto ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer = nullptr) -> Status;
+  auto ReceiveJSONs(JSONQueue *queue,
+                    std::vector<putong::SplitTimer<NUM_SPLITS>> *latency_timers) -> Status;
 
   /**
    * \brief Close this raw client.
