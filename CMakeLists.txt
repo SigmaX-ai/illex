@@ -18,7 +18,7 @@ include(CompileUnits)
 # rapidjson
 FetchContent_Declare(rapidjson
   GIT_REPOSITORY  https://github.com/Tencent/rapidjson.git
-  GIT_TAG         master
+  GIT_TAG         v1.1.0
 )
 FetchContent_GetProperties(rapidjson)
 if (NOT rapidjson_POPULATED)
