@@ -33,7 +33,7 @@ struct StreamOptions {
   /// Whether to log statistics
   bool statistics = true;
   /// Repeat indefinitely
-  bool repeat = true;
+  bool repeat = false;
 };
 
 /// \brief Streaming statistics.

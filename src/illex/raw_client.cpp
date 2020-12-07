@@ -86,10 +86,12 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
 
       // Copy the JSON string into the consumption queue.
       SPDLOG_DEBUG("Client received JSON[{}]: {}", *seq, *json_buffer);
+      auto pre_queue_time = Timer::now();
       queue->enqueue(JSONQueueItem{*seq, *json_buffer});
       // Place the receive time for this JSON in the tracker.
       if (tracker != nullptr) {
         tracker->Put(*seq, 0, receive_time);
+        tracker->Put(*seq, 1, pre_queue_time);
       }
       (*seq)++;
       queued++;
@@ -142,13 +144,14 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue, LatencyTracker *lat_tracker) -> S
       }
       this->bytes_received_ += bytes_received;
       // We must now handle the received bytes in the TCP buffer.
-      this->received_ += EnqueueAllJSONsInBuffer(&json_string,
-                                                 recv_buffer,
-                                                 bytes_received,
-                                                 queue,
-                                                 &this->seq,
-                                                 receive_time,
-                                                 lat_tracker);
+      auto num_enqueued = EnqueueAllJSONsInBuffer(&json_string,
+                                                  recv_buffer,
+                                                  bytes_received,
+                                                  queue,
+                                                  &this->seq,
+                                                  receive_time,
+                                                  lat_tracker);
+      this->received_ += num_enqueued;
     } catch (const std::exception &e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());

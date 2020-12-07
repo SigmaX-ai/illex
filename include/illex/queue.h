@@ -23,10 +23,12 @@
 
 namespace illex {
 
+using Seq = uint64_t;
+
 /// An item in a JSON queue.
 struct JSONQueueItem {
   /// Sequence number.
-  uint64_t seq = 0;
+  Seq seq = 0;
   /// Raw JSON string.
   std::string string;
 };
