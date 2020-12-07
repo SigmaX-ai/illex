@@ -24,8 +24,7 @@
 #include "illex/status.h"
 #include "illex/queue.h"
 #include "illex/raw_protocol.h"
-
-#define NUM_SPLITS 4
+#include "illex/latency.h"
 
 namespace illex {
 
@@ -48,12 +47,9 @@ struct RawClient {
   /**
    * \brief Receive JSONs on this raw stream client and put them in queue.
    * \param queue           The queue to put the JSONs in.
-   * \param latency_timer   A timer that is started on arrival of the TCP packet.
-   *                        Ignored when it is nullptr. (TODO)
    * \return Status::OK() if successful, some error otherwise.
    */
-  auto ReceiveJSONs(JSONQueue *queue,
-                    std::vector<putong::SplitTimer<NUM_SPLITS>> *latency_timers) -> Status;
+  auto ReceiveJSONs(JSONQueue *queue, LatencyTracker *lat_tracker) -> Status;
 
   /**
    * \brief Close this raw client.

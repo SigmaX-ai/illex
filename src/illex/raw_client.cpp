@@ -13,10 +13,10 @@
 // limitations under the License.
 
 #include <chrono>
-#include <thread>
 #include <memory>
 #include <iostream>
 
+#include "illex/latency.h"
 #include "illex/raw_client.h"
 
 namespace illex {
@@ -56,7 +56,8 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
                                     size_t tcp_valid_bytes,
                                     JSONQueue *queue,
                                     uint64_t *seq,
-                                    std::vector<putong::SplitTimer<NUM_SPLITS>> *latency_timers)
+                                    TimePoint receive_time,
+                                    LatencyTracker *tracker = nullptr)
 -> size_t {
   size_t queued = 0;
   // TODO(johanpel): implement mechanism to allow newlines within JSON objects,
@@ -79,12 +80,13 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
       // There is a newline. Only append the remaining characters to the json_msg.
       json_buffer->append(json_start, json_end - json_start);
 
-      // Start the latency timers. Only from this point onward we know it's a JSON.
-      (*latency_timers)[(*seq)].Start();
-
       // Copy the JSON string into the consumption queue.
       SPDLOG_DEBUG("Client received JSON[{}]: {}", *seq, *json_buffer);
       queue->enqueue(JSONQueueItem{*seq, *json_buffer});
+      // Place the receive time for this JSON in the tracker.
+      if (tracker != nullptr) {
+        tracker->Put(*seq, 0, receive_time);
+      }
       (*seq)++;
       queued++;
 
@@ -109,9 +111,7 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
   return queued;
 }
 
-auto RawClient::ReceiveJSONs(JSONQueue *queue,
-                             std::vector<putong::SplitTimer<NUM_SPLITS>> *latency_timers)
--> Status {
+auto RawClient::ReceiveJSONs(JSONQueue *queue, LatencyTracker *lat_tracker) -> Status {
   // Buffer to store the JSON string, is reused to prevent allocations.
   std::string json_string;
   // TCP receive buffer.
@@ -122,9 +122,7 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue,
     try {
       // Attempt to receive some bytes.
       auto recv_status = client->recv(recv_buffer);
-      // TODO: latency timers should start here, but are instead started before JSONs
-      //  are pushed into the queue, since otherwise it's not yet known which timers need
-      //  to be started.
+      auto receive_time = Timer::now();
 
       // Perhaps the server disconnected because it's done sending JSONs, check the
       // status.
@@ -144,7 +142,9 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue,
                                                  &recv_buffer,
                                                  bytes_received,
                                                  queue,
-                                                 &this->seq, latency_timers);
+                                                 &this->seq,
+                                                 receive_time,
+                                                 lat_tracker);
     } catch (const std::exception &e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());
