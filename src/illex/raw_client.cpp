@@ -85,7 +85,6 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
       json_buffer->append(json_start, json_end - json_start);
 
       // Copy the JSON string into the consumption queue.
-      SPDLOG_DEBUG("Client received JSON[{}]: {}", *seq, *json_buffer);
       auto pre_queue_time = Timer::now();
       queue->enqueue(JSONQueueItem{*seq, *json_buffer});
       // Place the receive time for this JSON in the tracker.

@@ -88,7 +88,6 @@ auto RawServer::SendJSONs(const ProductionOptions &options,
       std::this_thread::sleep_for(std::chrono::milliseconds(500));
 #endif
     }
-    SPDLOG_DEBUG("Popped string: {}", message_str.substr(0, message_str.find('\n')));
 
     // Attempt to send the message.
     auto send_result = client.send(reinterpret_cast<std::byte *>(message_str.data()),

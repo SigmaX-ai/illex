@@ -85,7 +85,6 @@ auto ZMQServer::SendJSONs(const ProductionOptions &options,
       std::this_thread::sleep_for(std::chrono::seconds(1));
 #endif
     }
-    SPDLOG_DEBUG("Popped string {} from production queue.", message_str);
 
     result.num_bytes += message_str.size();
     if (this->socket->send(message_str)) {
