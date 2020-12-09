@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 project(illex VERSION 0.0.1 LANGUAGES CXX)
 
 find_package(Arrow 1.0 CONFIG REQUIRED)
-find_library(zmqpp REQUIRED)
-find_library(zmq REQUIRED)
 
 include(FetchContent)
 
@@ -18,7 +16,7 @@ include(CompileUnits)
 # rapidjson
 FetchContent_Declare(rapidjson
   GIT_REPOSITORY  https://github.com/Tencent/rapidjson.git
-  GIT_TAG         master
+  GIT_TAG         v1.1.0
 )
 FetchContent_GetProperties(rapidjson)
 if (NOT rapidjson_POPULATED)
@@ -43,7 +41,7 @@ FetchContent_MakeAvailable(spdlog)
 # concurrentqueue
 FetchContent_Declare(concurrentqueue
   GIT_REPOSITORY  https://github.com/cameron314/concurrentqueue.git
-  GIT_TAG         v1.0.1
+  GIT_TAG         v1.0.2
 )
 FetchContent_GetProperties(concurrentqueue)
 if (NOT concurrentqueue_POPULATED)
@@ -72,7 +70,6 @@ add_compile_unit(
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
   SRCS
-    src/illex/zmq_client.cpp
     src/illex/raw_client.cpp
     src/illex/document.cpp
     src/illex/arrow.cpp
@@ -81,8 +78,6 @@ add_compile_unit(
     kissnet
     putong
     spdlog::spdlog
-    zmqpp
-    zmq
 )
 
 add_compile_unit(
@@ -97,7 +92,6 @@ add_compile_unit(
     src/illex/producer.cpp
     src/illex/raw_server.cpp
     src/illex/stream.cpp
-    src/illex/zmq_server.cpp
   TSTS
     test/illex/test_arrow.cpp
     test/illex/test_gen.cpp
@@ -107,8 +101,6 @@ add_compile_unit(
     arrow_shared
     CLI11::CLI11
     spdlog::spdlog
-    zmqpp
-    zmq
     putong
 )
 

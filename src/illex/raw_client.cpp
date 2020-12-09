@@ -13,15 +13,16 @@
 // limitations under the License.
 
 #include <chrono>
-#include <thread>
 #include <memory>
 #include <iostream>
 
+#include "illex/latency.h"
 #include "illex/raw_client.h"
+#include "illex/raw_protocol.h"
 
 namespace illex {
 
-using TCPBuffer = std::array<std::byte, illex::RAW_BUFFER_SIZE>;
+using TCPBuffer = std::array<std::byte, ILLEX_TCP_BUFFER_SIZE>;
 
 auto RawClient::Create(RawProtocol protocol,
                        std::string host,
@@ -35,7 +36,10 @@ auto RawClient::Create(RawProtocol protocol,
   out->client = std::make_shared<RawSocket>(kissnet::endpoint(endpoint));
 
   SPDLOG_DEBUG("Client connecting to {}...", endpoint);
-  out->client->connect();
+  auto success = out->client->connect();
+  if (!success) {
+    return Status(Error::RawError, "Unable to connect to server.");
+  }
 
   return Status::OK();
 }
@@ -52,14 +56,17 @@ auto RawClient::Create(RawProtocol protocol,
  * \return The number of JSONs enqueued.
  */
 static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
-                                    TCPBuffer *tcp_buffer,
+                                    std::byte *recv_buffer,
                                     size_t tcp_valid_bytes,
                                     JSONQueue *queue,
-                                    uint64_t *seq) -> size_t {
+                                    uint64_t *seq,
+                                    TimePoint receive_time,
+                                    LatencyTracker *tracker = nullptr)
+-> size_t {
   size_t queued = 0;
   // TODO(johanpel): implement mechanism to allow newlines within JSON objects,
   //   this only works for non-pretty printed JSONs now.
-  auto *recv_chars = reinterpret_cast<char *>(tcp_buffer->data());
+  auto *recv_chars = reinterpret_cast<char *>(recv_buffer);
 
   // Scan the buffer for a newline.
   char *json_start = recv_chars;
@@ -78,8 +85,13 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
       json_buffer->append(json_start, json_end - json_start);
 
       // Copy the JSON string into the consumption queue.
-      SPDLOG_DEBUG("Client received JSON[{}]: {}", *seq, *json_buffer);
+      auto pre_queue_time = Timer::now();
       queue->enqueue(JSONQueueItem{*seq, *json_buffer});
+      // Place the receive time for this JSON in the tracker.
+      if (tracker != nullptr) {
+        tracker->Put(*seq, 0, receive_time);
+        tracker->Put(*seq, 1, pre_queue_time);
+      }
       (*seq)++;
       queued++;
 
@@ -99,30 +111,23 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
   } while (remaining > 0);
 
   // Clear the buffer when finished.
-  tcp_buffer->fill(std::byte(0x00));
+  memset(recv_buffer, 0, ILLEX_TCP_BUFFER_SIZE);
 
   return queued;
 }
 
-auto RawClient::ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer) -> Status {
-  bool first = true;
-
+auto RawClient::ReceiveJSONs(JSONQueue *queue, LatencyTracker *lat_tracker) -> Status {
   // Buffer to store the JSON string, is reused to prevent allocations.
   std::string json_string;
   // TCP receive buffer.
-  TCPBuffer recv_buffer{};
+  auto *recv_buffer = static_cast<std::byte *>(malloc(ILLEX_TCP_BUFFER_SIZE));
 
   // Loop while the socket is still valid.
   while (client->is_valid()) {
     try {
       // Attempt to receive some bytes.
-      auto recv_status = client->recv(recv_buffer);
-
-      // Start the latency timer.
-      if (first && latency_timer != nullptr) {
-        latency_timer->Start();
-        first = false;
-      }
+      auto recv_status = client->recv(recv_buffer, ILLEX_TCP_BUFFER_SIZE);
+      auto receive_time = Timer::now();
 
       // Perhaps the server disconnected because it's done sending JSONs, check the
       // status.
@@ -138,16 +143,21 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue, putong::Timer<> *latency_timer) -
       }
       this->bytes_received_ += bytes_received;
       // We must now handle the received bytes in the TCP buffer.
-      this->received_ += EnqueueAllJSONsInBuffer(&json_string,
-                                                 &recv_buffer,
-                                                 bytes_received,
-                                                 queue,
-                                                 &this->seq);
+      auto num_enqueued = EnqueueAllJSONsInBuffer(&json_string,
+                                                  recv_buffer,
+                                                  bytes_received,
+                                                  queue,
+                                                  &this->seq,
+                                                  receive_time,
+                                                  lat_tracker);
+      this->received_ += num_enqueued;
     } catch (const std::exception &e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());
     }
   }
+
+  free(recv_buffer);
 
   return Status::OK();
 }

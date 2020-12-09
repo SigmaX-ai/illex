@@ -24,7 +24,7 @@ namespace illex {
 using RawSocket = kissnet::socket<kissnet::protocol::tcp>;
 
 /// TCP receive buffer size.
-constexpr const size_t RAW_BUFFER_SIZE = 5 * 1024 * 1024;
+#define ILLEX_TCP_BUFFER_SIZE (16 * 1024 * 1024)
 
 /// TCP default port.
 constexpr uint16_t RAW_PORT = 10197;
@@ -36,7 +36,7 @@ struct RawProtocol {
   /// Port to use for the TCP connection.
   uint16_t port;
   /// Buffer size.
-  size_t buffer_size = RAW_BUFFER_SIZE;
+  size_t buffer_size = ILLEX_TCP_BUFFER_SIZE;
   /// Allow reuse of socket address.
   bool reuse = true;
 };

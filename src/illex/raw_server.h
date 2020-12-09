@@ -15,7 +15,6 @@
 #pragma once
 
 #include <arrow/api.h>
-#include <illex/zmq_protocol.h>
 #include <kissnet.hpp>
 
 #include "illex/status.h"

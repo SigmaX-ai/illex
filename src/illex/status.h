@@ -29,7 +29,6 @@ enum class Error {
   GenericError,
   CLIError,
   JSONError,
-  ZMQError,
   RawError,
   IOError
 };

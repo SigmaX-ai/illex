@@ -12,13 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <iostream>
-
 #include "illex/log.h"
 #include "illex/cli.h"
 #include "illex/file.h"
-#include "illex/zmq_server.h"
-#include "illex/status.h"
 #include "illex/stream.h"
 
 auto main(int argc, char *argv[]) -> int {

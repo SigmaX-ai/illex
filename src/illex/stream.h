@@ -14,7 +14,6 @@
 
 #pragma once
 
-#include <zmqpp/zmqpp.hpp>
 #include <arrow/api.h>
 #include <illex/protocol.h>
 
@@ -33,7 +32,7 @@ struct StreamOptions {
   /// Whether to log statistics
   bool statistics = true;
   /// Repeat indefinitely
-  bool repeat = true;
+  bool repeat = false;
 };
 
 /// \brief Streaming statistics.

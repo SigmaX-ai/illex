@@ -10,8 +10,6 @@ A random JSON generator based on Arrow schemas.
     - A C++17 compiler.
   * Dependencies:
     - [Arrow 1.0.1](https://github.com/apache/arrow)
-    - [zmqpp 4.1.2+](https://github.com/zeromq/zmqpp)
-    - [zmq 4.3.2+](https://github.com/zeromq/libzmq)
 
 ## Build
 ```bash
