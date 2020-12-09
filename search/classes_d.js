@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['schemaanalyzer',['SchemaAnalyzer',['../classillex_1_1_schema_analyzer.html',1,'illex']]],
-  ['streamoptions',['StreamOptions',['../structillex_1_1_stream_options.html',1,'illex']]],
-  ['streamstatistics',['StreamStatistics',['../structillex_1_1_stream_statistics.html',1,'illex']]],
-  ['string',['String',['../structillex_1_1_string.html',1,'illex']]]
+  ['rawclient',['RawClient',['../structillex_1_1_raw_client.html',1,'illex']]],
+  ['rawprotocol',['RawProtocol',['../structillex_1_1_raw_protocol.html',1,'illex']]],
+  ['rawserver',['RawServer',['../classillex_1_1_raw_server.html',1,'illex']]]
 ];

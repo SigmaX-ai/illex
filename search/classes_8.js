@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['member',['Member',['../classillex_1_1_member.html',1,'illex']]]
+  ['latencytracker',['LatencyTracker',['../classillex_1_1_latency_tracker.html',1,'illex']]]
 ];

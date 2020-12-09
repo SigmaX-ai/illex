@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Illex: include/illex/zmq_client.h File Reference</title>
+<title>Illex: include/illex/latency.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,52 +66,51 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">zmq_client.h File Reference</div>  </div>
+<div class="title">latency.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;zmqpp/zmqpp.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="log_8h_source.html">illex/log.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="zmq__protocol_8h_source.html">illex/zmq_protocol.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;cassert&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
 <code>#include &quot;<a class="el" href="status_8h_source.html">illex/status.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="queue_8h_source.html">illex/queue.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for zmq_client.h:</div>
+Include dependency graph for latency.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="zmq__client_8h__incl.png" border="0" usemap="#include_2illex_2zmq__client_8h" alt=""/></div>
-<map name="include_2illex_2zmq__client_8h" id="include_2illex_2zmq__client_8h">
-<area shape="rect" id="node5" href="log_8h.html" title="illex/log.h" alt="" coords="888,80,965,107"/>
-<area shape="rect" id="node8" href="zmq__protocol_8h.html" title="illex/zmq_protocol.h" alt="" coords="133,80,272,107"/>
-<area shape="rect" id="node11" href="status_8h.html" title="illex/status.h" alt="" coords="1164,80,1260,107"/>
-<area shape="rect" id="node14" href="queue_8h.html" title="illex/queue.h" alt="" coords="452,80,547,107"/>
-<area shape="rect" id="node18" href="document_8h.html" title="illex/document.h" alt="" coords="528,162,645,189"/>
-<area shape="rect" id="node21" href="value_8h.html" title="illex/value.h" alt="" coords="582,244,673,271"/>
+<div class="center"><img src="latency_8h__incl.png" border="0" usemap="#include_2illex_2latency_8h" alt=""/></div>
+<map name="include_2illex_2latency_8h" id="include_2illex_2latency_8h">
+<area shape="rect" id="node4" href="status_8h.html" title="illex/status.h" alt="" coords="181,80,277,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="zmq__client_8h__dep__incl.png" border="0" usemap="#include_2illex_2zmq__client_8hdep" alt=""/></div>
-<map name="include_2illex_2zmq__client_8hdep" id="include_2illex_2zmq__client_8hdep">
-<area shape="rect" id="node2" href="zmq__client_8cpp.html" title="src/illex/zmq_client.cpp" alt="" coords="10,80,169,107"/>
+<div class="center"><img src="latency_8h__dep__incl.png" border="0" usemap="#include_2illex_2latency_8hdep" alt=""/></div>
+<map name="include_2illex_2latency_8hdep" id="include_2illex_2latency_8hdep">
+<area shape="rect" id="node2" href="raw__client_8cpp.html" title="src/illex/raw_client.cpp" alt="" coords="5,155,160,181"/>
+<area shape="rect" id="node3" href="raw__client_8h.html" title="include/illex/raw_client.h" alt="" coords="61,80,225,107"/>
 </map>
 </div>
 </div>
-<p><a href="zmq__client_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="latency_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_z_m_q_client.html">illex::ZMQClient</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A streaming client based on ZeroMQ.  <a href="structillex_1_1_z_m_q_client.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_latency_tracker.html">illex::LatencyTracker</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceillex"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html">illex</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a276e2f42b8cd0e5876936d23bf34233b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a276e2f42b8cd0e5876936d23bf34233b">illex::Timer</a> = std::chrono::steady_clock</td></tr>
+<tr class="separator:a276e2f42b8cd0e5876936d23bf34233b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c93539a83df4c13ed1c19dc77ff2289"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a6c93539a83df4c13ed1c19dc77ff2289">illex::TimePoint</a> = std::chrono::time_point&lt; std::chrono::steady_clock &gt;</td></tr>
+<tr class="separator:a6c93539a83df4c13ed1c19dc77ff2289"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

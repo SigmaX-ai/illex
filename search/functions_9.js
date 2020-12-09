@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['object',['Object',['../classillex_1_1_object.html#a474dd641e280ce4299e3ce26d73bca67',1,'illex::Object::Object()=default'],['../classillex_1_1_object.html#a25f3e74f0973959ab73882b1c786bee8',1,'illex::Object::Object(const std::vector&lt; Member &gt; &amp;members)']]]
+  ['name',['name',['../classillex_1_1_member.html#a3a4af603d1ef4c28ebc82df5788eee6e',1,'illex::Member']]],
+  ['num_5fsamples',['num_samples',['../classillex_1_1_latency_tracker.html#acab57823518877b8ff5974edf67ed94b',1,'illex::LatencyTracker']]]
 ];

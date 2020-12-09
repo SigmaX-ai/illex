@@ -109,6 +109,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_j_s_o_n_queue_item.html">JSONQueueItem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An item in a JSON queue.  <a href="structillex_1_1_j_s_o_n_queue_item.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_latency_tracker.html">LatencyTracker</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_member.html">Member</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classillex_1_1_member.html" title="Member generator. ">Member</a> generator.  <a href="classillex_1_1_member.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,26 +150,23 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_value.html">Value</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract class representing a value generator.  <a href="classillex_1_1_value.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_z_m_q_client.html">ZMQClient</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A streaming client based on ZeroMQ.  <a href="structillex_1_1_z_m_q_client.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_z_m_q_protocol.html">ZMQProtocol</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protocol options for the ZMQ streaming client/server.  <a href="structillex_1_1_z_m_q_protocol.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_z_m_q_server.html">ZMQServer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A streaming server based on ZeroMQ's push-pull configuration.  <a href="classillex_1_1_z_m_q_server.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a9a02fafdb6f1295445e5adb0e31c2591"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a9a02fafdb6f1295445e5adb0e31c2591">ProductionQueue</a> = moodycamel::ConcurrentQueue&lt; std::string &gt;</td></tr>
 <tr class="separator:a9a02fafdb6f1295445e5adb0e31c2591"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a379d980f2274e7f626bb6fab4d9badb5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a379d980f2274e7f626bb6fab4d9badb5">TCPBuffer</a> = std::array&lt; std::byte, <a class="el" href="namespaceillex.html#ad1519b42b290512e5f220316fe6f2bf1">illex::RAW_BUFFER_SIZE</a> &gt;</td></tr>
-<tr class="separator:a379d980f2274e7f626bb6fab4d9badb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07d6306f515e2ef5826a2f5f741e80f0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a07d6306f515e2ef5826a2f5f741e80f0">TCPBuffer</a> = std::array&lt; std::byte, <a class="el" href="raw__protocol_8h.html#acb4b48eed4dc1af9e98e2a0736835447">ILLEX_TCP_BUFFER_SIZE</a> &gt;</td></tr>
+<tr class="separator:a07d6306f515e2ef5826a2f5f741e80f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae68b6eb40b40a1dfdc75d67f8838b31e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a> = putong::Status&lt; <a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44">Error</a> &gt;</td></tr>
 <tr class="separator:ae68b6eb40b40a1dfdc75d67f8838b31e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb6f569ff5a0228ba3c32362f23b6b10"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#adb6f569ff5a0228ba3c32362f23b6b10">StreamProtocol</a> = std::variant&lt; <a class="el" href="structillex_1_1_raw_protocol.html">RawProtocol</a>, <a class="el" href="structillex_1_1_z_m_q_protocol.html">ZMQProtocol</a> &gt;</td></tr>
-<tr class="separator:adb6f569ff5a0228ba3c32362f23b6b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a276e2f42b8cd0e5876936d23bf34233b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a276e2f42b8cd0e5876936d23bf34233b">Timer</a> = std::chrono::steady_clock</td></tr>
+<tr class="separator:a276e2f42b8cd0e5876936d23bf34233b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c93539a83df4c13ed1c19dc77ff2289"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a6c93539a83df4c13ed1c19dc77ff2289">TimePoint</a> = std::chrono::time_point&lt; std::chrono::steady_clock &gt;</td></tr>
+<tr class="separator:a6c93539a83df4c13ed1c19dc77ff2289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ba218331f2ced468d63b1f949b2717e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a7ba218331f2ced468d63b1f949b2717e">StreamProtocol</a> = std::variant&lt; <a class="el" href="structillex_1_1_raw_protocol.html">RawProtocol</a> &gt;</td></tr>
+<tr class="separator:a7ba218331f2ced468d63b1f949b2717e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac238cc1dc95473f599930aa8191a6a83"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ac238cc1dc95473f599930aa8191a6a83">Seq</a> = uint64_t</td></tr>
+<tr class="separator:ac238cc1dc95473f599930aa8191a6a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad457a19601f154106b7b594719790fa4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ad457a19601f154106b7b594719790fa4">JSONQueue</a> = moodycamel::BlockingConcurrentQueue&lt; <a class="el" href="structillex_1_1_j_s_o_n_queue_item.html">JSONQueueItem</a> &gt;</td></tr>
 <tr class="memdesc:ad457a19601f154106b7b594719790fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">A JSON queue for downstream tools.  <a href="#ad457a19601f154106b7b594719790fa4">More...</a><br /></td></tr>
 <tr class="separator:ad457a19601f154106b7b594719790fa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,10 +189,9 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44ab8f3ed63a76e8f1710dfd83958de1789">Error::GenericError</a>, 
 <a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a8d2aeea6dbe4bf6852e97fb66f45e84f">Error::CLIError</a>, 
 <a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44ab905a63d4511546eff4524d4d2db32ab">Error::JSONError</a>, 
-<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a943ed4c7592cf3d4c35614d7f0292d6b">Error::ZMQError</a>, 
+<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a7a85fbcc926a749124f2367de2f2a4b3">Error::RawError</a>, 
 <br />
-&#160;&#160;<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a7a85fbcc926a749124f2367de2f2a4b3">Error::RawError</a>, 
-<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a5206bd7472156351d2d9a99633ac9580">Error::IOError</a>
+&#160;&#160;<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a5206bd7472156351d2d9a99633ac9580">Error::IOError</a>
 <br />
  }</td></tr>
 <tr class="separator:aac6d027847f276bd2ff1a54b89c16f44"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -233,24 +231,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a1a7d55bd26e692018470e8749e06b3f8"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a1a7d55bd26e692018470e8749e06b3f8">RunStream</a> (const <a class="el" href="structillex_1_1_stream_options.html">StreamOptions</a> &amp;options) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
 <tr class="memdesc:a1a7d55bd26e692018470e8749e06b3f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the stream subcommand.  <a href="#a1a7d55bd26e692018470e8749e06b3f8">More...</a><br /></td></tr>
 <tr class="separator:a1a7d55bd26e692018470e8749e06b3f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae569e5535896a8a6bfb4e121b4f549f9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ae569e5535896a8a6bfb4e121b4f549f9">RunZMQServer</a> (const <a class="el" href="structillex_1_1_z_m_q_protocol.html">ZMQProtocol</a> &amp;protocol_options, const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;production_options) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
-<tr class="memdesc:ae569e5535896a8a6bfb4e121b4f549f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use a <a class="el" href="classillex_1_1_z_m_q_server.html" title="A streaming server based on ZeroMQ&#39;s push-pull configuration. ">ZMQServer</a> to stream the specified JSONs out.  <a href="#ae569e5535896a8a6bfb4e121b4f549f9">More...</a><br /></td></tr>
-<tr class="separator:ae569e5535896a8a6bfb4e121b4f549f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ad1519b42b290512e5f220316fe6f2bf1"><td class="memItemLeft" align="right" valign="top">constexpr const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ad1519b42b290512e5f220316fe6f2bf1">RAW_BUFFER_SIZE</a> = 5 * 1024 * 1024</td></tr>
-<tr class="memdesc:ad1519b42b290512e5f220316fe6f2bf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCP receive buffer size.  <a href="#ad1519b42b290512e5f220316fe6f2bf1">More...</a><br /></td></tr>
-<tr class="separator:ad1519b42b290512e5f220316fe6f2bf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a825aef3c90f582e0a273f770903b67"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a0a825aef3c90f582e0a273f770903b67">RAW_PORT</a> = 10197</td></tr>
 <tr class="memdesc:a0a825aef3c90f582e0a273f770903b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">TCP default port.  <a href="#a0a825aef3c90f582e0a273f770903b67">More...</a><br /></td></tr>
 <tr class="separator:a0a825aef3c90f582e0a273f770903b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1636dba590c0a27bf1bfe979ca73c239"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a1636dba590c0a27bf1bfe979ca73c239">ZMQ_PORT</a> = 10197</td></tr>
-<tr class="memdesc:a1636dba590c0a27bf1bfe979ca73c239"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default port number, derived from the alphabet index (arrays start at one) of JSG.  <a href="#a1636dba590c0a27bf1bfe979ca73c239">More...</a><br /></td></tr>
-<tr class="separator:a1636dba590c0a27bf1bfe979ca73c239"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cc8c04a655af4f45fb6c872242d07db"><td class="memItemLeft" align="right" valign="top">constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a1cc8c04a655af4f45fb6c872242d07db">ZMQ_EOS</a> = &quot;stahp&quot;</td></tr>
-<tr class="memdesc:a1cc8c04a655af4f45fb6c872242d07db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default end-of-stream marker for ZMQ.  <a href="#a1cc8c04a655af4f45fb6c872242d07db">More...</a><br /></td></tr>
-<tr class="separator:a1cc8c04a655af4f45fb6c872242d07db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="ac9ab7cca780df015173e4b72f7213ecf"></a>
@@ -325,6 +311,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac238cc1dc95473f599930aa8191a6a83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac238cc1dc95473f599930aa8191a6a83">&#9670;&nbsp;</a></span>Seq</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceillex.html#ac238cc1dc95473f599930aa8191a6a83">illex::Seq</a> = typedef uint64_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae68b6eb40b40a1dfdc75d67f8838b31e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae68b6eb40b40a1dfdc75d67f8838b31e">&#9670;&nbsp;</a></span>Status</h2>
 
@@ -339,28 +339,56 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="adb6f569ff5a0228ba3c32362f23b6b10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb6f569ff5a0228ba3c32362f23b6b10">&#9670;&nbsp;</a></span>StreamProtocol</h2>
+<a id="a7ba218331f2ced468d63b1f949b2717e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ba218331f2ced468d63b1f949b2717e">&#9670;&nbsp;</a></span>StreamProtocol</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespaceillex.html#adb6f569ff5a0228ba3c32362f23b6b10">illex::StreamProtocol</a> = typedef std::variant&lt;<a class="el" href="structillex_1_1_raw_protocol.html">RawProtocol</a>, <a class="el" href="structillex_1_1_z_m_q_protocol.html">ZMQProtocol</a>&gt;</td>
+          <td class="memname">using <a class="el" href="namespaceillex.html#a7ba218331f2ced468d63b1f949b2717e">illex::StreamProtocol</a> = typedef std::variant&lt;<a class="el" href="structillex_1_1_raw_protocol.html">RawProtocol</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a379d980f2274e7f626bb6fab4d9badb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a379d980f2274e7f626bb6fab4d9badb5">&#9670;&nbsp;</a></span>TCPBuffer</h2>
+<a id="a07d6306f515e2ef5826a2f5f741e80f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07d6306f515e2ef5826a2f5f741e80f0">&#9670;&nbsp;</a></span>TCPBuffer</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespaceillex.html#a379d980f2274e7f626bb6fab4d9badb5">illex::TCPBuffer</a> = typedef std::array&lt;std::byte, <a class="el" href="namespaceillex.html#ad1519b42b290512e5f220316fe6f2bf1">illex::RAW_BUFFER_SIZE</a>&gt;</td>
+          <td class="memname">using <a class="el" href="namespaceillex.html#a07d6306f515e2ef5826a2f5f741e80f0">illex::TCPBuffer</a> = typedef std::array&lt;std::byte, <a class="el" href="raw__protocol_8h.html#acb4b48eed4dc1af9e98e2a0736835447">ILLEX_TCP_BUFFER_SIZE</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c93539a83df4c13ed1c19dc77ff2289"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c93539a83df4c13ed1c19dc77ff2289">&#9670;&nbsp;</a></span>TimePoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceillex.html#a6c93539a83df4c13ed1c19dc77ff2289">illex::TimePoint</a> = typedef std::chrono::time_point&lt;std::chrono::steady_clock&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a276e2f42b8cd0e5876936d23bf34233b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a276e2f42b8cd0e5876936d23bf34233b">&#9670;&nbsp;</a></span>Timer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceillex.html#a276e2f42b8cd0e5876936d23bf34233b">illex::Timer</a> = typedef std::chrono::steady_clock</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -391,7 +419,6 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aac6d027847f276bd2ff1a54b89c16f44ab8f3ed63a76e8f1710dfd83958de1789"></a>GenericError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aac6d027847f276bd2ff1a54b89c16f44a8d2aeea6dbe4bf6852e97fb66f45e84f"></a>CLIError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aac6d027847f276bd2ff1a54b89c16f44ab905a63d4511546eff4524d4d2db32ab"></a>JSONError&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aac6d027847f276bd2ff1a54b89c16f44a943ed4c7592cf3d4c35614d7f0292d6b"></a>ZMQError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aac6d027847f276bd2ff1a54b89c16f44a7a85fbcc926a749124f2367de2f2a4b3"></a>RawError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aac6d027847f276bd2ff1a54b89c16f44a5206bd7472156351d2d9a99633ac9580"></a>IOError&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -805,44 +832,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ae569e5535896a8a6bfb4e121b4f549f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae569e5535896a8a6bfb4e121b4f549f9">&#9670;&nbsp;</a></span>RunZMQServer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto illex::RunZMQServer </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structillex_1_1_z_m_q_protocol.html">ZMQProtocol</a> &amp;&#160;</td>
-          <td class="paramname"><em>protocol_options</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;&#160;</td>
-          <td class="paramname"><em>production_options</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> -&gt;  <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Use a <a class="el" href="classillex_1_1_z_m_q_server.html" title="A streaming server based on ZeroMQ&#39;s push-pull configuration. ">ZMQServer</a> to stream the specified JSONs out. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">protocol_options</td><td>Protocol options for the server. </td></tr>
-    <tr><td class="paramname">production_options</td><td>Options for JSON production. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Status::OK if successful, some error otherwise. </dd></dl>
-
-</div>
-</div>
 <a id="a3ce95e1487109601311cdc1ba71ecc77"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ce95e1487109601311cdc1ba71ecc77">&#9670;&nbsp;</a></span>StartLogger()</h2>
 
@@ -871,22 +860,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="ad1519b42b290512e5f220316fe6f2bf1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1519b42b290512e5f220316fe6f2bf1">&#9670;&nbsp;</a></span>RAW_BUFFER_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const size_t illex::RAW_BUFFER_SIZE = 5 * 1024 * 1024</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>TCP receive buffer size. </p>
-
-</div>
-</div>
 <a id="a0a825aef3c90f582e0a273f770903b67"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0a825aef3c90f582e0a273f770903b67">&#9670;&nbsp;</a></span>RAW_PORT</h2>
 
@@ -900,38 +873,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>TCP default port. </p>
-
-</div>
-</div>
-<a id="a1cc8c04a655af4f45fb6c872242d07db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cc8c04a655af4f45fb6c872242d07db">&#9670;&nbsp;</a></span>ZMQ_EOS</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* illex::ZMQ_EOS = &quot;stahp&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Default end-of-stream marker for ZMQ. </p>
-
-</div>
-</div>
-<a id="a1636dba590c0a27bf1bfe979ca73c239"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1636dba590c0a27bf1bfe979ca73c239">&#9670;&nbsp;</a></span>ZMQ_PORT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr uint16_t illex::ZMQ_PORT = 10197</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Default port number, derived from the alphabet index (arrays start at one) of JSG. </p>
 
 </div>
 </div>

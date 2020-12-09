@@ -1,7 +1,6 @@
 var searchData=
 [
   ['randomengine',['RandomEngine',['../namespaceillex.html#a97705ea223301062572c9eddfa05ebb3',1,'illex']]],
-  ['raw_5fbuffer_5fsize',['RAW_BUFFER_SIZE',['../namespaceillex.html#ad1519b42b290512e5f220316fe6f2bf1',1,'illex']]],
   ['raw_5fclient_2ecpp',['raw_client.cpp',['../raw__client_8cpp.html',1,'']]],
   ['raw_5fclient_2eh',['raw_client.h',['../raw__client_8h.html',1,'']]],
   ['raw_5fport',['RAW_PORT',['../namespaceillex.html#a0a825aef3c90f582e0a273f770903b67',1,'illex']]],
@@ -16,7 +15,7 @@ var searchData=
   ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
   ['readschemafromfile',['ReadSchemaFromFile',['../namespaceillex.html#ae50d001477ebf99b5a53565862fdf60c',1,'illex']]],
   ['received',['received',['../structillex_1_1_raw_client.html#a30f6c251d60335064746153dd976ecb3',1,'illex::RawClient']]],
-  ['receivejsons',['ReceiveJSONs',['../structillex_1_1_raw_client.html#a1ea0f4f2a3c71516378d615c2747f426',1,'illex::RawClient::ReceiveJSONs()'],['../structillex_1_1_z_m_q_client.html#a02fb95fafb491168f15ca9e310e5f2dd',1,'illex::ZMQClient::ReceiveJSONs()']]],
+  ['receivejsons',['ReceiveJSONs',['../structillex_1_1_raw_client.html#a227f150bdeb958aee7cfba9e30dc32df',1,'illex::RawClient']]],
   ['repeat',['repeat',['../structillex_1_1_stream_options.html#ae12ece49664ce8a65e07576610683dcb',1,'illex::StreamOptions']]],
   ['return_5fvalue',['return_value',['../structillex_1_1_app_options.html#a8e1ffb08c3828fddd386e00a19123758',1,'illex::AppOptions']]],
   ['reuse',['reuse',['../structillex_1_1_raw_protocol.html#ae353919e862dd8d02b95ded40dfeafc2',1,'illex::RawProtocol']]],
@@ -24,6 +23,5 @@ var searchData=
   ['root_5f',['root_',['../classillex_1_1_document_generator.html#a84aabbb6f060aa98c316470daa901051',1,'illex::DocumentGenerator']]],
   ['runfile',['RunFile',['../namespaceillex.html#a36db3575f6c9f676e2f996512e3cbcc9',1,'illex']]],
   ['runrawserver',['RunRawServer',['../namespaceillex.html#a90f5cd49f4a5cbe222aeefa1503ba86d',1,'illex']]],
-  ['runstream',['RunStream',['../namespaceillex.html#a1a7d55bd26e692018470e8749e06b3f8',1,'illex']]],
-  ['runzmqserver',['RunZMQServer',['../namespaceillex.html#ae569e5535896a8a6bfb4e121b4f549f9',1,'illex']]]
+  ['runstream',['RunStream',['../namespaceillex.html#a1a7d55bd26e692018470e8749e06b3f8',1,'illex']]]
 ];

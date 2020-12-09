@@ -80,9 +80,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1ea0f4f2a3c71516378d615c2747f426"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_raw_client.html#a1ea0f4f2a3c71516378d615c2747f426">ReceiveJSONs</a> (<a class="el" href="namespaceillex.html#ad457a19601f154106b7b594719790fa4">JSONQueue</a> *queue, putong::Timer&lt;&gt; *latency_timer=nullptr) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
-<tr class="memdesc:a1ea0f4f2a3c71516378d615c2747f426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive JSONs on this raw stream client and put them in queue.  <a href="#a1ea0f4f2a3c71516378d615c2747f426">More...</a><br /></td></tr>
-<tr class="separator:a1ea0f4f2a3c71516378d615c2747f426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a227f150bdeb958aee7cfba9e30dc32df"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_raw_client.html#a227f150bdeb958aee7cfba9e30dc32df">ReceiveJSONs</a> (<a class="el" href="namespaceillex.html#ad457a19601f154106b7b594719790fa4">JSONQueue</a> *queue, <a class="el" href="classillex_1_1_latency_tracker.html">LatencyTracker</a> *lat_tracker) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
+<tr class="memdesc:a227f150bdeb958aee7cfba9e30dc32df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive JSONs on this raw stream client and put them in queue.  <a href="#a227f150bdeb958aee7cfba9e30dc32df">More...</a><br /></td></tr>
+<tr class="separator:a227f150bdeb958aee7cfba9e30dc32df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af67aa96022ad6cbddaa31376904a7e1d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_raw_client.html#af67aa96022ad6cbddaa31376904a7e1d">Close</a> () -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
 <tr class="memdesc:af67aa96022ad6cbddaa31376904a7e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close this raw client.  <a href="#af67aa96022ad6cbddaa31376904a7e1d">More...</a><br /></td></tr>
 <tr class="separator:af67aa96022ad6cbddaa31376904a7e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,8 +236,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1ea0f4f2a3c71516378d615c2747f426"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ea0f4f2a3c71516378d615c2747f426">&#9670;&nbsp;</a></span>ReceiveJSONs()</h2>
+<a id="a227f150bdeb958aee7cfba9e30dc32df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a227f150bdeb958aee7cfba9e30dc32df">&#9670;&nbsp;</a></span>ReceiveJSONs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -251,8 +251,8 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">putong::Timer&lt;&gt; *&#160;</td>
-          <td class="paramname"><em>latency_timer</em> = <code>nullptr</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="classillex_1_1_latency_tracker.html">LatencyTracker</a> *&#160;</td>
+          <td class="paramname"><em>lat_tracker</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -266,7 +266,6 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">queue</td><td>The queue to put the JSONs in. </td></tr>
-    <tr><td class="paramname">latency_timer</td><td>A timer that is started on arrival of the TCP packet. Ignored when it is nullptr. (TODO) </td></tr>
   </table>
   </dd>
 </dl>

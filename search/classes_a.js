@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['object',['Object',['../classillex_1_1_object.html',1,'illex']]]
+  ['null',['Null',['../classillex_1_1_null.html',1,'illex']]]
 ];

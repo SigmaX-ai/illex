@@ -96,8 +96,6 @@ $(function() {
 <li>Close()
 : <a class="el" href="structillex_1_1_raw_client.html#af67aa96022ad6cbddaa31376904a7e1d">illex::RawClient</a>
 , <a class="el" href="classillex_1_1_raw_server.html#ab592eb3b613ae15cb99a269ef1ef971a">illex::RawServer</a>
-, <a class="el" href="structillex_1_1_z_m_q_client.html#ae7c7b134881c30df1d1d0ae2e7b4dbdb">illex::ZMQClient</a>
-, <a class="el" href="classillex_1_1_z_m_q_server.html#a532b45a34817af952c5cd40f49c470eb">illex::ZMQServer</a>
 </li>
 <li>context()
 : <a class="el" href="classillex_1_1_document_generator.html#a4bf948f92b229b737cc4c94d2c1beaca">illex::DocumentGenerator</a>
@@ -111,8 +109,6 @@ $(function() {
 <li>Create()
 : <a class="el" href="structillex_1_1_raw_client.html#a3ee64fd7ab5d72d3119e6ceda7238652">illex::RawClient</a>
 , <a class="el" href="classillex_1_1_raw_server.html#a9de1565118929cea841735d147b9d579">illex::RawServer</a>
-, <a class="el" href="structillex_1_1_z_m_q_client.html#af5ca1ba49773be8e2a37c45a071ed221">illex::ZMQClient</a>
-, <a class="el" href="classillex_1_1_z_m_q_server.html#a27cad2190a6704161eaeb99a3697ec5a">illex::ZMQServer</a>
 </li>
 </ul>
 
@@ -137,9 +133,6 @@ $(function() {
 <li>engine_
 : <a class="el" href="structillex_1_1_context.html#a8eede6b2c02b6133620e6b2c0f13216f">illex::Context</a>
 , <a class="el" href="classillex_1_1_document_generator.html#a486b3535b8ccfb0470071f24f89a2f7b">illex::DocumentGenerator</a>
-</li>
-<li>eos_marker
-: <a class="el" href="structillex_1_1_z_m_q_protocol.html#a5deec8cb1c4be1e741cd31619b5771ef">illex::ZMQProtocol</a>
 </li>
 <li>exit
 : <a class="el" href="structillex_1_1_app_options.html#a467b699031bcb4ec7d913e6259ef477c">illex::AppOptions</a>
@@ -180,10 +173,14 @@ $(function() {
 , <a class="el" href="classillex_1_1_document_generator.html#a23e6daeb8a9e88aa799dcd5f35ab338b">illex::DocumentGenerator</a>
 , <a class="el" href="structillex_1_1_fixed_size_array.html#ad433f0ff6b750154bb05d0a70433b991">illex::FixedSizeArray</a>
 , <a class="el" href="classillex_1_1_int.html#abe57658f22b5b243342c7d29bf7b301e">illex::Int&lt; T &gt;</a>
+, <a class="el" href="classillex_1_1_latency_tracker.html#a3d31ea4ccc25470fe87e185011c94bf9">illex::LatencyTracker</a>
 , <a class="el" href="classillex_1_1_null.html#abce580a4f0e2d762b449689b60ab58e5">illex::Null</a>
 , <a class="el" href="classillex_1_1_object.html#a77420fe0831f3ee66efbc1c37ebefedd">illex::Object</a>
 , <a class="el" href="structillex_1_1_string.html#a0f5ec61ebafe140c90a30f6fb5403623">illex::String</a>
 , <a class="el" href="classillex_1_1_value.html#a99783d72e7936fbd95f9fd2a7295dbfb">illex::Value</a>
+</li>
+<li>GetInterval()
+: <a class="el" href="classillex_1_1_latency_tracker.html#a74a9cce786d155a67fa77938dfdf09fa">illex::LatencyTracker</a>
 </li>
 <li>GetString()
 : <a class="el" href="classillex_1_1_document_generator.html#ab5eee6025aaa242a6f519baf5233a44d">illex::DocumentGenerator</a>
@@ -194,6 +191,13 @@ $(function() {
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>Int()
 : <a class="el" href="classillex_1_1_int.html#ab2b9a9086f44f34e4377cccf1bd77bf9">illex::Int&lt; T &gt;</a>
+</li>
+</ul>
+
+
+<h3><a id="index_l"></a>- l -</h3><ul>
+<li>LatencyTracker()
+: <a class="el" href="classillex_1_1_latency_tracker.html#ac727b2ec773f8db50368cb12a387e2a3">illex::LatencyTracker</a>
 </li>
 </ul>
 
@@ -228,6 +232,9 @@ $(function() {
 <li>num_messages
 : <a class="el" href="structillex_1_1_stream_statistics.html#a8de2bf49b2ce92df0043a18d5b1d71e1">illex::StreamStatistics</a>
 </li>
+<li>num_samples()
+: <a class="el" href="classillex_1_1_latency_tracker.html#acab57823518877b8ff5974edf67ed94b">illex::LatencyTracker</a>
+</li>
 <li>num_threads
 : <a class="el" href="structillex_1_1_production_options.html#a5b887168ee4e95da5f570bfb2350e774">illex::ProductionOptions</a>
 </li>
@@ -250,7 +257,6 @@ $(function() {
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>port
 : <a class="el" href="structillex_1_1_raw_protocol.html#abdbe72ca379e68958a2c63785722d72f">illex::RawProtocol</a>
-, <a class="el" href="structillex_1_1_z_m_q_protocol.html#aceaa87c6bace89cdba7c662cf17e68b4">illex::ZMQProtocol</a>
 </li>
 <li>pretty
 : <a class="el" href="structillex_1_1_production_options.html#a5c476aa60b04935bc7e00794727296fe">illex::ProductionOptions</a>
@@ -265,6 +271,9 @@ $(function() {
 <li>protocol
 : <a class="el" href="structillex_1_1_stream_options.html#affeea0bb165aea885bc915870cd9157f">illex::StreamOptions</a>
 </li>
+<li>Put()
+: <a class="el" href="classillex_1_1_latency_tracker.html#a66bf2a11c66a93479b5978f41c2cfff1">illex::LatencyTracker</a>
+</li>
 </ul>
 
 
@@ -276,8 +285,7 @@ $(function() {
 : <a class="el" href="structillex_1_1_raw_client.html#a30f6c251d60335064746153dd976ecb3">illex::RawClient</a>
 </li>
 <li>ReceiveJSONs()
-: <a class="el" href="structillex_1_1_raw_client.html#a1ea0f4f2a3c71516378d615c2747f426">illex::RawClient</a>
-, <a class="el" href="structillex_1_1_z_m_q_client.html#a02fb95fafb491168f15ca9e310e5f2dd">illex::ZMQClient</a>
+: <a class="el" href="structillex_1_1_raw_client.html#a227f150bdeb958aee7cfba9e30dc32df">illex::RawClient</a>
 </li>
 <li>repeat
 : <a class="el" href="structillex_1_1_stream_options.html#ae12ece49664ce8a65e07576610683dcb">illex::StreamOptions</a>
@@ -309,10 +317,9 @@ $(function() {
 </li>
 <li>SendJSONs()
 : <a class="el" href="classillex_1_1_raw_server.html#a5a013437ad46e341307623094b995611">illex::RawServer</a>
-, <a class="el" href="classillex_1_1_z_m_q_server.html#a4643a35c33d53735b1510a081a27824b">illex::ZMQServer</a>
 </li>
 <li>seq
-: <a class="el" href="structillex_1_1_j_s_o_n_queue_item.html#a6e7060ce7dafe9619c41292a1ed310d9">illex::JSONQueueItem</a>
+: <a class="el" href="structillex_1_1_j_s_o_n_queue_item.html#a2429b36f3474e10eee2e59ff6f3761a2">illex::JSONQueueItem</a>
 </li>
 <li>SetContext()
 : <a class="el" href="classillex_1_1_member.html#a87c4aeb135aec4b2e81bc626f603eb26">illex::Member</a>
@@ -364,7 +371,7 @@ $(function() {
 : <a class="el" href="structillex_1_1_production_options.html#acb16731c5b8bf10b51bf58d6338d4863">illex::ProductionOptions</a>
 </li>
 <li>Visit()
-: <a class="el" href="classillex_1_1_field_analyzer.html#a389ef63e3d5b20a8f0d9327f08ff0a59">illex::FieldAnalyzer</a>
+: <a class="el" href="classillex_1_1_field_analyzer.html#af84ab3fc65f60613cef34c806d565f4f">illex::FieldAnalyzer</a>
 </li>
 </ul>
 
@@ -379,9 +386,9 @@ $(function() {
 </ul>
 
 
-<h3><a id="index_z"></a>- z -</h3><ul>
-<li>ZMQProtocol()
-: <a class="el" href="structillex_1_1_z_m_q_protocol.html#a5efca997519c11c88e00bad530bdbfe1">illex::ZMQProtocol</a>
+<h3><a id="index_0x7e"></a>- ~ -</h3><ul>
+<li>~LatencyTracker()
+: <a class="el" href="classillex_1_1_latency_tracker.html#a67ff854c29e494266c627e2348cddb3a">illex::LatencyTracker</a>
 </li>
 </ul>
 </div><!-- contents -->
