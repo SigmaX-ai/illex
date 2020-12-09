@@ -21,8 +21,6 @@ jobs:
         sudo apt-get install -y ./apache-arrow-archive-keyring-latest-$(lsb_release --codename --short).deb
         sudo apt-get update
         sudo apt-get install -y libarrow-dev=$ARROW_VERSION-1
-    - name: Install zeromq
-      run: sudo apt-get install -y libzmqpp-dev
     - name: CMake
       env:
         CC: gcc-9

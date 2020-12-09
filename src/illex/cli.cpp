@@ -15,7 +15,6 @@
 #include "illex/log.h"
 #include "illex/cli.h"
 #include "illex/file.h"
-#include "illex/zmq_server.h"
 #include "illex/arrow.h"
 #include "illex/status.h"
 
@@ -66,9 +65,7 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
   AddCommonOpts(stream, &result.stream.production, &schema_file);
   auto *port_opt = stream->add_option("-p,--port",
                                       stream_port,
-                                      "Port (default=" + std::to_string(ZMQ_PORT) + ").");
-  // auto *zmq_flag = sub_stream->add_flag("-z,--zeromq", "Use the ZeroMQ push-pull "
-  // "protocol for the stream.");
+                                      "Port (default=" + std::to_string(RAW_PORT) + ").");
   auto *no_reuse_flag = stream->add_flag("--disable-socket-reuse",
                                          "Don't allow reuse of the server socket "
                                          "(need to wait for timeout).");
@@ -99,21 +96,12 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
     result.sub = SubCommand::STREAM;
     status = ReadSchemaFromFile(schema_file, &result.stream.production.schema);
 
-    // Check which streaming protocol to use.
-//    if (*zmq_flag) {
-//      ZMQProtocol zmq;
-//      if (*port_opt) {
-//        zmq.port = stream_port;
-//      }
-//      result.stream.protocol = zmq;
-//    } else
-    {
-      RawProtocol raw;
-      if (*port_opt) raw.port = stream_port;
-      if (*no_reuse_flag) raw.reuse = false;
-      if (*repeat) result.stream.repeat = true;
-      result.stream.protocol = raw;
-    }
+    RawProtocol raw;
+    if (*port_opt) raw.port = stream_port;
+    if (*no_reuse_flag) raw.reuse = false;
+    if (*repeat) result.stream.repeat = true;
+    result.stream.protocol = raw;
+
   } else {
     result.sub = SubCommand::NONE;
   }

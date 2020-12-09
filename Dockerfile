@@ -12,7 +12,6 @@ RUN apt-get update && \
     dpkg -i apache-pulsar-client.deb && \
     curl -L -O https://downloads.apache.org/pulsar/pulsar-2.6.0/DEB/apache-pulsar-client-dev.deb && \
     dpkg -i apache-pulsar-client-dev.deb && \
-    apt-get install -y libzmqpp-dev && \
     apt-get update && apt-get install -y python3 python3-pip && \
     python3 -m pip install -U pip && \
     python3 -m pip install pyarrow

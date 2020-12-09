@@ -20,8 +20,8 @@
 #include <CLI/CLI.hpp>
 #include <arrow/api.h>
 
-#include "./file.h"
-#include "./zmq_server.h"
+#include "illex/file.h"
+#include "illex/stream.h"
 
 namespace illex {
 

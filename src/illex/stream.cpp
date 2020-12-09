@@ -14,19 +14,18 @@
 
 #include "illex/log.h"
 #include "illex/stream.h"
-#include "illex/zmq_server.h"
 #include "illex/raw_server.h"
 
 namespace illex {
 
 auto RunStream(const StreamOptions &opt) -> Status {
   do {
-    if (std::holds_alternative<ZMQProtocol>(opt.protocol)) {
-      ILLEX_ROE(RunZMQServer(std::get<ZMQProtocol>(opt.protocol), opt.production));
-    } else {
+    if (std::holds_alternative<RawProtocol>(opt.protocol)) {
       ILLEX_ROE(RunRawServer(std::get<RawProtocol>(opt.protocol),
                              opt.production,
                              opt.statistics));
+    } else {
+      throw std::runtime_error("Corrupt protocol.");
     }
   } while (opt.repeat);
 

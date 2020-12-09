@@ -14,7 +14,6 @@
 
 #pragma once
 
-#include <zmqpp/zmqpp.hpp>
 #include <arrow/api.h>
 #include <illex/protocol.h>
 
