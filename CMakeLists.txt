@@ -96,6 +96,7 @@ add_compile_unit(
   TSTS
     test/illex/test_arrow.cpp
     test/illex/test_gen.cpp
+    test/illex/test_client.cpp
   DEPS
     kissnet
     illex::static

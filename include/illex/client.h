@@ -14,6 +14,9 @@
 
 #pragma once
 
+#include "illex/latency.h"
+#include "illex/status.h"
+
 namespace illex {
 
 struct RawClient {

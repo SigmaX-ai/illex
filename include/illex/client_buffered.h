@@ -29,31 +29,41 @@ class RawJSONBuffer {
  public:
   /**
    * \brief Create a new buffer wrapper to dump JSONs in.
-   * \param[in]  buffer      The buffer address, managed elsewhere.
-   * \param[in]  capacity    The capacity of the buffer.
-   * \param[out] out         The resulting
+   * \param[in]  buffer         The buffer address, managed elsewhere.
+   * \param[in]  capacity       The capacity of the buffer.
+   * \param[out] out            The resulting
+   * \param[in]  lat_track_cap  Initial capacity for latency tracking seq no buffer.
    * \return Status::OK() if successful, some error otherwise.
    */
-  static auto Create(std::byte *buffer, size_t capacity, RawJSONBuffer *out) -> Status;
+  static auto Create(std::byte *buffer,
+                     size_t capacity,
+                     RawJSONBuffer *out,
+                     size_t lat_track_cap = 8) -> Status;
 
-  auto CountJSONs(uint64_t *seq,
-                  TimePoint receive_time,
-                  LatencyTracker *tracker = nullptr) -> size_t;
+  auto Scan(size_t num_bytes,
+            uint64_t *seq,
+            TimePoint receive_time,
+            LatencyTracker *tracker = nullptr) -> std::pair<size_t, size_t>;
 
   /// \brief Return a pointer to mutate the buffer contents.
   auto mutable_data() -> std::byte * { return buffer_; }
 
   /// \brief Return a pointer to read the buffer.
-  [[nodiscard]] auto data() const -> const std::byte * { return buffer_; }
+  [[nodiscard]] inline auto data() const -> const std::byte * { return buffer_; }
 
   /// \brief Return the allocated capacity of the buffer.
-  [[nodiscard]] auto capacity() const -> size_t { return capacity_; }
+  [[nodiscard]] inline auto capacity() const -> size_t { return capacity_; }
 
   /// \brief Return the number of valid bytes in the buffer.
-  [[nodiscard]] auto size() const -> size_t { return size_; }
+  [[nodiscard]] inline auto size() const -> size_t { return size_; }
 
   /// \brief Return whether the buffer is empty.
-  [[nodiscard]] auto empty() const -> bool { return size_ == 0; }
+  [[nodiscard]] inline auto empty() const -> bool { return size_ == 0; }
+
+  [[nodiscard]] inline auto first() const -> Seq { return seq_first_last.first; }
+  [[nodiscard]] inline auto last() const -> Seq { return seq_first_last.second; }
+  [[nodiscard]] inline auto seq_tracked() const -> const std::vector<Seq> & { return seq_tracked_; }
+  [[nodiscard]] inline auto num_jsons() const -> size_t { return last() - first() + 1; }
 
   /// \brief Modify the number of valid of bytes in the buffer without bounds checking.
   inline void SetSizeUnsafe(size_t size) { size_ = size; }
@@ -62,7 +72,7 @@ class RawJSONBuffer {
   auto SetSize(size_t size) -> Status;
 
   /// \brief Reset the buffer.
-  void Reset() { this->size_ = 0; }
+  void Reset();
 
   RawJSONBuffer() = default;
  protected:
@@ -76,6 +86,8 @@ class RawJSONBuffer {
   size_t capacity_ = 0;
   /// The JSONs sequence numbers contained within the buffer.
   std::pair<Seq, Seq> seq_first_last;
+  /// The JSONs sequence numbers that are latency tracked.
+  std::vector<Seq> seq_tracked_;
 };
 
 /// A streaming client using the Raw protocol that receives the JSONs over multiple
