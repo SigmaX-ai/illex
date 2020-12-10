@@ -14,26 +14,13 @@
 
 #pragma once
 
-#include <future>
-#include <cstdint>
-#include <arrow/api.h>
-#include <blockingconcurrentqueue.h>
-
-#include "illex/document.h"
-
 namespace illex {
 
-using Seq = uint64_t;
-
-/// An item in a JSON queue.
-struct JSONQueueItem {
-  /// Sequence number.
-  Seq seq = 0;
-  /// Raw JSON string.
-  std::string string;
+struct RawClient {
+  virtual auto ReceiveJSONs(LatencyTracker *lat_tracker) -> Status = 0;
+  virtual auto Close() -> Status = 0;
+  [[nodiscard]] virtual auto received() const -> size_t = 0;
+  [[nodiscard]] virtual auto bytes_received() const -> size_t = 0;
 };
-
-/// A JSON queue for downstream tools.
-using JSONQueue = moodycamel::BlockingConcurrentQueue<JSONQueueItem>;
 
 }

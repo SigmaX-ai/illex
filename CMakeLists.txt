@@ -70,7 +70,8 @@ add_compile_unit(
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
   SRCS
-    src/illex/raw_client.cpp
+    src/illex/client_queued.cpp
+    src/illex/client_buffered.cpp
     src/illex/document.cpp
     src/illex/arrow.cpp
     src/illex/value.cpp
