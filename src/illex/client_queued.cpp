@@ -102,7 +102,7 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
   char *json_end = recv_chars + tcp_valid_bytes;
   size_t remaining = tcp_valid_bytes;
   do {
-    json_end = std::strchr(json_start, '\n');
+    json_end = static_cast<char *>(std::memchr(json_start, '\n', remaining));
     if (json_end == nullptr) {
       // Append the remaining characters to the JSON buffer.
       json_buffer->append(json_start, remaining);
@@ -160,14 +160,7 @@ auto RawQueueingClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
       // status.
       auto bytes_received = std::get<0>(recv_status);
       auto sock_status = std::get<1>(recv_status).get_value();
-      if (sock_status == kissnet::socket_status::cleanly_disconnected) {
-        SPDLOG_DEBUG("Server has cleanly disconnected.");
-        return Status::OK();
-      } else if (sock_status != kissnet::socket_status::valid) {
-        // Otherwise, if it's not valid, there is something wrong.
-        return Status(Error::RawError,
-                      "Server error. Status: " + std::to_string(sock_status));
-      }
+
       this->bytes_received_ += bytes_received;
       // We must now handle the received bytes in the TCP buffer.
       auto num_enqueued = EnqueueAllJSONsInBuffer(&json_string,
@@ -178,6 +171,15 @@ auto RawQueueingClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
                                                   receive_time,
                                                   lat_tracker);
       this->received_ += num_enqueued;
+
+      if (sock_status == kissnet::socket_status::cleanly_disconnected) {
+        SPDLOG_DEBUG("Server has cleanly disconnected.");
+        return Status::OK();
+      } else if (sock_status != kissnet::socket_status::valid) {
+        // Otherwise, if it's not valid, there is something wrong.
+        return Status(Error::RawError,
+                      "Server error. Status: " + std::to_string(sock_status));
+      }
     } catch (const std::exception &e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());

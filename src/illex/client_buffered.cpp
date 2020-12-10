@@ -47,11 +47,6 @@ auto RawJSONBuffer::SetSize(size_t size) -> Status {
   }
 }
 
-auto RawJSONBuffer::SetSequenceNumbers(std::pair<Seq, Seq> seq_nos) -> Status {
-  seq_first_last = seq_nos;
-  return Status::OK();
-}
-
 auto DirectBufferClient::Create(RawProtocol protocol,
                                 std::string host,
                                 uint64_t seq,
@@ -95,22 +90,21 @@ auto DirectBufferClient::Create(RawProtocol protocol,
  * \param tracker
  * \return
  */
-static auto CountJSONsInBuffer(RawJSONBuffer *buffer,
-                               uint64_t *seq,
+auto RawJSONBuffer::CountJSONs(uint64_t *seq,
                                TimePoint receive_time,
-                               LatencyTracker *tracker = nullptr)
--> std::pair<Seq, Seq> {
+                               LatencyTracker *tracker)
+-> size_t {
   size_t first = *seq;
   // TODO(johanpel): implement mechanism to allow newlines within JSON objects,
   //   this only works for non-pretty printed JSONs now.
 
   // Scan the buffer for a newline.
-  const auto *recv_chars = reinterpret_cast<const char *>(buffer->data());
+  const auto *recv_chars = reinterpret_cast<const char *>(this->data());
   const char *json_start = recv_chars;
-  const char *json_end = recv_chars + buffer->size();
-  size_t remaining = buffer->size();
+  const char *json_end = recv_chars + this->size();
+  size_t remaining = this->size();
   do {
-    json_end = std::strchr(json_start, '\n');
+    json_end = static_cast<const char *>(std::memchr(json_start, '\n', remaining));
     if (json_end == nullptr) {
       remaining = 0;
     } else {
@@ -120,41 +114,57 @@ static auto CountJSONsInBuffer(RawJSONBuffer *buffer,
       // Move the start scan index to the character after the newline.
       json_start = json_end + 1;
       // Calculate the remaining number of bytes in the buffer.
-      remaining = (recv_chars + buffer->size()) - json_start;
+      remaining = (recv_chars + this->size()) - json_start;
     }
     // Repeat until there are no remaining bytes.
   } while (remaining > 0);
 
-  return {first, (*seq) - 1};
+  // Set contained sequence numbers.
+  this->seq_first_last = {first, (*seq) - 1};
+
+  return (*seq) - first;
 }
 
 auto DirectBufferClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
+  const size_t num_buffers = this->buffers.size();
+  size_t next_buf_idx = 0;
+  size_t current_buf_idx = 0;
   // Loop while the socket is still valid.
   while (client->is_valid()) {
     try {
-      bool empty = true;
-      RawJSONBuffer *buf = nullptr;
-      // Find an empty buffer mutex to lock.
-      while (!empty || !mutexes[buffer_idx]->try_lock()) {
-        buf = buffers[buffer_idx];
-        // Check if the buffer still has some data for a downstream thread to process.
-        if (!buf->empty()) {
-          mutexes[buffer_idx]->unlock();
-          empty = false;
+      // Attempt to get a lock on an empty buffer.
+      illex::RawJSONBuffer *buf = nullptr;
+      do {
+        current_buf_idx = next_buf_idx;
+        auto lock = mutexes[current_buf_idx]->try_lock();
+        if (lock) {
+          if (!buffers[current_buf_idx]->empty()) {
+            mutexes[current_buf_idx]->unlock();
+          } else {
+            buf = buffers[current_buf_idx];
+          }
         }
-        // Increment and wrap around the current buffer index.
-        buffer_idx = (buffer_idx + 1) % buffers.size();
-      }
-      // We were able to lock a buffer mutex.
+        next_buf_idx = (current_buf_idx + 1) % num_buffers;
+      } while (buf == nullptr);
+      // We now have an empty buffer.
 
       // Attempt to receive some bytes.
-      auto recv_status = client->recv(buf->mutable_data(), buf->size());
+      auto recv_status = client->recv(buf->mutable_data(), buf->capacity());
       auto receive_time = Timer::now();
 
       // Perhaps the server disconnected because it's done sending JSONs, check the
       // status.
       auto bytes_received = std::get<0>(recv_status);
       auto sock_status = std::get<1>(recv_status).get_value();
+
+      this->total_bytes_received_ += bytes_received;
+      ILLEX_ROE(buf->SetSize(bytes_received));
+      auto received = buf->CountJSONs(&this->seq, receive_time, lat_tracker);
+      this->jsons_received_ += received;
+
+      // The buffer is ready for processing. Unlock it.
+      mutexes[current_buf_idx]->unlock();
+
       if (sock_status == kissnet::socket_status::cleanly_disconnected) {
         SPDLOG_DEBUG("Server has cleanly disconnected.");
         return Status::OK();
@@ -163,12 +173,6 @@ auto DirectBufferClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
         return Status(Error::RawError,
                       "Server error. Status: " + std::to_string(sock_status));
       }
-      this->total_bytes_received_ += bytes_received;
-      ILLEX_ROE(buf->SetSize(bytes_received));
-      // We must now handle the received bytes in the TCP buffer.
-      auto num_enqueued = CountJSONsInBuffer(buf, &this->seq, receive_time, lat_tracker);
-      ILLEX_ROE(buf->SetSequenceNumbers(num_enqueued))
-      this->jsons_received_ += (num_enqueued.second - num_enqueued.first + 1);
     } catch (const std::exception &e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());

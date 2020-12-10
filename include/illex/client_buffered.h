@@ -36,6 +36,10 @@ class RawJSONBuffer {
    */
   static auto Create(std::byte *buffer, size_t capacity, RawJSONBuffer *out) -> Status;
 
+  auto CountJSONs(uint64_t *seq,
+                  TimePoint receive_time,
+                  LatencyTracker *tracker = nullptr) -> size_t;
+
   /// \brief Return a pointer to mutate the buffer contents.
   auto mutable_data() -> std::byte * { return buffer_; }
 
@@ -56,9 +60,6 @@ class RawJSONBuffer {
 
   /// \brief Modify the number of valid bytes in the buffer with bounds checking.
   auto SetSize(size_t size) -> Status;
-
-  /// \brief Set the JSON sequence number inclusive range contained in this buffer.
-  auto SetSequenceNumbers(std::pair<Seq, Seq> seq_nos) -> Status;
 
   /// \brief Reset the buffer.
   void Reset() { this->size_ = 0; }
