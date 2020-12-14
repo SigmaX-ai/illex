@@ -44,6 +44,7 @@ struct RawProtocol {
 
 using StreamProtocol = std::variant<RawProtocol>;
 
+/// Buffer sequence number.
 using Seq = uint64_t;
 
 }

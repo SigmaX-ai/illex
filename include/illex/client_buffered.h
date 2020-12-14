@@ -99,7 +99,7 @@ class RawJSONBuffer {
   /// The capacity of the buffer.
   size_t capacity_ = 0;
   /// The JSONs sequence numbers contained within the buffer.
-  SeqRange seq_range;
+  SeqRange seq_range = {0, 0};
   /// The TCP receive time point of this buffer.
   TimePoint recv_time_;
 };

@@ -85,7 +85,7 @@ struct RawQueueingClient : public RawClient {
   ~RawQueueingClient();
  private:
   /// The next available sequence number.
-  uint64_t seq = 0;
+  Seq seq = 0;
   /// The number of received JSONs.
   size_t received_ = 0;
   /// The number of received bytes.
