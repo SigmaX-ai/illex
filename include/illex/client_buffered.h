@@ -24,6 +24,11 @@
 
 namespace illex {
 
+struct SeqRange {
+  Seq first;
+  Seq last;
+};
+
 /// A structure to manage multi-buffered client implementation.
 class RawJSONBuffer {
  public:
@@ -40,10 +45,16 @@ class RawJSONBuffer {
                      RawJSONBuffer *out,
                      size_t lat_track_cap = 8) -> Status;
 
-  auto Scan(size_t num_bytes,
-            uint64_t *seq,
-            TimePoint receive_time,
-            LatencyTracker *tracker = nullptr) -> std::pair<size_t, size_t>;
+  /**
+   * \brief Scan the first num_bytes bytes in the buffer for newline delimited JSONs.
+   *
+   * This function returns the number of newline delimited JSONs.
+   *
+   * \param num_bytes Number of bytes to scan from the start.
+   * \param seq       THe starting sequence number for the JSONs in this buffer.
+   * \return          A pair containing the number of JSONs and the remaining bytes.
+   */
+  auto Scan(size_t num_bytes, uint64_t seq) -> std::pair<size_t, size_t>;
 
   /// \brief Return a pointer to mutate the buffer contents.
   auto mutable_data() -> std::byte * { return buffer_; }
@@ -60,16 +71,19 @@ class RawJSONBuffer {
   /// \brief Return whether the buffer is empty.
   [[nodiscard]] inline auto empty() const -> bool { return size_ == 0; }
 
-  [[nodiscard]] inline auto first() const -> Seq { return seq_first_last.first; }
-  [[nodiscard]] inline auto last() const -> Seq { return seq_first_last.second; }
-  [[nodiscard]] inline auto seq_tracked() const -> const std::vector<Seq> & { return seq_tracked_; }
-  [[nodiscard]] inline auto num_jsons() const -> size_t { return last() - first() + 1; }
+  void SetRange(SeqRange range) { seq_range = range; }
+  [[nodiscard]] inline auto range() const -> SeqRange { return seq_range; }
+  [[nodiscard]] auto num_jsons() const -> size_t;
 
   /// \brief Modify the number of valid of bytes in the buffer without bounds checking.
   inline void SetSizeUnsafe(size_t size) { size_ = size; }
 
   /// \brief Modify the number of valid bytes in the buffer with bounds checking.
   auto SetSize(size_t size) -> Status;
+
+  /// \brief Set the receive time of this buffer.
+  void SetRecvTime(TimePoint time) { this->recv_time_ = time; }
+  auto recv_time() -> TimePoint { return this->recv_time_; }
 
   /// \brief Reset the buffer.
   void Reset();
@@ -85,9 +99,9 @@ class RawJSONBuffer {
   /// The capacity of the buffer.
   size_t capacity_ = 0;
   /// The JSONs sequence numbers contained within the buffer.
-  std::pair<Seq, Seq> seq_first_last;
-  /// The JSONs sequence numbers that are latency tracked.
-  std::vector<Seq> seq_tracked_;
+  SeqRange seq_range;
+  /// The TCP receive time point of this buffer.
+  TimePoint recv_time_;
 };
 
 /// A streaming client using the Raw protocol that receives the JSONs over multiple
