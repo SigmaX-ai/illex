@@ -15,22 +15,49 @@
 #include <chrono>
 #include <memory>
 #include <iostream>
+#include <utility>
 
 #include "illex/latency.h"
-#include "illex/raw_client.h"
-#include "illex/raw_protocol.h"
+#include "illex/client_queued.h"
+#include "illex/protocol.h"
 
 namespace illex {
 
-using TCPBuffer = std::array<std::byte, ILLEX_TCP_BUFFER_SIZE>;
+auto RawQueueingClient::Close() -> Status {
+  if (must_be_closed) {
+    client->close();
+    must_be_closed = false;
+  } else {
+    return Status(Error::RawError, "Client was already closed.");
+  }
+  return Status::OK();
+}
 
-auto RawClient::Create(RawProtocol protocol,
-                       std::string host,
-                       uint64_t seq,
-                       RawClient *out) -> Status {
+RawQueueingClient::~RawQueueingClient() {
+  if (must_be_closed) {
+    this->Close();
+  }
+  free(buffer);
+}
+
+auto RawQueueingClient::Create(RawProtocol protocol,
+                               std::string host,
+                               uint64_t seq,
+                               JSONQueue *queue,
+                               RawQueueingClient *out,
+                               size_t buffer_size) -> Status {
+  auto *buffer = static_cast<std::byte *>(malloc(buffer_size));
+
+  if (buffer == nullptr) {
+    return Status(Error::RawError, "Could not allocate TCP recv buffer.");
+  }
+
   out->seq = seq;
   out->host = std::move(host);
   out->protocol = protocol;
+  out->buffer = buffer;
+  out->buffer_size = buffer_size;
+  out->queue = queue;
 
   auto endpoint = out->host + ":" + std::to_string(out->protocol.port);
   out->client = std::make_shared<RawSocket>(kissnet::endpoint(endpoint));
@@ -40,6 +67,8 @@ auto RawClient::Create(RawProtocol protocol,
   if (!success) {
     return Status(Error::RawError, "Unable to connect to server.");
   }
+
+  out->must_be_closed = true;
 
   return Status::OK();
 }
@@ -73,7 +102,7 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
   char *json_end = recv_chars + tcp_valid_bytes;
   size_t remaining = tcp_valid_bytes;
   do {
-    json_end = std::strchr(json_start, '\n');
+    json_end = static_cast<char *>(std::memchr(json_start, '\n', remaining));
     if (json_end == nullptr) {
       // Append the remaining characters to the JSON buffer.
       json_buffer->append(json_start, remaining);
@@ -116,23 +145,33 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
   return queued;
 }
 
-auto RawClient::ReceiveJSONs(JSONQueue *queue, LatencyTracker *lat_tracker) -> Status {
+auto RawQueueingClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
   // Buffer to store the JSON string, is reused to prevent allocations.
   std::string json_string;
-  // TCP receive buffer.
-  auto *recv_buffer = static_cast<std::byte *>(malloc(ILLEX_TCP_BUFFER_SIZE));
 
   // Loop while the socket is still valid.
   while (client->is_valid()) {
     try {
       // Attempt to receive some bytes.
-      auto recv_status = client->recv(recv_buffer, ILLEX_TCP_BUFFER_SIZE);
+      auto recv_status = client->recv(buffer, buffer_size);
       auto receive_time = Timer::now();
 
       // Perhaps the server disconnected because it's done sending JSONs, check the
       // status.
       auto bytes_received = std::get<0>(recv_status);
       auto sock_status = std::get<1>(recv_status).get_value();
+
+      this->bytes_received_ += bytes_received;
+      // We must now handle the received bytes in the TCP buffer.
+      auto num_enqueued = EnqueueAllJSONsInBuffer(&json_string,
+                                                  buffer,
+                                                  bytes_received,
+                                                  queue,
+                                                  &this->seq,
+                                                  receive_time,
+                                                  lat_tracker);
+      this->received_ += num_enqueued;
+
       if (sock_status == kissnet::socket_status::cleanly_disconnected) {
         SPDLOG_DEBUG("Server has cleanly disconnected.");
         return Status::OK();
@@ -141,30 +180,12 @@ auto RawClient::ReceiveJSONs(JSONQueue *queue, LatencyTracker *lat_tracker) -> S
         return Status(Error::RawError,
                       "Server error. Status: " + std::to_string(sock_status));
       }
-      this->bytes_received_ += bytes_received;
-      // We must now handle the received bytes in the TCP buffer.
-      auto num_enqueued = EnqueueAllJSONsInBuffer(&json_string,
-                                                  recv_buffer,
-                                                  bytes_received,
-                                                  queue,
-                                                  &this->seq,
-                                                  receive_time,
-                                                  lat_tracker);
-      this->received_ += num_enqueued;
     } catch (const std::exception &e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());
     }
   }
 
-  free(recv_buffer);
-
-  return Status::OK();
-}
-
-auto RawClient::Close() -> Status {
-  SPDLOG_DEBUG("Closing client.");
-  client->close();
   return Status::OK();
 }
 

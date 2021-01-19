@@ -100,6 +100,11 @@ auto RawServer::SendJSONs(const ProductionOptions &options,
                     "Socket not valid after send: " + std::to_string(send_result_socket));
     }
 
+    // If verbose is enabled, also print the JSON to stdout
+    if (options.verbose) {
+      std::cout << message_str.substr(0, message_str.length() - 1) << std::endl;
+    }
+
     result.num_messages++;
   }
 
