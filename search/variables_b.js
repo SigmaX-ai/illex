@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['raw_5fport',['RAW_PORT',['../namespaceillex.html#a0a825aef3c90f582e0a273f770903b67',1,'illex']]],
-  ['repeat',['repeat',['../structillex_1_1_stream_options.html#ae12ece49664ce8a65e07576610683dcb',1,'illex::StreamOptions']]],
-  ['return_5fvalue',['return_value',['../structillex_1_1_app_options.html#a8e1ffb08c3828fddd386e00a19123758',1,'illex::AppOptions']]],
-  ['reuse',['reuse',['../structillex_1_1_raw_protocol.html#ae353919e862dd8d02b95ded40dfeafc2',1,'illex::RawProtocol']]],
-  ['root_5f',['root_',['../classillex_1_1_document_generator.html#a84aabbb6f060aa98c316470daa901051',1,'illex::DocumentGenerator']]]
+  ['port',['port',['../structillex_1_1_raw_protocol.html#abdbe72ca379e68958a2c63785722d72f',1,'illex::RawProtocol']]],
+  ['pretty',['pretty',['../structillex_1_1_production_options.html#a5c476aa60b04935bc7e00794727296fe',1,'illex::ProductionOptions']]],
+  ['producer',['producer',['../structillex_1_1_stream_statistics.html#ad8c6323ebfa9ee845386ffa97f432dc9',1,'illex::StreamStatistics']]],
+  ['production',['production',['../structillex_1_1_file_options.html#ab0bd9d7da91614d1571326cec5e0d9c0',1,'illex::FileOptions::production()'],['../structillex_1_1_stream_options.html#a10df5cedf1033eb919db2f0ea35a70ab',1,'illex::StreamOptions::production()']]],
+  ['protocol',['protocol',['../structillex_1_1_stream_options.html#affeea0bb165aea885bc915870cd9157f',1,'illex::StreamOptions']]]
 ];

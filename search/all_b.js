@@ -5,7 +5,7 @@ var searchData=
   ['none',['NONE',['../namespaceillex.html#ab8fff30d055af311ffab6d46b1f7bf38ab50339a10e1de285ac99d4c3990b8693',1,'illex']]],
   ['null',['Null',['../classillex_1_1_null.html',1,'illex']]],
   ['num_5fbytes',['num_bytes',['../structillex_1_1_stream_statistics.html#a60ec914616050870cc9528af14370bef',1,'illex::StreamStatistics']]],
-  ['num_5fjsons',['num_jsons',['../structillex_1_1_production_options.html#a6742a196a66c890bbccb1105b9ef7d3f',1,'illex::ProductionOptions']]],
+  ['num_5fjsons',['num_jsons',['../structillex_1_1_production_options.html#a6742a196a66c890bbccb1105b9ef7d3f',1,'illex::ProductionOptions::num_jsons()'],['../classillex_1_1_raw_j_s_o_n_buffer.html#aee1dc954c4f58383bcd40b685f72181c',1,'illex::RawJSONBuffer::num_jsons()']]],
   ['num_5fmessages',['num_messages',['../structillex_1_1_stream_statistics.html#a8de2bf49b2ce92df0043a18d5b1d71e1',1,'illex::StreamStatistics']]],
   ['num_5fsamples',['num_samples',['../classillex_1_1_latency_tracker.html#acab57823518877b8ff5974edf67ed94b',1,'illex::LatencyTracker']]],
   ['num_5fthreads',['num_threads',['../structillex_1_1_production_options.html#a5b887168ee4e95da5f570bfb2350e774',1,'illex::ProductionOptions']]]

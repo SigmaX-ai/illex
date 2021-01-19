@@ -1,0 +1,4 @@
+<map id="illex::RawClient" name="illex::RawClient">
+<area shape="rect" id="node2" href="$structillex_1_1_direct_buffer_client.html" title="illex::DirectBufferClient" alt="" coords="5,80,163,107"/>
+<area shape="rect" id="node3" href="$structillex_1_1_raw_queueing_client.html" title="A streaming client using the Raw protocol that queues received JSONs. " alt="" coords="187,80,357,107"/>
+</map>

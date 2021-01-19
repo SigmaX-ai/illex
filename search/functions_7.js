@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['latencytracker',['LatencyTracker',['../classillex_1_1_latency_tracker.html#ac727b2ec773f8db50368cb12a387e2a3',1,'illex::LatencyTracker']]]
+  ['int',['Int',['../classillex_1_1_int.html#ab2b9a9086f44f34e4377cccf1bd77bf9',1,'illex::Int']]]
 ];

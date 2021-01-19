@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7elatencytracker',['~LatencyTracker',['../classillex_1_1_latency_tracker.html#a67ff854c29e494266c627e2348cddb3a',1,'illex::LatencyTracker']]]
+  ['trygetemptybuffer',['TryGetEmptyBuffer',['../namespaceillex.html#aa83a139db4e531ec3b509455abfd21a6',1,'illex']]]
 ];
