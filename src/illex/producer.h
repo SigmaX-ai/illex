@@ -37,7 +37,7 @@ struct ProductionOptions {
   bool whitespace = true;
   /// The whitespace character to insert.
   char whitespace_char = '\n';
-  /// Wether to print all generated JSONs to stdout.
+  /// Whether to print all generated JSONs to stdout.
   bool verbose = false;
   /// Whether to pretty-print the JSONs.
   bool pretty = false;
