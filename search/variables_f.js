@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['value_5f',['value_',['../classillex_1_1_member.html#ae42e7f07359b368013244cfedae90a05',1,'illex::Member']]],
-  ['verbose',['verbose',['../structillex_1_1_production_options.html#acb16731c5b8bf10b51bf58d6338d4863',1,'illex::ProductionOptions']]]
+  ['time',['time',['../structillex_1_1_production_stats.html#ab075870f6e2b0d70cab674e653fb056e',1,'illex::ProductionStats::time()'],['../structillex_1_1_stream_statistics.html#a5cae60f84630a5e5a8dbc96cefa466c4',1,'illex::StreamStatistics::time()']]]
 ];

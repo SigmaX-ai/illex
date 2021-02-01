@@ -5,5 +5,6 @@ var searchData=
   ['illex_5ftcp_5fbuffer_5fsize',['ILLEX_TCP_BUFFER_SIZE',['../protocol_8h.html#acb4b48eed4dc1af9e98e2a0736835447',1,'protocol.h']]],
   ['illex',['Illex',['../index.html',1,'']]],
   ['int',['Int',['../classillex_1_1_int.html',1,'illex::Int&lt; T &gt;'],['../classillex_1_1_int.html#ab2b9a9086f44f34e4377cccf1bd77bf9',1,'illex::Int::Int()']]],
+  ['interval_5fms',['interval_ms',['../structillex_1_1_repeat_options.html#add936c92a09e4e4929baebae847098c1',1,'illex::RepeatOptions']]],
   ['ioerror',['IOError',['../namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a5206bd7472156351d2d9a99633ac9580',1,'illex']]]
 ];

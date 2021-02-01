@@ -10,6 +10,6 @@ var searchData=
   ['reset',['Reset',['../classillex_1_1_raw_j_s_o_n_buffer.html#ae549aa184b0e63afc37dca03857494e0',1,'illex::RawJSONBuffer']]],
   ['root',['root',['../classillex_1_1_document_generator.html#acdbfa729da5c7d46705dc448615d0dbd',1,'illex::DocumentGenerator']]],
   ['runfile',['RunFile',['../namespaceillex.html#a36db3575f6c9f676e2f996512e3cbcc9',1,'illex']]],
-  ['runrawserver',['RunRawServer',['../namespaceillex.html#a90f5cd49f4a5cbe222aeefa1503ba86d',1,'illex']]],
+  ['runrawserver',['RunRawServer',['../namespaceillex.html#a04329c874c318f5945ef85c06fbb275c',1,'illex']]],
   ['runstream',['RunStream',['../namespaceillex.html#a1a7d55bd26e692018470e8749e06b3f8',1,'illex']]]
 ];

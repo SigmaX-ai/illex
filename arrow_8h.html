@@ -72,19 +72,19 @@ $(function() {
 <div class="title">arrow.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;arrow/api.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="value_8h_source.html">illex/value.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;arrow/api.h&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &quot;<a class="el" href="document_8h_source.html">illex/document.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="status_8h_source.html">illex/status.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="value_8h_source.html">illex/value.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for arrow.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="arrow_8h__incl.png" border="0" usemap="#include_2illex_2arrow_8h" alt=""/></div>
 <map name="include_2illex_2arrow_8h" id="include_2illex_2arrow_8h">
-<area shape="rect" id="node4" href="value_8h.html" title="illex/value.h" alt="" coords="245,155,336,181"/>
-<area shape="rect" id="node9" href="document_8h.html" title="illex/document.h" alt="" coords="328,80,445,107"/>
-<area shape="rect" id="node11" href="status_8h.html" title="illex/status.h" alt="" coords="641,80,737,107"/>
+<area shape="rect" id="node4" href="document_8h.html" title="illex/document.h" alt="" coords="333,80,464,107"/>
+<area shape="rect" id="node8" href="value_8h.html" title="illex/value.h" alt="" coords="251,155,354,181"/>
+<area shape="rect" id="node11" href="status_8h.html" title="illex/status.h" alt="" coords="651,80,757,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -92,11 +92,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="arrow_8h__dep__incl.png" border="0" usemap="#include_2illex_2arrow_8hdep" alt=""/></div>
 <map name="include_2illex_2arrow_8hdep" id="include_2illex_2arrow_8hdep">
-<area shape="rect" id="node2" href="arrow_8cpp.html" title="src/illex/arrow.cpp" alt="" coords="5,80,133,107"/>
-<area shape="rect" id="node3" href="cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="157,80,267,107"/>
-<area shape="rect" id="node4" href="file_8cpp.html" title="src/illex/file.cpp" alt="" coords="291,80,405,107"/>
-<area shape="rect" id="node5" href="producer_8cpp.html" title="src/illex/producer.cpp" alt="" coords="429,80,576,107"/>
-<area shape="rect" id="node6" href="raw__server_8cpp.html" title="src/illex/raw_server.cpp" alt="" coords="600,80,760,107"/>
+<area shape="rect" id="node2" href="arrow_8cpp.html" title="src/illex/arrow.cpp" alt="" coords="5,80,145,107"/>
+<area shape="rect" id="node3" href="cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="169,80,288,107"/>
+<area shape="rect" id="node4" href="file_8cpp.html" title="src/illex/file.cpp" alt="" coords="312,80,436,107"/>
+<area shape="rect" id="node5" href="producer_8cpp.html" title="src/illex/producer.cpp" alt="" coords="461,80,621,107"/>
+<area shape="rect" id="node6" href="raw__server_8cpp.html" title="src/illex/raw_server.cpp" alt="" coords="645,80,820,107"/>
 </map>
 </div>
 </div>
@@ -125,10 +125,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab4d46dc01bc6567734c3518ab3a87227"><td class="mdescLeft">&#160;</td><td class="mdescRight">From an Arrow Field, look up a metadata value by key.  <a href="namespaceillex.html#ab4d46dc01bc6567734c3518ab3a87227">More...</a><br /></td></tr>
 <tr class="separator:ab4d46dc01bc6567734c3518ab3a87227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a988dce72d5c7cd722f510bc66a3c0aea"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a988dce72d5c7cd722f510bc66a3c0aea">illex::GetUInt64Meta</a> (const arrow::Field &amp;field, const std::string &amp;key) -&gt; std::optional&lt; uint64_t &gt;</td></tr>
-<tr class="memdesc:a988dce72d5c7cd722f510bc66a3c0aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">From an Arrow Field, look up a metadata value by key, and convert it to an uint64_t.  <a href="namespaceillex.html#a988dce72d5c7cd722f510bc66a3c0aea">More...</a><br /></td></tr>
+<tr class="memdesc:a988dce72d5c7cd722f510bc66a3c0aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up Arrow field metadata value by key, and convert it to an uint64_t.  <a href="namespaceillex.html#a988dce72d5c7cd722f510bc66a3c0aea">More...</a><br /></td></tr>
 <tr class="separator:a988dce72d5c7cd722f510bc66a3c0aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae50d001477ebf99b5a53565862fdf60c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ae50d001477ebf99b5a53565862fdf60c">illex::ReadSchemaFromFile</a> (const std::string &amp;file, std::shared_ptr&lt; arrow::Schema &gt; *out) -&gt; Status</td></tr>
-<tr class="memdesc:ae50d001477ebf99b5a53565862fdf60c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an Arrow schema from file. Schema must be stored as raw output of Arrow's serialization functions.  <a href="namespaceillex.html#ae50d001477ebf99b5a53565862fdf60c">More...</a><br /></td></tr>
+<tr class="memdesc:ae50d001477ebf99b5a53565862fdf60c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an Arrow schema from file.  <a href="namespaceillex.html#ae50d001477ebf99b5a53565862fdf60c">More...</a><br /></td></tr>
 <tr class="separator:ae50d001477ebf99b5a53565862fdf60c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cd4d66f3bb20a83c350fdb2435fc9ac"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a2cd4d66f3bb20a83c350fdb2435fc9ac">illex::FromArrowSchema</a> (const arrow::Schema &amp;schema, GenerateOptions options=GenerateOptions()) -&gt; DocumentGenerator</td></tr>
 <tr class="memdesc:a2cd4d66f3bb20a83c350fdb2435fc9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classillex_1_1_document_generator.html" title="Allows the generation of a JSON DOM root. ">DocumentGenerator</a> from an Arrow schema.  <a href="namespaceillex.html#a2cd4d66f3bb20a83c350fdb2435fc9ac">More...</a><br /></td></tr>

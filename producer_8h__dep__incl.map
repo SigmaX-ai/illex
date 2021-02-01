@@ -1,12 +1,12 @@
 <map id="src/illex/producer.h" name="src/illex/producer.h">
-<area shape="rect" id="node2" href="$file_8h.html" title="src/illex/file.h" alt="" coords="133,80,232,107"/>
-<area shape="rect" id="node7" href="$producer_8cpp.html" title="src/illex/producer.cpp" alt="" coords="439,80,585,107"/>
-<area shape="rect" id="node8" href="$stream_8h.html" title="src/illex/stream.h" alt="" coords="292,80,415,107"/>
-<area shape="rect" id="node3" href="$cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="5,229,115,256"/>
-<area shape="rect" id="node4" href="$cli_8h.html" title="src/illex/cli.h" alt="" coords="221,155,315,181"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title="src/illex/main.cpp" alt="" coords="198,229,322,256"/>
-<area shape="rect" id="node6" href="$file_8cpp.html" title="src/illex/file.cpp" alt="" coords="31,155,145,181"/>
-<area shape="rect" id="node9" href="$raw__server_8h.html" title="src/illex/raw_server.h" alt="" coords="391,155,537,181"/>
-<area shape="rect" id="node11" href="$stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="531,229,667,256"/>
-<area shape="rect" id="node10" href="$raw__server_8cpp.html" title="src/illex/raw_server.cpp" alt="" coords="347,229,507,256"/>
+<area shape="rect" id="node2" href="$file_8h.html" title="src/illex/file.h" alt="" coords="141,155,250,181"/>
+<area shape="rect" id="node7" href="$producer_8cpp.html" title="src/illex/producer.cpp" alt="" coords="603,80,763,107"/>
+<area shape="rect" id="node8" href="$raw__server_8h.html" title="src/illex/raw_server.h" alt="" coords="419,80,579,107"/>
+<area shape="rect" id="node11" href="$stream_8h.html" title="src/illex/stream.h" alt="" coords="320,155,455,181"/>
+<area shape="rect" id="node3" href="$cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="5,304,124,331"/>
+<area shape="rect" id="node4" href="$cli_8h.html" title="src/illex/cli.h" alt="" coords="233,229,337,256"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="src/illex/main.cpp" alt="" coords="216,304,353,331"/>
+<area shape="rect" id="node6" href="$file_8cpp.html" title="src/illex/file.cpp" alt="" coords="33,229,157,256"/>
+<area shape="rect" id="node9" href="$raw__server_8cpp.html" title="src/illex/raw_server.cpp" alt="" coords="412,229,587,256"/>
+<area shape="rect" id="node10" href="$stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="611,229,761,256"/>
 </map>

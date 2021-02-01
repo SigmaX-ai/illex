@@ -4,7 +4,7 @@ var searchData=
   ['schema',['schema',['../structillex_1_1_production_options.html#a93949df4f40036ee36d9a10828e9a148',1,'illex::ProductionOptions']]],
   ['schemaanalyzer',['SchemaAnalyzer',['../classillex_1_1_schema_analyzer.html',1,'illex::SchemaAnalyzer'],['../classillex_1_1_schema_analyzer.html#a73bf752f8b525ba29e7faa569eacf070',1,'illex::SchemaAnalyzer::SchemaAnalyzer()']]],
   ['seed',['seed',['../structillex_1_1_generate_options.html#a757fc60f803aa6bba444a07740a214cd',1,'illex::GenerateOptions']]],
-  ['sendjsons',['SendJSONs',['../classillex_1_1_raw_server.html#a5a013437ad46e341307623094b995611',1,'illex::RawServer']]],
+  ['sendjsons',['SendJSONs',['../classillex_1_1_raw_server.html#afcfef1c29ed9eb2e775ebe72bbff2f09',1,'illex::RawServer']]],
   ['seq',['seq',['../structillex_1_1_j_s_o_n_queue_item.html#a2429b36f3474e10eee2e59ff6f3761a2',1,'illex::JSONQueueItem::seq()'],['../namespaceillex.html#ac238cc1dc95473f599930aa8191a6a83',1,'illex::Seq()']]],
   ['seq_5frange',['seq_range',['../classillex_1_1_raw_j_s_o_n_buffer.html#a1f277637b58e3980195cb1c748a9f491',1,'illex::RawJSONBuffer']]],
   ['seqrange',['SeqRange',['../structillex_1_1_seq_range.html',1,'illex']]],
@@ -20,7 +20,7 @@ var searchData=
   ['size_5f',['size_',['../classillex_1_1_raw_j_s_o_n_buffer.html#a61d123f159265e8adfd3f003e334a029',1,'illex::RawJSONBuffer']]],
   ['spdlog_5factive_5flevel',['SPDLOG_ACTIVE_LEVEL',['../log_8h.html#ae4fda6f71f35120e2ff48157fca961b5',1,'log.h']]],
   ['startlogger',['StartLogger',['../namespaceillex.html#a3ce95e1487109601311cdc1ba71ecc77',1,'illex']]],
-  ['statistics',['statistics',['../structillex_1_1_stream_options.html#a60821e893370db70c0a68b2043d94ab5',1,'illex::StreamOptions']]],
+  ['statistics',['statistics',['../structillex_1_1_production_options.html#a0798f84ca41655ad4abb1f23df9475e1',1,'illex::ProductionOptions::statistics()'],['../structillex_1_1_stream_options.html#a60821e893370db70c0a68b2043d94ab5',1,'illex::StreamOptions::statistics()']]],
   ['status',['Status',['../namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e',1,'illex']]],
   ['status_2eh',['status.h',['../status_8h.html',1,'']]],
   ['stream',['stream',['../structillex_1_1_app_options.html#ac8a5017c8560e807d61411573af9d9cd',1,'illex::AppOptions::stream()'],['../namespaceillex.html#ab8fff30d055af311ffab6d46b1f7bf38a2f05998d2a71cdc19b7109549bbe2646',1,'illex::STREAM()']]],
@@ -29,7 +29,7 @@ var searchData=
   ['streamoptions',['StreamOptions',['../structillex_1_1_stream_options.html',1,'illex']]],
   ['streamprotocol',['StreamProtocol',['../namespaceillex.html#a7ba218331f2ced468d63b1f949b2717e',1,'illex']]],
   ['streamstatistics',['StreamStatistics',['../structillex_1_1_stream_statistics.html',1,'illex']]],
-  ['string',['String',['../structillex_1_1_string.html',1,'illex::String'],['../structillex_1_1_string.html#af1ce2c0e5fc8cbedb7db0e2c6812a902',1,'illex::String::String()'],['../structillex_1_1_j_s_o_n_queue_item.html#aea6198da2ee6cc35734fb94c728a303c',1,'illex::JSONQueueItem::string()']]],
+  ['string',['String',['../structillex_1_1_string.html',1,'illex::String'],['../structillex_1_1_j_s_o_n_queue_item.html#aea6198da2ee6cc35734fb94c728a303c',1,'illex::JSONQueueItem::string()'],['../structillex_1_1_string.html#af1ce2c0e5fc8cbedb7db0e2c6812a902',1,'illex::String::String()']]],
   ['sub',['sub',['../structillex_1_1_app_options.html#a357e54c8062831217e08c20f2aca4dcb',1,'illex::AppOptions']]],
   ['subcommand',['SubCommand',['../namespaceillex.html#ab8fff30d055af311ffab6d46b1f7bf38',1,'illex']]]
 ];

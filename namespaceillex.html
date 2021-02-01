@@ -142,6 +142,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_raw_server.html">RawServer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A streaming server for raw JSONs directly over TCP.  <a href="classillex_1_1_raw_server.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_repeat_options.html">RepeatOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeat mode options.  <a href="structillex_1_1_repeat_options.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_schema_analyzer.html">SchemaAnalyzer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class to analyze an Arrow schema and populate a <a class="el" href="classillex_1_1_document_generator.html" title="Allows the generation of a JSON DOM root. ">DocumentGenerator</a>.  <a href="classillex_1_1_schema_analyzer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,7 +210,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ae50d001477ebf99b5a53565862fdf60c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ae50d001477ebf99b5a53565862fdf60c">ReadSchemaFromFile</a> (const std::string &amp;file, std::shared_ptr&lt; arrow::Schema &gt; *out) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
-<tr class="memdesc:ae50d001477ebf99b5a53565862fdf60c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an Arrow schema from file. Schema must be stored as raw output of Arrow's serialization functions.  <a href="#ae50d001477ebf99b5a53565862fdf60c">More...</a><br /></td></tr>
+<tr class="memdesc:ae50d001477ebf99b5a53565862fdf60c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read an Arrow schema from file.  <a href="#ae50d001477ebf99b5a53565862fdf60c">More...</a><br /></td></tr>
 <tr class="separator:ae50d001477ebf99b5a53565862fdf60c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cd4d66f3bb20a83c350fdb2435fc9ac"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a2cd4d66f3bb20a83c350fdb2435fc9ac">FromArrowSchema</a> (const arrow::Schema &amp;schema, <a class="el" href="structillex_1_1_generate_options.html">GenerateOptions</a> options=<a class="el" href="structillex_1_1_generate_options.html">GenerateOptions</a>()) -&gt; <a class="el" href="classillex_1_1_document_generator.html">DocumentGenerator</a></td></tr>
 <tr class="memdesc:a2cd4d66f3bb20a83c350fdb2435fc9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classillex_1_1_document_generator.html" title="Allows the generation of a JSON DOM root. ">DocumentGenerator</a> from an Arrow schema.  <a href="#a2cd4d66f3bb20a83c350fdb2435fc9ac">More...</a><br /></td></tr>
@@ -219,7 +222,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab4d46dc01bc6567734c3518ab3a87227"><td class="mdescLeft">&#160;</td><td class="mdescRight">From an Arrow Field, look up a metadata value by key.  <a href="#ab4d46dc01bc6567734c3518ab3a87227">More...</a><br /></td></tr>
 <tr class="separator:ab4d46dc01bc6567734c3518ab3a87227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a988dce72d5c7cd722f510bc66a3c0aea"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a988dce72d5c7cd722f510bc66a3c0aea">GetUInt64Meta</a> (const arrow::Field &amp;field, const std::string &amp;key) -&gt; std::optional&lt; uint64_t &gt;</td></tr>
-<tr class="memdesc:a988dce72d5c7cd722f510bc66a3c0aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">From an Arrow Field, look up a metadata value by key, and convert it to an uint64_t.  <a href="#a988dce72d5c7cd722f510bc66a3c0aea">More...</a><br /></td></tr>
+<tr class="memdesc:a988dce72d5c7cd722f510bc66a3c0aea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up Arrow field metadata value by key, and convert it to an uint64_t.  <a href="#a988dce72d5c7cd722f510bc66a3c0aea">More...</a><br /></td></tr>
 <tr class="separator:a988dce72d5c7cd722f510bc66a3c0aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa83a139db4e531ec3b509455abfd21a6"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#aa83a139db4e531ec3b509455abfd21a6">TryGetEmptyBuffer</a> (const std::vector&lt; <a class="el" href="classillex_1_1_raw_j_s_o_n_buffer.html">RawJSONBuffer</a> *&gt; &amp;buffers, const std::vector&lt; std::mutex *&gt; &amp;mutexes, <a class="el" href="classillex_1_1_raw_j_s_o_n_buffer.html">RawJSONBuffer</a> **out, size_t *lock_idx) -&gt; bool</td></tr>
 <tr class="separator:aa83a139db4e531ec3b509455abfd21a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -235,9 +238,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7f2a03591148c741e7de975dfaa50e72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a7f2a03591148c741e7de975dfaa50e72">ProductionHiveThread</a> (const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;opt, <a class="el" href="namespaceillex.html#a9a02fafdb6f1295445e5adb0e31c2591">ProductionQueue</a> *q, std::promise&lt; <a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a> &gt; &amp;&amp;stats)</td></tr>
 <tr class="memdesc:a7f2a03591148c741e7de975dfaa50e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Production hive thread. Spawns JSON production drones.  <a href="#a7f2a03591148c741e7de975dfaa50e72">More...</a><br /></td></tr>
 <tr class="separator:a7f2a03591148c741e7de975dfaa50e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90f5cd49f4a5cbe222aeefa1503ba86d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a90f5cd49f4a5cbe222aeefa1503ba86d">RunRawServer</a> (const <a class="el" href="structillex_1_1_raw_protocol.html">RawProtocol</a> &amp;protocol_options, const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;production_options, bool statistics) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
-<tr class="memdesc:a90f5cd49f4a5cbe222aeefa1503ba86d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use a <a class="el" href="classillex_1_1_raw_server.html" title="A streaming server for raw JSONs directly over TCP. ">RawServer</a> to stream the specified JSONs out.  <a href="#a90f5cd49f4a5cbe222aeefa1503ba86d">More...</a><br /></td></tr>
-<tr class="separator:a90f5cd49f4a5cbe222aeefa1503ba86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04329c874c318f5945ef85c06fbb275c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a04329c874c318f5945ef85c06fbb275c">RunRawServer</a> (const <a class="el" href="structillex_1_1_raw_protocol.html">RawProtocol</a> &amp;protocol_options, const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;production_options, const <a class="el" href="structillex_1_1_repeat_options.html">RepeatOptions</a> &amp;repeat_options, bool statistics) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
+<tr class="memdesc:a04329c874c318f5945ef85c06fbb275c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use a <a class="el" href="classillex_1_1_raw_server.html" title="A streaming server for raw JSONs directly over TCP. ">RawServer</a> to stream the specified JSONs out.  <a href="#a04329c874c318f5945ef85c06fbb275c">More...</a><br /></td></tr>
+<tr class="separator:a04329c874c318f5945ef85c06fbb275c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a7d55bd26e692018470e8749e06b3f8"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a1a7d55bd26e692018470e8749e06b3f8">RunStream</a> (const <a class="el" href="structillex_1_1_stream_options.html">StreamOptions</a> &amp;options) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
 <tr class="memdesc:a1a7d55bd26e692018470e8749e06b3f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the stream subcommand.  <a href="#a1a7d55bd26e692018470e8749e06b3f8">More...</a><br /></td></tr>
 <tr class="separator:a1a7d55bd26e692018470e8749e06b3f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -487,7 +490,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classillex_1_1_document_generator.html" title="Allows the generation of a JSON DOM root. ">DocumentGenerator</a> able to generate JSON objects derived from the Arrow schema. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classillex_1_1_document_generator.html" title="Allows the generation of a JSON DOM root. ">DocumentGenerator</a> able to generate JSON objects derived from the schema. </dd></dl>
 
 </div>
 </div>
@@ -593,7 +596,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>From an Arrow Field, look up a metadata value by key, and convert it to an uint64_t. </p>
+<p>Look up Arrow field metadata value by key, and convert it to an uint64_t. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">field</td><td>The field to inspect. </td></tr>
@@ -733,7 +736,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Read an Arrow schema from file. Schema must be stored as raw output of Arrow's serialization functions. </p>
+<p>Read an Arrow schema from file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>The file containing the schema. </td></tr>
@@ -741,7 +744,8 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>OK if successful, some error otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>OK if successful, some error otherwise.</dd></dl>
+<p>Schema must be stored as raw output of Arrow's serialization functions. </p>
 
 </div>
 </div>
@@ -765,8 +769,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a90f5cd49f4a5cbe222aeefa1503ba86d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90f5cd49f4a5cbe222aeefa1503ba86d">&#9670;&nbsp;</a></span>RunRawServer()</h2>
+<a id="a04329c874c318f5945ef85c06fbb275c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04329c874c318f5945ef85c06fbb275c">&#9670;&nbsp;</a></span>RunRawServer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -782,6 +786,12 @@ Variables</h2></td></tr>
           <td></td>
           <td class="paramtype">const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;&#160;</td>
           <td class="paramname"><em>production_options</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structillex_1_1_repeat_options.html">RepeatOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>repeat_options</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

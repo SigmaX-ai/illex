@@ -1,8 +1,8 @@
 <map id="src/illex/client_buffered.cpp" name="src/illex/client_buffered.cpp">
-<area shape="rect" id="node9" href="$latency_8h.html" title="illex/latency.h" alt="" coords="295,244,397,271"/>
-<area shape="rect" id="node11" href="$status_8h.html" title="illex/status.h" alt="" coords="197,319,293,345"/>
-<area shape="rect" id="node14" href="$client__buffered_8h.html" title="illex/client_buffered.h" alt="" coords="388,80,533,107"/>
-<area shape="rect" id="node23" href="$log_8h.html" title="illex/log.h" alt="" coords="973,80,1050,107"/>
-<area shape="rect" id="node17" href="$protocol_8h.html" title="illex/protocol.h" alt="" coords="650,162,757,189"/>
-<area shape="rect" id="node22" href="$client_8h.html" title="illex/client.h" alt="" coords="311,162,402,189"/>
+<area shape="rect" id="node2" href="$client__buffered_8h.html" title="illex/client_buffered.h" alt="" coords="303,80,465,107"/>
+<area shape="rect" id="node8" href="$latency_8h.html" title="illex/latency.h" alt="" coords="556,244,668,271"/>
+<area shape="rect" id="node11" href="$status_8h.html" title="illex/status.h" alt="" coords="436,319,543,345"/>
+<area shape="rect" id="node23" href="$log_8h.html" title="illex/log.h" alt="" coords="1143,80,1230,107"/>
+<area shape="rect" id="node7" href="$client_8h.html" title="illex/client.h" alt="" coords="438,162,541,189"/>
+<area shape="rect" id="node14" href="$protocol_8h.html" title="illex/protocol.h" alt="" coords="111,162,230,189"/>
 </map>

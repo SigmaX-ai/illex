@@ -74,20 +74,20 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;arrow/api.h&gt;</code><br />
 <code>#include &lt;kissnet.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="status_8h_source.html">illex/status.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="document_8h_source.html">illex/document.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="stream_8h_source.html">illex/stream.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="producer_8h_source.html">illex/producer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="protocol_8h_source.html">illex/protocol.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="status_8h_source.html">illex/status.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for raw_server.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="raw__server_8h__incl.png" border="0" usemap="#src_2illex_2raw__server_8h" alt=""/></div>
 <map name="src_2illex_2raw__server_8h" id="src_2illex_2raw__server_8h">
-<area shape="rect" id="node4" href="status_8h.html" title="illex/status.h" alt="" coords="135,155,231,181"/>
-<area shape="rect" id="node7" href="document_8h.html" title="illex/document.h" alt="" coords="349,229,467,256"/>
-<area shape="rect" id="node15" href="stream_8h.html" title="illex/stream.h" alt="" coords="369,80,469,107"/>
-<area shape="rect" id="node11" href="value_8h.html" title="illex/value.h" alt="" coords="404,304,495,331"/>
-<area shape="rect" id="node16" href="protocol_8h.html" title="illex/protocol.h" alt="" coords="787,155,893,181"/>
-<area shape="rect" id="node20" href="producer_8h.html" title="illex/producer.h" alt="" coords="463,155,574,181"/>
+<area shape="rect" id="node4" href="document_8h.html" title="illex/document.h" alt="" coords="162,155,293,181"/>
+<area shape="rect" id="node12" href="producer_8h.html" title="illex/producer.h" alt="" coords="355,80,478,107"/>
+<area shape="rect" id="node16" href="protocol_8h.html" title="illex/protocol.h" alt="" coords="651,80,769,107"/>
+<area shape="rect" id="node19" href="status_8h.html" title="illex/status.h" alt="" coords="973,80,1079,107"/>
+<area shape="rect" id="node8" href="value_8h.html" title="illex/value.h" alt="" coords="315,229,417,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -95,8 +95,12 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="raw__server_8h__dep__incl.png" border="0" usemap="#src_2illex_2raw__server_8hdep" alt=""/></div>
 <map name="src_2illex_2raw__server_8hdep" id="src_2illex_2raw__server_8hdep">
-<area shape="rect" id="node2" href="raw__server_8cpp.html" title="src/illex/raw_server.cpp" alt="" coords="5,80,165,107"/>
-<area shape="rect" id="node3" href="stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="189,80,325,107"/>
+<area shape="rect" id="node2" href="raw__server_8cpp.html" title="src/illex/raw_server.cpp" alt="" coords="5,155,180,181"/>
+<area shape="rect" id="node3" href="stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="204,155,355,181"/>
+<area shape="rect" id="node4" href="stream_8h.html" title="src/illex/stream.h" alt="" coords="264,80,399,107"/>
+<area shape="rect" id="node5" href="cli_8h.html" title="src/illex/cli.h" alt="" coords="379,155,483,181"/>
+<area shape="rect" id="node7" href="main_8cpp.html" title="src/illex/main.cpp" alt="" coords="452,229,589,256"/>
+<area shape="rect" id="node6" href="cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="309,229,428,256"/>
 </map>
 </div>
 </div>
@@ -104,6 +108,12 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_stream_statistics.html">illex::StreamStatistics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Streaming statistics.  <a href="structillex_1_1_stream_statistics.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_repeat_options.html">illex::RepeatOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeat mode options.  <a href="structillex_1_1_repeat_options.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_raw_server.html">illex::RawServer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A streaming server for raw JSONs directly over TCP.  <a href="classillex_1_1_raw_server.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,9 +125,9 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a90f5cd49f4a5cbe222aeefa1503ba86d"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a90f5cd49f4a5cbe222aeefa1503ba86d">illex::RunRawServer</a> (const RawProtocol &amp;protocol_options, const ProductionOptions &amp;production_options, bool statistics) -&gt; Status</td></tr>
-<tr class="memdesc:a90f5cd49f4a5cbe222aeefa1503ba86d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use a <a class="el" href="classillex_1_1_raw_server.html" title="A streaming server for raw JSONs directly over TCP. ">RawServer</a> to stream the specified JSONs out.  <a href="namespaceillex.html#a90f5cd49f4a5cbe222aeefa1503ba86d">More...</a><br /></td></tr>
-<tr class="separator:a90f5cd49f4a5cbe222aeefa1503ba86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04329c874c318f5945ef85c06fbb275c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a04329c874c318f5945ef85c06fbb275c">illex::RunRawServer</a> (const RawProtocol &amp;protocol_options, const ProductionOptions &amp;production_options, const RepeatOptions &amp;repeat_options, bool statistics) -&gt; Status</td></tr>
+<tr class="memdesc:a04329c874c318f5945ef85c06fbb275c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Use a <a class="el" href="classillex_1_1_raw_server.html" title="A streaming server for raw JSONs directly over TCP. ">RawServer</a> to stream the specified JSONs out.  <a href="namespaceillex.html#a04329c874c318f5945ef85c06fbb275c">More...</a><br /></td></tr>
+<tr class="separator:a04329c874c318f5945ef85c06fbb275c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

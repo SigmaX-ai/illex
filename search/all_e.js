@@ -18,13 +18,15 @@ var searchData=
   ['receivejsons',['ReceiveJSONs',['../structillex_1_1_raw_client.html#acc1537197df1ad1276a9e08aee648d0f',1,'illex::RawClient::ReceiveJSONs()'],['../structillex_1_1_direct_buffer_client.html#a0f94eb980ee06b103f40d7317a7f81cb',1,'illex::DirectBufferClient::ReceiveJSONs()'],['../structillex_1_1_raw_queueing_client.html#a9030d4c84014d6c8b1abb2e142ba68d8',1,'illex::RawQueueingClient::ReceiveJSONs()']]],
   ['recv_5ftime',['recv_time',['../classillex_1_1_raw_j_s_o_n_buffer.html#ae8f96e0f9583b9ac58d704975d12180f',1,'illex::RawJSONBuffer']]],
   ['recv_5ftime_5f',['recv_time_',['../classillex_1_1_raw_j_s_o_n_buffer.html#acf9af7be5e1674adbed5eafe89b602da',1,'illex::RawJSONBuffer']]],
-  ['repeat',['repeat',['../structillex_1_1_stream_options.html#ae12ece49664ce8a65e07576610683dcb',1,'illex::StreamOptions']]],
+  ['repeat',['repeat',['../structillex_1_1_stream_options.html#af34df5e57982c4489fb82aeb5e5fe009',1,'illex::StreamOptions']]],
+  ['repeat_5fserver',['repeat_server',['../structillex_1_1_stream_options.html#ab1df9fbf55f4acb4f1bcfb1926b250ca',1,'illex::StreamOptions']]],
+  ['repeatoptions',['RepeatOptions',['../structillex_1_1_repeat_options.html',1,'illex']]],
   ['reset',['Reset',['../classillex_1_1_raw_j_s_o_n_buffer.html#ae549aa184b0e63afc37dca03857494e0',1,'illex::RawJSONBuffer']]],
   ['return_5fvalue',['return_value',['../structillex_1_1_app_options.html#a8e1ffb08c3828fddd386e00a19123758',1,'illex::AppOptions']]],
   ['reuse',['reuse',['../structillex_1_1_raw_protocol.html#ae353919e862dd8d02b95ded40dfeafc2',1,'illex::RawProtocol']]],
   ['root',['root',['../classillex_1_1_document_generator.html#acdbfa729da5c7d46705dc448615d0dbd',1,'illex::DocumentGenerator']]],
   ['root_5f',['root_',['../classillex_1_1_document_generator.html#a84aabbb6f060aa98c316470daa901051',1,'illex::DocumentGenerator']]],
   ['runfile',['RunFile',['../namespaceillex.html#a36db3575f6c9f676e2f996512e3cbcc9',1,'illex']]],
-  ['runrawserver',['RunRawServer',['../namespaceillex.html#a90f5cd49f4a5cbe222aeefa1503ba86d',1,'illex']]],
+  ['runrawserver',['RunRawServer',['../namespaceillex.html#a04329c874c318f5945ef85c06fbb275c',1,'illex']]],
   ['runstream',['RunStream',['../namespaceillex.html#a1a7d55bd26e692018470e8749e06b3f8',1,'illex']]]
 ];

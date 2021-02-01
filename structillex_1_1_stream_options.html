@@ -81,8 +81,9 @@ Collaboration diagram for illex::StreamOptions:</div>
 <div class="dyncontent">
 <div class="center"><img src="structillex_1_1_stream_options__coll__graph.png" border="0" usemap="#illex_1_1_stream_options_coll__map" alt="Collaboration graph"/></div>
 <map name="illex_1_1_stream_options_coll__map" id="illex_1_1_stream_options_coll__map">
-<area shape="rect" id="node2" href="structillex_1_1_production_options.html" title="Options for the random JSON production facility. " alt="" coords="5,95,165,121"/>
-<area shape="rect" id="node3" href="structillex_1_1_generate_options.html" title="Options for pseudo&#45;random generators. " alt="" coords="10,5,161,32"/>
+<area shape="rect" id="node2" href="structillex_1_1_repeat_options.html" title="Repeat mode options. " alt="" coords="5,95,159,121"/>
+<area shape="rect" id="node3" href="structillex_1_1_production_options.html" title="Options for the random JSON production facility. " alt="" coords="183,95,360,121"/>
+<area shape="rect" id="node4" href="structillex_1_1_generate_options.html" title="Options for pseudo&#45;random generators. " alt="" coords="187,5,355,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -94,12 +95,15 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a10df5cedf1033eb919db2f0ea35a70ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_stream_options.html#a10df5cedf1033eb919db2f0ea35a70ab">production</a></td></tr>
 <tr class="memdesc:a10df5cedf1033eb919db2f0ea35a70ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options for the JSON production facilities.  <a href="#a10df5cedf1033eb919db2f0ea35a70ab">More...</a><br /></td></tr>
 <tr class="separator:a10df5cedf1033eb919db2f0ea35a70ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60821e893370db70c0a68b2043d94ab5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_stream_options.html#a60821e893370db70c0a68b2043d94ab5">statistics</a> = true</td></tr>
+<tr class="memitem:af34df5e57982c4489fb82aeb5e5fe009"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structillex_1_1_repeat_options.html">RepeatOptions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_stream_options.html#af34df5e57982c4489fb82aeb5e5fe009">repeat</a></td></tr>
+<tr class="memdesc:af34df5e57982c4489fb82aeb5e5fe009"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options for repeated streaming mode.  <a href="#af34df5e57982c4489fb82aeb5e5fe009">More...</a><br /></td></tr>
+<tr class="separator:af34df5e57982c4489fb82aeb5e5fe009"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60821e893370db70c0a68b2043d94ab5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_stream_options.html#a60821e893370db70c0a68b2043d94ab5">statistics</a> = false</td></tr>
 <tr class="memdesc:a60821e893370db70c0a68b2043d94ab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to log statistics.  <a href="#a60821e893370db70c0a68b2043d94ab5">More...</a><br /></td></tr>
 <tr class="separator:a60821e893370db70c0a68b2043d94ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae12ece49664ce8a65e07576610683dcb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_stream_options.html#ae12ece49664ce8a65e07576610683dcb">repeat</a> = false</td></tr>
-<tr class="memdesc:ae12ece49664ce8a65e07576610683dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeat indefinitely.  <a href="#ae12ece49664ce8a65e07576610683dcb">More...</a><br /></td></tr>
-<tr class="separator:ae12ece49664ce8a65e07576610683dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1df9fbf55f4acb4f1bcfb1926b250ca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_stream_options.html#ab1df9fbf55f4acb4f1bcfb1926b250ca">repeat_server</a> = false</td></tr>
+<tr class="memdesc:ab1df9fbf55f4acb4f1bcfb1926b250ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repeat server creation, connecting, and sending JSONs indefinitely.  <a href="#ab1df9fbf55f4acb4f1bcfb1926b250ca">More...</a><br /></td></tr>
+<tr class="separator:ab1df9fbf55f4acb4f1bcfb1926b250ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Options for the stream subcommand. </p>
@@ -136,19 +140,35 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae12ece49664ce8a65e07576610683dcb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae12ece49664ce8a65e07576610683dcb">&#9670;&nbsp;</a></span>repeat</h2>
+<a id="af34df5e57982c4489fb82aeb5e5fe009"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af34df5e57982c4489fb82aeb5e5fe009">&#9670;&nbsp;</a></span>repeat</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool illex::StreamOptions::repeat = false</td>
+          <td class="memname"><a class="el" href="structillex_1_1_repeat_options.html">RepeatOptions</a> illex::StreamOptions::repeat</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Repeat indefinitely. </p>
+<p>Options for repeated streaming mode. </p>
+
+</div>
+</div>
+<a id="ab1df9fbf55f4acb4f1bcfb1926b250ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1df9fbf55f4acb4f1bcfb1926b250ca">&#9670;&nbsp;</a></span>repeat_server</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool illex::StreamOptions::repeat_server = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Repeat server creation, connecting, and sending JSONs indefinitely. </p>
 
 </div>
 </div>
@@ -159,7 +179,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool illex::StreamOptions::statistics = true</td>
+          <td class="memname">bool illex::StreamOptions::statistics = false</td>
         </tr>
       </table>
 </div><div class="memdoc">
