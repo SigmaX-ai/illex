@@ -12,36 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <thread>
-#include <future>
-#include <string>
-#include <tuple>
-#include <rapidjson/prettywriter.h>
+#include "illex/raw_server.h"
+
 #include <concurrentqueue.h>
 #include <putong/timer.h>
-#include <kissnet.hpp>
+#include <rapidjson/prettywriter.h>
 
-#include "illex/stream.h"
-#include "illex/log.h"
-#include "illex/document.h"
+#include <future>
+#include <kissnet.hpp>
+#include <string>
+#include <thread>
+#include <tuple>
+
 #include "illex/arrow.h"
-#include "illex/raw_server.h"
+#include "illex/document.h"
+#include "illex/log.h"
+#include "illex/stream.h"
 
 namespace illex {
 
 namespace kn = kissnet;
 
-auto RawServer::Create(RawProtocol protocol_options, RawServer *out) -> Status {
+auto RawServer::Create(RawProtocol protocol_options, RawServer* out) -> Status {
   out->protocol = protocol_options;
-  out->server = std::make_shared<RawSocket>(kn::endpoint(
-      "0.0.0.0:" + std::to_string(out->protocol.port)));
+  out->server = std::make_shared<RawSocket>(
+      kn::endpoint("0.0.0.0:" + std::to_string(out->protocol.port)));
   if (protocol_options.reuse) {
     out->server->set_reuse();
   }
 
   try {
     out->server->bind();
-  } catch (const std::runtime_error &e) {
+  } catch (const std::runtime_error& e) {
     return Status(Error::RawError, e.what());
   }
   out->server->listen();
@@ -49,9 +51,9 @@ auto RawServer::Create(RawProtocol protocol_options, RawServer *out) -> Status {
   return Status::OK();
 }
 
-auto RawServer::SendJSONs(const ProductionOptions &prod_opts,
-                          const RepeatOptions &repeat_opts,
-                          StreamStatistics *stats) -> Status {
+auto RawServer::SendJSONs(const ProductionOptions& prod_opts,
+                          const RepeatOptions& repeat_opts, StreamStatistics* stats)
+    -> Status {
   // Check for some potential misuse.
   assert(stats != nullptr);
   if (this->server == nullptr) {
@@ -72,9 +74,7 @@ auto RawServer::SendJSONs(const ProductionOptions &prod_opts,
     // Spawn production hive thread.
     std::promise<ProductionStats> production_stats;
     auto producer_stats_future = production_stats.get_future();
-    auto producer = std::thread(ProductionHiveThread,
-                                prod_opts_int,
-                                &production_queue,
+    auto producer = std::thread(ProductionHiveThread, prod_opts_int, &production_queue,
                                 std::move(production_stats));
 
     // Start a timer.
@@ -93,15 +93,14 @@ auto RawServer::SendJSONs(const ProductionOptions &prod_opts,
       }
 
       // Attempt to send the message.
-      auto send_result = client.send(reinterpret_cast<std::byte *>(message_str.data()),
+      auto send_result = client.send(reinterpret_cast<std::byte*>(message_str.data()),
                                      message_str.length());
 
       auto send_result_socket = std::get<1>(send_result);
       if (send_result_socket != kissnet::socket_status::valid) {
         producer.join();
-        return Status(Error::RawError,
-                      "Socket not valid after send: "
-                          + std::to_string(send_result_socket));
+        return Status(Error::RawError, "Socket not valid after send: " +
+                                           std::to_string(send_result_socket));
       }
 
       // If verbose is enabled, also print the JSON to stdout
@@ -135,26 +134,24 @@ auto RawServer::SendJSONs(const ProductionOptions &prod_opts,
 auto RawServer::Close() -> Status {
   try {
     server->close();
-  } catch (const std::exception &e) {
+  } catch (const std::exception& e) {
     return Status(Error::RawError, e.what());
   }
 
   return Status::OK();
 }
 
-static void LogSendStats(const StreamStatistics &result) {
-  spdlog::info("Streamed {} messages in {:.4f} seconds.",
-               result.num_messages,
+static void LogSendStats(const StreamStatistics& result) {
+  spdlog::info("Streamed {} messages in {:.4f} seconds.", result.num_messages,
                result.time);
   spdlog::info("  {:.1f} messages/second (avg).", result.num_messages / result.time);
   spdlog::info("  {:.2f} gigabits/second (avg).",
                static_cast<double>(result.num_bytes * 8) / result.time * 1E-9);
 }
 
-auto RunRawServer(const RawProtocol &protocol_options,
-                  const ProductionOptions &production_options,
-                  const RepeatOptions &repeat_options,
-                  bool statistics) -> Status {
+auto RunRawServer(const RawProtocol& protocol_options,
+                  const ProductionOptions& production_options,
+                  const RepeatOptions& repeat_options, bool statistics) -> Status {
   SPDLOG_DEBUG("Starting Raw server.");
   RawServer server;
   ILLEX_ROE(RawServer::Create(protocol_options, &server));
@@ -173,4 +170,4 @@ auto RunRawServer(const RawProtocol &protocol_options,
   return Status::OK();
 }
 
-}
+}  // namespace illex

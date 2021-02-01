@@ -15,12 +15,13 @@
 #pragma once
 
 #include <arrow/api.h>
+
 #include <kissnet.hpp>
 
-#include "illex/protocol.h"
-#include "illex/producer.h"
-#include "illex/status.h"
 #include "illex/document.h"
+#include "illex/producer.h"
+#include "illex/protocol.h"
+#include "illex/status.h"
 
 namespace illex {
 
@@ -58,7 +59,7 @@ class RawServer {
    * \param[out] out The RawServer to populate.
    * \return Status::OK() if successful, some error status otherwise.
    */
-  static auto Create(RawProtocol protocol_options, RawServer *out) -> Status;
+  static auto Create(RawProtocol protocol_options, RawServer* out) -> Status;
 
   /**
    * \brief Send JSONs using this RawServer.
@@ -67,9 +68,8 @@ class RawServer {
    * \param[out] stats Server statistics.
    * \return Status::OK() if successful, some error status otherwise.
    */
-  auto SendJSONs(const ProductionOptions &prod_opts,
-                 const RepeatOptions &repeat_opts,
-                 StreamStatistics *stats) -> Status;
+  auto SendJSONs(const ProductionOptions& prod_opts, const RepeatOptions& repeat_opts,
+                 StreamStatistics* stats) -> Status;
 
   /**
    * \brief Close the RawServer.
@@ -90,9 +90,8 @@ class RawServer {
  * \param statistics Whether to measure and log statistics.
  * \return Status::OK if successful, some error otherwise.
  */
-auto RunRawServer(const RawProtocol &protocol_options,
-                  const ProductionOptions &production_options,
-                  const RepeatOptions &repeat_options,
-                  bool statistics) -> Status;
+auto RunRawServer(const RawProtocol& protocol_options,
+                  const ProductionOptions& production_options,
+                  const RepeatOptions& repeat_options, bool statistics) -> Status;
 
-}
+}  // namespace illex

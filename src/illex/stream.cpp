@@ -12,19 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "illex/log.h"
 #include "illex/stream.h"
+
+#include "illex/log.h"
 #include "illex/raw_server.h"
 
 namespace illex {
 
-auto RunStream(const StreamOptions &opt) -> Status {
+auto RunStream(const StreamOptions& opt) -> Status {
   do {
     if (std::holds_alternative<RawProtocol>(opt.protocol)) {
-      ILLEX_ROE(RunRawServer(std::get<RawProtocol>(opt.protocol),
-                             opt.production,
-                             opt.repeat,
-                             opt.statistics));
+      ILLEX_ROE(RunRawServer(std::get<RawProtocol>(opt.protocol), opt.production,
+                             opt.repeat, opt.statistics));
     } else {
       throw std::runtime_error("Corrupt protocol.");
     }
@@ -33,4 +32,4 @@ auto RunStream(const StreamOptions &opt) -> Status {
   return Status::OK();
 }
 
-}
+}  // namespace illex

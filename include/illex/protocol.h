@@ -16,9 +16,8 @@
 
 #include <cstdint>
 #include <cstdlib>
-#include <variant>
-
 #include <kissnet.hpp>
+#include <variant>
 
 /// TCP default receive buffer size.
 #define ILLEX_TCP_BUFFER_SIZE (16 * 1024 * 1024)
@@ -47,4 +46,4 @@ using StreamProtocol = std::variant<RawProtocol>;
 /// Buffer sequence number.
 using Seq = uint64_t;
 
-}
+}  // namespace illex

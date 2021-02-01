@@ -17,10 +17,10 @@
 #include <arrow/api.h>
 #include <illex/protocol.h>
 
-#include "illex/raw_server.h"
-#include "illex/status.h"
 #include "illex/document.h"
 #include "illex/producer.h"
+#include "illex/raw_server.h"
+#include "illex/status.h"
 
 namespace illex {
 
@@ -39,6 +39,6 @@ struct StreamOptions {
 };
 
 /// \brief Run the stream subcommand.
-auto RunStream(const StreamOptions &options) -> Status;
+auto RunStream(const StreamOptions& options) -> Status;
 
-}
+}  // namespace illex

@@ -12,25 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "illex/arrow.h"
+
 #include <arrow/api.h>
 #include <arrow/io/api.h>
 #include <arrow/ipc/api.h>
 
 #include "illex/log.h"
-#include "illex/value.h"
-#include "illex/arrow.h"
 #include "illex/status.h"
+#include "illex/value.h"
 
-#define META(X) "illex_"#X
+#define META(X) "illex_" #X
 
 namespace illex {
 
-auto SchemaAnalyzer::Analyze(const arrow::Schema &schema) -> bool {
+auto SchemaAnalyzer::Analyze(const arrow::Schema& schema) -> bool {
   assert(out_ != nullptr);
   // Cast the output root object to a JSON object generator.
   auto obj = std::static_pointer_cast<Object>(out_->root());
   // Analyze every field using a FieldAnalyzer.
-  for (const auto &field : schema.fields()) {
+  for (const auto& field : schema.fields()) {
     Member mg;
     mg.SetContext(out_->context());
     auto fa = FieldAnalyzer(&mg);
@@ -45,15 +46,14 @@ auto SchemaAnalyzer::Analyze(const arrow::Schema &schema) -> bool {
   return true;
 }
 
-SchemaAnalyzer::SchemaAnalyzer(DocumentGenerator *out) : out_(out) {
+SchemaAnalyzer::SchemaAnalyzer(DocumentGenerator* out) : out_(out) {
   // Set the root to be an Object.
   // Arrow Schema's turn into a JSON object where Arrow fields are its JSON members.
   auto root = std::make_shared<Object>();
   out_->SetRoot(root);
-
 }
 
-auto FieldAnalyzer::Analyze(const arrow::Field &field) -> bool {
+auto FieldAnalyzer::Analyze(const arrow::Field& field) -> bool {
   field_ = &field;
   // TODO(johanpel): field could have nullable probability in metadata and could be a
   //  feature of the value generators as well as other randomization parameters.
@@ -69,7 +69,7 @@ auto FieldAnalyzer::Analyze(const arrow::Field &field) -> bool {
   return true;
 }
 
-auto FieldAnalyzer::Visit(const arrow::UInt64Type &type) -> arrow::Status {
+auto FieldAnalyzer::Visit(const arrow::UInt64Type& type) -> arrow::Status {
   // Check for meta, use numeric limits otherwise.
   auto max =
       GetUInt64Meta(*field_, META(MAX)).value_or(std::numeric_limits<uint64_t>::max());
@@ -90,22 +90,22 @@ auto FieldAnalyzer::Visit(const arrow::UInt64Type &type) -> arrow::Status {
   return arrow::Status::OK();
 }
 
-auto FieldAnalyzer::Visit(const arrow::BooleanType &type) -> arrow::Status {
+auto FieldAnalyzer::Visit(const arrow::BooleanType& type) -> arrow::Status {
   member_out_->SetValue(std::make_shared<Bool>());
   return arrow::Status::OK();
 }
 
-auto FieldAnalyzer::Visit(const arrow::StringType &type) -> arrow::Status {
+auto FieldAnalyzer::Visit(const arrow::StringType& type) -> arrow::Status {
   member_out_->SetValue(std::make_shared<String>());
   return arrow::Status::OK();
 }
 
-auto FieldAnalyzer::Visit(const arrow::Date64Type &type) -> arrow::Status {
+auto FieldAnalyzer::Visit(const arrow::Date64Type& type) -> arrow::Status {
   member_out_->SetValue(std::make_shared<DateString>());
   return arrow::Status::OK();
 }
 
-auto FieldAnalyzer::Visit(const arrow::FixedSizeListType &type) -> arrow::Status {
+auto FieldAnalyzer::Visit(const arrow::FixedSizeListType& type) -> arrow::Status {
   // Create a member generator to store the child generator in delivered by a field
   // analyzer.
   auto mg = std::make_shared<Member>();
@@ -117,9 +117,9 @@ auto FieldAnalyzer::Visit(const arrow::FixedSizeListType &type) -> arrow::Status
   return arrow::Status::OK();
 }
 
-auto FieldAnalyzer::Visit(const arrow::ListType &type) -> arrow::Status {
+auto FieldAnalyzer::Visit(const arrow::ListType& type) -> arrow::Status {
   auto min = GetUInt64Meta(*field_, META(MIN_LENGTH))
-      .value_or(std::numeric_limits<uint64_t>::min());
+                 .value_or(std::numeric_limits<uint64_t>::min());
   auto max = GetUInt64Meta(*field_, META(MAX_LENGTH)).value_or(8);
   // Create a member generator to store the child generator in delivered by a field
   // analyzer.
@@ -132,11 +132,11 @@ auto FieldAnalyzer::Visit(const arrow::ListType &type) -> arrow::Status {
   return arrow::Status::OK();
 }
 
-auto FieldAnalyzer::Visit(const arrow::StructType &type) -> arrow::Status {
+auto FieldAnalyzer::Visit(const arrow::StructType& type) -> arrow::Status {
   auto result = std::make_shared<Object>();
   result->SetContext(member_out_->context());
 
-  for (const auto &field : type.fields()) {
+  for (const auto& field : type.fields()) {
     Member mg;
     mg.SetContext(member_out_->context());
     mg.SetName(field->name());
@@ -149,12 +149,14 @@ auto FieldAnalyzer::Visit(const arrow::StructType &type) -> arrow::Status {
   return arrow::Status::OK();
 }
 
-auto ReadSchemaFromFile(const std::string &file,
-                        std::shared_ptr<arrow::Schema> *out) -> Status {
+auto ReadSchemaFromFile(const std::string& file, std::shared_ptr<arrow::Schema>* out)
+    -> Status {
   // TODO(johanpel): use filesystem lib for path
   auto rfos = arrow::io::ReadableFile::Open(file);
 
-  if (!rfos.ok()) { return Status(Error::IOError, rfos.status().message()); }
+  if (!rfos.ok()) {
+    return Status(Error::IOError, rfos.status().message());
+  }
   auto fis = rfos.ValueOrDie();
 
   // Dictionaries are not supported yet, hence nullptr. If there are actual dictionaries,
@@ -162,24 +164,27 @@ auto ReadSchemaFromFile(const std::string &file,
   // function.
   auto rsch = arrow::ipc::ReadSchema(fis.get(), nullptr);
 
-  if (rsch.ok()) { *out = rsch.ValueOrDie(); }
-  else { return Status(Error::IOError, rsch.status().message()); }
+  if (rsch.ok()) {
+    *out = rsch.ValueOrDie();
+  } else {
+    return Status(Error::IOError, rsch.status().message());
+  }
 
   auto status = fis->Close();
 
   return Status::OK();
 }
 
-auto FromArrowSchema(const arrow::Schema &schema,
-                     GenerateOptions options) -> DocumentGenerator {
+auto FromArrowSchema(const arrow::Schema& schema, GenerateOptions options)
+    -> DocumentGenerator {
   DocumentGenerator doc(options.seed);
   auto sa = SchemaAnalyzer(&doc);
   sa.Analyze(schema);
   return doc;
 }
 
-auto GetMeta(const arrow::Schema &schema,
-             const std::string &key) -> std::optional<std::string> {
+auto GetMeta(const arrow::Schema& schema, const std::string& key)
+    -> std::optional<std::string> {
   if (schema.metadata() != nullptr) {
     std::unordered_map<std::string, std::string> meta;
     schema.metadata()->ToUnorderedMap(&meta);
@@ -191,8 +196,8 @@ auto GetMeta(const arrow::Schema &schema,
   return std::nullopt;
 }
 
-auto GetMeta(const arrow::Field &field,
-             const std::string &key) -> std::optional<std::string> {
+auto GetMeta(const arrow::Field& field, const std::string& key)
+    -> std::optional<std::string> {
   if (field.metadata() != nullptr) {
     std::unordered_map<std::string, std::string> meta;
     field.metadata()->ToUnorderedMap(&meta);
@@ -204,27 +209,24 @@ auto GetMeta(const arrow::Field &field,
   return std::nullopt;
 }
 
-auto GetUInt64Meta(const arrow::Field &field, const std::string &key) -> std::optional<
-    uint64_t> {
+auto GetUInt64Meta(const arrow::Field& field, const std::string& key)
+    -> std::optional<uint64_t> {
   auto str = GetMeta(field, key);
   uint64_t int_value = 0;
   size_t parsed = 0;
   if (str) {
     try {
       int_value = std::stoul(str.value(), &parsed, 10);
-    } catch (const std::invalid_argument &e) {
-      spdlog::warn("Metadata key {} set for field {}, "
-                   "but value {} is not a valid UInt64.",
-                   key,
-                   field.name(),
-                   str.value());
+    } catch (const std::invalid_argument& e) {
+      spdlog::warn(
+          "Metadata key {} set for field {}, "
+          "but value {} is not a valid UInt64.",
+          key, field.name(), str.value());
       return std::nullopt;
-    } catch (const std::out_of_range &e) {
+    } catch (const std::out_of_range& e) {
       spdlog::warn(
           "Metadata key {} set for field {}, but value {} is out of range for UInt64.",
-          key,
-          field.name(),
-          str.value());
+          key, field.name(), str.value());
       return std::nullopt;
     }
     // Warn if there is garbage at the end.
@@ -232,10 +234,7 @@ auto GetUInt64Meta(const arrow::Field &field, const std::string &key) -> std::op
       spdlog::warn(
           "Metadata key {} with value {} for field {} is parsed as {}, "
           "but seems to contain additional garbage.",
-          key,
-          field.name(),
-          str.value(),
-          int_value);
+          key, field.name(), str.value(), int_value);
     }
     return int_value;
   } else {
@@ -243,4 +242,4 @@ auto GetUInt64Meta(const arrow::Field &field, const std::string &key) -> std::op
   }
 }
 
-}
+}  // namespace illex

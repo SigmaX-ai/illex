@@ -15,11 +15,12 @@
 #pragma once
 
 #include <arrow/api.h>
+
 #include <string>
 
-#include "illex/status.h"
 #include "illex/document.h"
 #include "illex/producer.h"
+#include "illex/status.h"
 
 namespace illex {
 
@@ -32,6 +33,6 @@ struct FileOptions {
 };
 
 /// \brief Run the file subcommand.
-auto RunFile(const FileOptions &opt) -> Status;
+auto RunFile(const FileOptions& opt) -> Status;
 
-}
+}  // namespace illex

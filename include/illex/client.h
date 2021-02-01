@@ -20,10 +20,10 @@
 namespace illex {
 
 struct RawClient {
-  virtual auto ReceiveJSONs(LatencyTracker *lat_tracker) -> Status = 0;
+  virtual auto ReceiveJSONs(LatencyTracker* lat_tracker) -> Status = 0;
   virtual auto Close() -> Status = 0;
   [[nodiscard]] virtual auto received() const -> size_t = 0;
   [[nodiscard]] virtual auto bytes_received() const -> size_t = 0;
 };
 
-}
+}  // namespace illex

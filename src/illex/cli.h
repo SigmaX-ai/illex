@@ -14,11 +14,12 @@
 
 #pragma once
 
-#include <random>
-#include <cstdint>
-#include <string>
-#include <CLI/CLI.hpp>
 #include <arrow/api.h>
+
+#include <CLI/CLI.hpp>
+#include <cstdint>
+#include <random>
+#include <string>
 
 #include "illex/file.h"
 #include "illex/stream.h"
@@ -36,7 +37,7 @@ struct AppOptions {
   constexpr static auto desc = "A JSON generator based on Arrow Schemas.";
 
   /// \brief Construct an instance of the application options parser.
-  static auto FromArguments(int argc, char *argv[], AppOptions *out) -> Status;
+  static auto FromArguments(int argc, char* argv[], AppOptions* out) -> Status;
 
   /// The subcommand to run.
   SubCommand sub = SubCommand::NONE;
@@ -52,4 +53,4 @@ struct AppOptions {
   int return_value = 0;
 };
 
-} // namespace illex
+}  // namespace illex

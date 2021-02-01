@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "illex/log.h"
 #include "illex/cli.h"
 #include "illex/file.h"
+#include "illex/log.h"
 #include "illex/stream.h"
 
-auto main(int argc, char *argv[]) -> int {
+auto main(int argc, char* argv[]) -> int {
   // Set up logger.
   illex::StartLogger();
 
@@ -27,9 +27,14 @@ auto main(int argc, char *argv[]) -> int {
   if (status.ok()) {
     // Run the requested sub-program:
     switch (opt.sub) {
-      case illex::SubCommand::NONE: break;
-      case illex::SubCommand::FILE: status = illex::RunFile(opt.file); break;
-      case illex::SubCommand::STREAM: status = illex::RunStream(opt.stream); break;
+      case illex::SubCommand::NONE:
+        break;
+      case illex::SubCommand::FILE:
+        status = illex::RunFile(opt.file);
+        break;
+      case illex::SubCommand::STREAM:
+        status = illex::RunStream(opt.stream);
+        break;
     }
   }
 

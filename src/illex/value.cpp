@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "illex/value.h"
+
+#include <rapidjson/allocators.h>
+#include <rapidjson/document.h>
+
 #include <random>
 #include <utility>
-#include <rapidjson/document.h>
-#include <rapidjson/allocators.h>
 
 #include "illex/log.h"
-#include "illex/value.h"
 
 namespace illex {
 
@@ -28,9 +30,7 @@ void Value::SetContext(Context context) {
   context_ = context;
 }
 
-String::String(double length_mean,
-               double length_stddev,
-               size_t length_clip_max,
+String::String(double length_mean, double length_stddev, size_t length_clip_max,
                size_t length_clip_min)
     : length_clip_max_(length_clip_max), length_clip_min_(length_clip_min) {
   len_dist_ = std::normal_distribution<>(length_mean, length_stddev);
@@ -40,13 +40,13 @@ String::String(double length_mean,
 auto String::Get() -> rapidjson::Value {
   rapidjson::Value result;
   // Generate the length, and clip if necessary.
-  size_t length = std::max(length_clip_min_,
-                           std::min(length_clip_max_,
-                                    static_cast<size_t>(len_dist_(*context_.engine_))));
+  size_t length = std::max(
+      length_clip_min_,
+      std::min(length_clip_max_, static_cast<size_t>(len_dist_(*context_.engine_))));
 
   std::string str(length, 0);
   // Pull characters from the character distribution.
-  for (char &c : str) {
+  for (char& c : str) {
     c = chars_dist_(*context_.engine_);
   }
   // Call the overload SetString with allocator to make a copy of the string.
@@ -59,14 +59,10 @@ auto DateString::Get() -> rapidjson::Value {
 
   // Format like ISO8601 but without the timezone
   // Apparently this is from spdlog, but we might want to import this separately.
-  auto str = ::fmt::format("{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}{:+03d}:00",
-                           year(*context_.engine_),
-                           month(*context_.engine_),
-                           day(*context_.engine_),
-                           hour(*context_.engine_),
-                           min(*context_.engine_),
-                           sec(*context_.engine_),
-                           timezone(*context_.engine_));
+  auto str = ::fmt::format(
+      "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}{:+03d}:00", year(*context_.engine_),
+      month(*context_.engine_), day(*context_.engine_), hour(*context_.engine_),
+      min(*context_.engine_), sec(*context_.engine_), timezone(*context_.engine_));
   // Call the overload SetString with allocator to make a copy of the string.
   result.SetString(str.c_str(), str.length(), *context_.allocator_);
   return result;
@@ -111,7 +107,7 @@ auto FixedSizeArray::Get() -> rapidjson::Value {
   return result;
 }
 
-void Member::AddTo(rapidjson::Value *object) {
+void Member::AddTo(rapidjson::Value* object) {
   rapidjson::Value name(rapidjson::StringRef(name_.c_str()));
   rapidjson::Value val = value_->Get();
   object->AddMember(name, val, *context_.allocator_);
@@ -135,7 +131,7 @@ auto Member::value() const -> std::shared_ptr<Value> { return value_; }
 
 auto Object::Get() -> rj::Value {
   rj::Value result(rj::kObjectType);
-  for (auto &mg : members_) {
+  for (auto& mg : members_) {
     mg.AddTo(&result);
   }
   return result;
@@ -146,7 +142,7 @@ void Object::AddMember(Member member) {
   members_.push_back(member);
 }
 
-Object::Object(const std::vector<Member> &members) {
+Object::Object(const std::vector<Member>& members) {
   for (auto m : members) {
     m.SetContext(context_);
     members_.push_back(m);
@@ -159,4 +155,4 @@ auto Bool::Get() -> rj::Value {
   return rj::Value(((*this->context_.engine_)() % 2 == 0));
 }
 
-} // namespace illex
+}  // namespace illex

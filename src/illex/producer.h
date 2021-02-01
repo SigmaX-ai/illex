@@ -14,10 +14,11 @@
 
 #pragma once
 
-#include <future>
-#include <cstdint>
 #include <arrow/api.h>
 #include <concurrentqueue.h>
+
+#include <cstdint>
+#include <future>
 
 #include "illex/document.h"
 
@@ -56,25 +57,22 @@ struct ProductionStats {
 /**
  * \brief A thread producing JSONs
  * \param thread_id The ID of this thread.
- * \param opt Production options for this thread.
+ * \param opt       Production options for this thread.
  * \param num_items Number of JSONs to produce.
- * \param q The queue to store the produced JSONs in.
- * \param size The number of characters generated.
+ * \param q         The queue to store the produced JSONs in.
+ * \param size      The number of characters generated.
  */
-void ProductionDroneThread(size_t thread_id,
-                           const ProductionOptions &opt,
-                           size_t num_items,
-                           ProductionQueue *q,
-                           std::promise<size_t> &&size);
+void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
+                           size_t num_items, ProductionQueue* q,
+                           std::promise<size_t>&& size);
 
 /**
  * \brief Production hive thread. Spawns JSON production drones.
- * \param opt Options for the production drones.
- * \param q The concurrent queue to operate on.
+ * \param opt   Options for the production drones.
+ * \param q     The concurrent queue to operate on.
  * \param stats Statistics about the hive and drone thread(s).
  */
-void ProductionHiveThread(const ProductionOptions &opt,
-                          ProductionQueue *q,
-                          std::promise<ProductionStats> &&stats);
+void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
+                          std::promise<ProductionStats>&& stats);
 
-}
+}  // namespace illex

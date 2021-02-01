@@ -12,38 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "illex/log.h"
 #include "illex/cli.h"
-#include "illex/file.h"
+
 #include "illex/arrow.h"
+#include "illex/file.h"
+#include "illex/log.h"
 #include "illex/status.h"
 
 namespace illex {
 
 /// \brief Common options for all subcommands
-static void AddCommonOpts(CLI::App *sub,
-                          ProductionOptions *prod,
-                          std::string *schema_file) {
-  sub->add_option("input,-i,--input",
-                  *schema_file,
+static void AddCommonOpts(CLI::App* sub, ProductionOptions* prod,
+                          std::string* schema_file) {
+  sub->add_option("input,-i,--input", *schema_file,
                   "An Arrow schema to generate the JSON from.")
-      ->required()->check(CLI::ExistingFile);
-  sub->add_option("-m,--num-jsons",
-                  prod->num_jsons,
+      ->required()
+      ->check(CLI::ExistingFile);
+  sub->add_option("-m,--num-jsons", prod->num_jsons,
                   "Number of JSONs to send (default=1).");
-  sub->add_option("-s,--seed",
-                  prod->gen.seed,
+  sub->add_option("-s,--seed", prod->gen.seed,
                   "Random generator seed (default: taken from random device).");
   sub->add_flag("--pretty", prod->pretty, "Generate \"pretty-printed\" JSONs.");
-  sub->add_flag("-v",
-                prod->verbose,
+  sub->add_flag("-v", prod->verbose,
                 "Print the JSONs to stdout, even if -o or --output is used.");
-  sub->add_option("-t,--threads",
-                  prod->num_threads,
+  sub->add_option("-t,--threads", prod->num_threads,
                   "Number of threads to use to generate JSONs (default=1).");
 }
 
-auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Status {
+auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Status {
   AppOptions result;
   std::string schema_file;
   uint16_t stream_port = 0;
@@ -53,43 +49,41 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
   app.require_subcommand();
 
   // File mode:
-  auto *file = app.add_subcommand("file", "Generate a file with JSONs.");
+  auto* file = app.add_subcommand("file", "Generate a file with JSONs.");
   AddCommonOpts(file, &result.file.production, &schema_file);
-  file->add_option("-o,--output",
-                   result.file.out_path,
+  file->add_option("-o,--output", result.file.out_path,
                    "Output file. JSONs will be written to stdout if not set.");
 
   // Streaming server mode:
-  auto *stream =
+  auto* stream =
       app.add_subcommand("stream", "Stream raw JSONs over a TCP network socket.");
   AddCommonOpts(stream, &result.stream.production, &schema_file);
-  auto *port_opt = stream->add_option("-p,--port",
-                                      stream_port,
+  auto* port_opt = stream->add_option("-p,--port", stream_port,
                                       "Port (default=" + std::to_string(RAW_PORT) + ").");
-  auto *no_reuse_flag = stream->add_flag("--disable-socket-reuse",
+  auto* no_reuse_flag = stream->add_flag("--disable-socket-reuse",
                                          "Don't allow reuse of the server socket "
                                          "(need to wait for timeout).");
-  auto *repeat_server = stream->add_flag("--repeat-server",
+  auto* repeat_server = stream->add_flag("--repeat-server",
                                          "Indefinitely repeat creating the server and "
                                          "streaming the messages.");
-  auto *repeat_jsons = stream->add_flag("--repeat-jsons",
+  auto* repeat_jsons = stream->add_flag("--repeat-jsons",
                                         "Create the server once, and indefinitely repeat "
                                         "streaming messages as long as the connection is "
                                         "valid.");
-  stream->add_option("--repeat-interval",
-                     result.stream.repeat.interval_ms,
-                     " Time to wait between streaming messages when using --repeat-jsons "
-                     "(milliseconds).")->default_val(250);
-
+  stream
+      ->add_option("--repeat-interval", result.stream.repeat.interval_ms,
+                   " Time to wait between streaming messages when using --repeat-jsons "
+                   "(milliseconds).")
+      ->default_val(250);
 
   // Attempt to parse the CLI arguments.
   try {
     app.parse(argc, argv);
-  } catch (CLI::CallForHelp &e) {
+  } catch (CLI::CallForHelp& e) {
     // User wants to see help.
     std::cout << app.help() << std::endl;
     return Status::OK();
-  } catch (CLI::Error &e) {
+  } catch (CLI::Error& e) {
     return Status(Error::CLIError, e.get_name() + ": " + e.what() + "\n" + app.help());
   }
 
@@ -120,4 +114,4 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
   return status;
 }
 
-} // namespace illex
+}  // namespace illex

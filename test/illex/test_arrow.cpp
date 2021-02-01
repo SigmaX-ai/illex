@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <unordered_map>
+#include <arrow/api.h>
 #include <gtest/gtest.h>
 #include <rapidjson/writer.h>
-#include <arrow/api.h>
+
+#include <unordered_map>
 
 #include "illex/arrow.h"
 #include "illex/value.h"
 
 namespace illex::test {
 
-static auto GenerateJSON(const arrow::Schema &schema, int seed = 0) -> std::string {
+static auto GenerateJSON(const arrow::Schema& schema, int seed = 0) -> std::string {
   auto gen = FromArrowSchema(schema, GenerateOptions(seed));
   rapidjson::StringBuffer b;
   rapidjson::Writer p(b);
@@ -42,18 +43,16 @@ TEST(Arrow, UInt64) {
 }
 
 TEST(Arrow, UInt64Meta) {
-  std::unordered_map<std::string, std::string> meta = {
-      {"illex_MAX", "3"},
-      {"illex_MIN", "1"}
-  };
+  std::unordered_map<std::string, std::string> meta = {{"illex_MAX", "3"},
+                                                       {"illex_MIN", "1"}};
   auto field = std::make_shared<arrow::Field>("uint64", arrow::uint64(), false)
-      ->WithMetadata(std::make_shared<arrow::KeyValueMetadata>(meta));
+                   ->WithMetadata(std::make_shared<arrow::KeyValueMetadata>(meta));
   auto schema = arrow::Schema({field});
   // Is this test good enough?
   for (int i = 0; i < 64; i++) {
     auto json = GenerateJSON(schema, 0);
-    ASSERT_TRUE(json == R"({"uint64":1})" || json == R"({"uint64":2})"
-                    || json == R"({"uint64":3})");
+    ASSERT_TRUE(json == R"({"uint64":1})" || json == R"({"uint64":2})" ||
+                json == R"({"uint64":3})");
   }
 }
 
@@ -72,4 +71,4 @@ TEST(Arrow, FixedSizeList) {
             R"({"fsl":[1537163486874432223,18143445020509408007,5528658168453055457]})");
 }
 
-}
+}  // namespace illex::test

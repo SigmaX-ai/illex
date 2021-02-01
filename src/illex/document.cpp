@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "illex/document.h"
+
+#include <rapidjson/prettywriter.h>
+#include <rapidjson/stringbuffer.h>
+
 #include <iostream>
 #include <utility>
-#include <rapidjson/stringbuffer.h>
-#include <rapidjson/prettywriter.h>
 
 #include "illex/value.h"
-#include "illex/document.h"
 
 namespace illex {
 
@@ -55,4 +57,4 @@ auto DocumentGenerator::GetString(bool pretty) -> std::string {
   return std::string(buffer.GetString());
 }
 
-}
+}  // namespace illex

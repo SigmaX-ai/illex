@@ -12,27 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <cstdint>
-#include <rapidjson/prettywriter.h>
-#include <putong/timer.h>
-
-#include "illex/log.h"
-#include "illex/arrow.h"
 #include "illex/producer.h"
+
+#include <putong/timer.h>
+#include <rapidjson/prettywriter.h>
+
+#include <cstdint>
+
+#include "illex/arrow.h"
+#include "illex/log.h"
 
 namespace illex {
 
 namespace rj = rapidjson;
 
-void ProductionDroneThread(size_t thread_id,
-                           const ProductionOptions &opt,
-                           size_t num_items,
-                           ProductionQueue *q,
-                           std::promise<size_t> &&size) {
+void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
+                           size_t num_items, ProductionQueue* q,
+                           std::promise<size_t>&& size) {
   // Accumulator for total number of characters generated.
   size_t drone_size = 0;
 
-  // Generation options. We increment the seed by the thread id, so we get different values from each thread.
+  // Generation options. We increment the seed by the thread id, so we get different
+  // values from each thread.
   auto gen_opt = opt.gen;
   gen_opt.seed += thread_id;
 
@@ -75,9 +76,8 @@ void ProductionDroneThread(size_t thread_id,
   size.set_value(drone_size);
 }
 
-void ProductionHiveThread(const ProductionOptions &opt,
-                          ProductionQueue *q,
-                          std::promise<ProductionStats> &&stats) {
+void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
+                          std::promise<ProductionStats>&& stats) {
   putong::Timer t;
   ProductionStats result;
 
@@ -107,16 +107,13 @@ void ProductionHiveThread(const ProductionOptions &opt,
     std::promise<size_t> promise_num_chars;
     futures.push_back(promise_num_chars.get_future());
     // Spawn the threads and let the first thread do the remainder of the work.
-    threads.emplace_back(ProductionDroneThread,
-                         thread,
-                         opt,
-                         jsons_per_thread + (thread == 0 ? remainder : 0),
-                         q,
+    threads.emplace_back(ProductionDroneThread, thread, opt,
+                         jsons_per_thread + (thread == 0 ? remainder : 0), q,
                          std::move(promise_num_chars));
   }
 
   // Wait for all threads to complete.
-  for (auto &thread : threads) {
+  for (auto& thread : threads) {
     if (thread.joinable()) {
       thread.join();
     }
@@ -125,7 +122,7 @@ void ProductionHiveThread(const ProductionOptions &opt,
 
   // Get all futures and calculate total number of characters generated.
   size_t total_size = 0;
-  for (auto &f : futures) {
+  for (auto& f : futures) {
     total_size += f.get();
   }
   result.time = t.seconds();
@@ -140,4 +137,4 @@ void ProductionHiveThread(const ProductionOptions &opt,
   stats.set_value(result);
 }
 
-}
+}  // namespace illex

@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "illex/client_queued.h"
+
 #include <chrono>
-#include <memory>
 #include <iostream>
+#include <memory>
 #include <utility>
 
 #include "illex/latency.h"
-#include "illex/client_queued.h"
 #include "illex/protocol.h"
 
 namespace illex {
@@ -40,13 +41,10 @@ RawQueueingClient::~RawQueueingClient() {
   free(buffer);
 }
 
-auto RawQueueingClient::Create(RawProtocol protocol,
-                               std::string host,
-                               uint64_t seq,
-                               JSONQueue *queue,
-                               RawQueueingClient *out,
+auto RawQueueingClient::Create(RawProtocol protocol, std::string host, uint64_t seq,
+                               JSONQueue* queue, RawQueueingClient* out,
                                size_t buffer_size) -> Status {
-  auto *buffer = static_cast<std::byte *>(malloc(buffer_size));
+  auto* buffer = static_cast<std::byte*>(malloc(buffer_size));
 
   if (buffer == nullptr) {
     return Status(Error::RawError, "Could not allocate TCP recv buffer.");
@@ -84,25 +82,21 @@ auto RawQueueingClient::Create(RawProtocol protocol,
  *                                  increased when item is enqueued.
  * \return The number of JSONs enqueued.
  */
-static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
-                                    std::byte *recv_buffer,
-                                    size_t tcp_valid_bytes,
-                                    JSONQueue *queue,
-                                    uint64_t *seq,
-                                    TimePoint receive_time,
-                                    LatencyTracker *tracker = nullptr)
--> size_t {
+static auto EnqueueAllJSONsInBuffer(std::string* json_buffer, std::byte* recv_buffer,
+                                    size_t tcp_valid_bytes, JSONQueue* queue,
+                                    uint64_t* seq, TimePoint receive_time,
+                                    LatencyTracker* tracker = nullptr) -> size_t {
   size_t queued = 0;
   // TODO(johanpel): implement mechanism to allow newlines within JSON objects,
   //   this only works for non-pretty printed JSONs now.
-  auto *recv_chars = reinterpret_cast<char *>(recv_buffer);
+  auto* recv_chars = reinterpret_cast<char*>(recv_buffer);
 
   // Scan the buffer for a newline.
-  char *json_start = recv_chars;
-  char *json_end = recv_chars + tcp_valid_bytes;
+  char* json_start = recv_chars;
+  char* json_end = recv_chars + tcp_valid_bytes;
   size_t remaining = tcp_valid_bytes;
   do {
-    json_end = static_cast<char *>(std::memchr(json_start, '\n', remaining));
+    json_end = static_cast<char*>(std::memchr(json_start, '\n', remaining));
     if (json_end == nullptr) {
       // Append the remaining characters to the JSON buffer.
       json_buffer->append(json_start, remaining);
@@ -145,7 +139,7 @@ static auto EnqueueAllJSONsInBuffer(std::string *json_buffer,
   return queued;
 }
 
-auto RawQueueingClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
+auto RawQueueingClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
   // Buffer to store the JSON string, is reused to prevent allocations.
   std::string json_string;
 
@@ -163,13 +157,9 @@ auto RawQueueingClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
 
       this->bytes_received_ += bytes_received;
       // We must now handle the received bytes in the TCP buffer.
-      auto num_enqueued = EnqueueAllJSONsInBuffer(&json_string,
-                                                  buffer,
-                                                  bytes_received,
-                                                  queue,
-                                                  &this->seq,
-                                                  receive_time,
-                                                  lat_tracker);
+      auto num_enqueued =
+          EnqueueAllJSONsInBuffer(&json_string, buffer, bytes_received, queue, &this->seq,
+                                  receive_time, lat_tracker);
       this->received_ += num_enqueued;
 
       if (sock_status == kissnet::socket_status::cleanly_disconnected) {
@@ -180,7 +170,7 @@ auto RawQueueingClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
         return Status(Error::RawError,
                       "Server error. Status: " + std::to_string(sock_status));
       }
-    } catch (const std::exception &e) {
+    } catch (const std::exception& e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());
     }
@@ -189,4 +179,4 @@ auto RawQueueingClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
   return Status::OK();
 }
 
-}
+}  // namespace illex

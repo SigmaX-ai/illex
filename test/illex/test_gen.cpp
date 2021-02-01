@@ -28,4 +28,4 @@ TEST(Generators, EmptyDocument) {
   ASSERT_STREQ(b.GetString(), "null");
 }
 
-}
+}  // namespace illex::test

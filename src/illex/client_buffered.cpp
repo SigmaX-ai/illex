@@ -12,24 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <cstddef>
-#include <vector>
-#include <mutex>
-#include <chrono>
-#include <thread>
-#include <algorithm>
+#include "illex/client_buffered.h"
+
 #include <string.h>
 
+#include <algorithm>
+#include <chrono>
+#include <cstddef>
+#include <mutex>
+#include <thread>
+#include <vector>
+
 #include "illex/latency.h"
-#include "illex/status.h"
-#include "illex/client_buffered.h"
 #include "illex/log.h"
+#include "illex/status.h"
 
 namespace illex {
 
-auto RawJSONBuffer::Create(std::byte *buffer,
-                           size_t capacity,
-                           RawJSONBuffer *out,
+auto RawJSONBuffer::Create(std::byte* buffer, size_t capacity, RawJSONBuffer* out,
                            size_t lat_track_cap) -> Status {
   if (buffer == nullptr) {
     return Status(Error::RawError, "Pre-allocated buffer cannot be nullptr.");
@@ -52,12 +52,10 @@ auto RawJSONBuffer::SetSize(size_t size) -> Status {
   }
 }
 
-auto DirectBufferClient::Create(RawProtocol protocol,
-                                std::string host,
-                                uint64_t seq,
-                                const std::vector<RawJSONBuffer *> &buffers,
-                                const std::vector<std::mutex *> &mutexes,
-                                DirectBufferClient *out) -> Status {
+auto DirectBufferClient::Create(RawProtocol protocol, std::string host, uint64_t seq,
+                                const std::vector<RawJSONBuffer*>& buffers,
+                                const std::vector<std::mutex*>& mutexes,
+                                DirectBufferClient* out) -> Status {
   // Sanity check.
   // TODO: we could also get a vector of a buffer-mutex pair
   if (mutexes.size() != buffers.size()) {
@@ -90,12 +88,12 @@ auto RawJSONBuffer::Scan(size_t num_bytes, uint64_t seq) -> std::pair<size_t, si
   size_t first = seq;
   size_t num_jsons = 0;
   // Scan the buffer for a newline.
-  const auto *recv_chars = reinterpret_cast<const char *>(this->data());
-  const char *json_start = recv_chars;
-  const char *json_end = recv_chars + this->size();
+  const auto* recv_chars = reinterpret_cast<const char*>(this->data());
+  const char* json_start = recv_chars;
+  const char* json_end = recv_chars + this->size();
   size_t remaining = num_bytes;
   do {
-    json_end = static_cast<const char *>(std::memchr(json_start, '\n', remaining));
+    json_end = static_cast<const char*>(std::memchr(json_start, '\n', remaining));
     if (json_end != nullptr) {
       auto json_len = json_end - json_start;
       if (json_len > 0) {
@@ -128,10 +126,9 @@ auto RawJSONBuffer::num_jsons() const -> size_t {
   return seq_range.last - seq_range.first + 1;
 }
 
-auto TryGetEmptyBuffer(const std::vector<RawJSONBuffer *> &buffers,
-                       const std::vector<std::mutex *> &mutexes,
-                       RawJSONBuffer **out,
-                       size_t *lock_idx) -> bool {
+auto TryGetEmptyBuffer(const std::vector<RawJSONBuffer*>& buffers,
+                       const std::vector<std::mutex*>& mutexes, RawJSONBuffer** out,
+                       size_t* lock_idx) -> bool {
   const size_t num_buffers = buffers.size();
   for (size_t i = 0; i < num_buffers; i++) {
     if (buffers[i]->empty()) {
@@ -146,9 +143,9 @@ auto TryGetEmptyBuffer(const std::vector<RawJSONBuffer *> &buffers,
   return false;
 }
 
-auto DirectBufferClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
+auto DirectBufferClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
   // Buffer to temporary place leftover bytes from a buffer.
-  auto *spill = static_cast<std::byte *>(std::malloc(ILLEX_TCP_BUFFER_SIZE));
+  auto* spill = static_cast<std::byte*>(std::malloc(ILLEX_TCP_BUFFER_SIZE));
   // Bytes leftover from previous buffer.
   size_t remaining = 0;
 
@@ -156,7 +153,7 @@ auto DirectBufferClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
   while (client->is_valid()) {
     try {
       // Attempt to get a lock on an empty buffer.
-      RawJSONBuffer *buf;
+      RawJSONBuffer* buf;
       size_t lock_idx;
       if (TryGetEmptyBuffer(buffers, mutexes, &buf, &lock_idx)) {
         // Copy leftovers from previous buffer into new buffer.
@@ -165,8 +162,8 @@ auto DirectBufferClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
         }
 
         // Attempt to receive some bytes.
-        auto recv_status = client->recv(buf->mutable_data() + remaining,
-                                        buf->capacity() - remaining);
+        auto recv_status =
+            client->recv(buf->mutable_data() + remaining, buf->capacity() - remaining);
         // Set receive time point.
         buf->SetRecvTime(Timer::now());
 
@@ -210,7 +207,7 @@ auto DirectBufferClient::ReceiveJSONs(LatencyTracker *lat_tracker) -> Status {
       } else {
         std::this_thread::sleep_for(std::chrono::microseconds(100));
       }
-    } catch (const std::exception &e) {
+    } catch (const std::exception& e) {
       // But first we catch any exceptions.
       return Status(Error::RawError, e.what());
     }
@@ -230,4 +227,4 @@ auto DirectBufferClient::Close() -> Status {
   return Status::OK();
 }
 
-}
+}  // namespace illex

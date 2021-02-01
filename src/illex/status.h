@@ -14,25 +14,20 @@
 
 #pragma once
 
-#include <iostream>
-
 #include <putong/status.h>
+
+#include <iostream>
 
 namespace illex {
 
-#define ILLEX_ROE(s) { \
-  auto status = s;       \
-  if (!status.ok()) return status; \
-}
+#define ILLEX_ROE(s)                 \
+  {                                  \
+    auto status = s;                 \
+    if (!status.ok()) return status; \
+  }
 
-enum class Error {
-  GenericError,
-  CLIError,
-  JSONError,
-  RawError,
-  IOError
-};
+enum class Error { GenericError, CLIError, JSONError, RawError, IOError };
 
 using Status = putong::Status<Error>;
 
-}
+}  // namespace illex

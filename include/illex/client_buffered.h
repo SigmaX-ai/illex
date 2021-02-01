@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <vector>
-#include <mutex>
 #include <memory>
+#include <mutex>
 #include <string>
+#include <vector>
 
-#include "illex/protocol.h"
 #include "illex/client.h"
+#include "illex/protocol.h"
 
 #pragma once
 
@@ -40,9 +40,7 @@ class RawJSONBuffer {
    * \param[in]  lat_track_cap  Initial capacity for latency tracking seq no buffer.
    * \return Status::OK() if successful, some error otherwise.
    */
-  static auto Create(std::byte *buffer,
-                     size_t capacity,
-                     RawJSONBuffer *out,
+  static auto Create(std::byte* buffer, size_t capacity, RawJSONBuffer* out,
                      size_t lat_track_cap = 8) -> Status;
 
   /**
@@ -57,10 +55,10 @@ class RawJSONBuffer {
   auto Scan(size_t num_bytes, uint64_t seq) -> std::pair<size_t, size_t>;
 
   /// \brief Return a pointer to mutate the buffer contents.
-  auto mutable_data() -> std::byte * { return buffer_; }
+  auto mutable_data() -> std::byte* { return buffer_; }
 
   /// \brief Return a pointer to read the buffer.
-  [[nodiscard]] inline auto data() const -> const std::byte * { return buffer_; }
+  [[nodiscard]] inline auto data() const -> const std::byte* { return buffer_; }
 
   /// \brief Return the allocated capacity of the buffer.
   [[nodiscard]] inline auto capacity() const -> size_t { return capacity_; }
@@ -89,11 +87,12 @@ class RawJSONBuffer {
   void Reset();
 
   RawJSONBuffer() = default;
+
  protected:
-  RawJSONBuffer(std::byte *buffer, size_t capacity)
+  RawJSONBuffer(std::byte* buffer, size_t capacity)
       : buffer_(buffer), capacity_(capacity) {}
   /// A pointer to the buffer.
-  std::byte *buffer_ = nullptr;
+  std::byte* buffer_ = nullptr;
   /// The number of valid bytes in the buffer.
   size_t size_ = 0;
   /// The capacity of the buffer.
@@ -119,12 +118,10 @@ struct DirectBufferClient : public RawClient {
    * \param[out] out The RawMultiBufferClient output.
    * \return Status::OK() if successful, some error otherwise.
    */
-  static auto Create(RawProtocol protocol,
-                     std::string host,
-                     uint64_t seq,
-                     const std::vector<RawJSONBuffer *> &buffers,
-                     const std::vector<std::mutex *> &mutexes,
-                     DirectBufferClient *out) -> Status;
+  static auto Create(RawProtocol protocol, std::string host, uint64_t seq,
+                     const std::vector<RawJSONBuffer*>& buffers,
+                     const std::vector<std::mutex*>& mutexes, DirectBufferClient* out)
+      -> Status;
 
   /**
    * \brief Receive JSONs into the pre-allocated buffers.
@@ -136,17 +133,20 @@ struct DirectBufferClient : public RawClient {
    * \param lat_tracker Latency tracking device.
    * \return Status::OK() if successful, some error otherwise.
    */
-  auto ReceiveJSONs(LatencyTracker *lat_tracker) -> Status override;
+  auto ReceiveJSONs(LatencyTracker* lat_tracker) -> Status override;
   auto Close() -> Status override;
   /// \brief Return the number of received JSONs
   [[nodiscard]] auto received() const -> size_t override { return jsons_received_; }
   /// \brief Return the number of received bytes
-  [[nodiscard]] auto bytes_received() const -> size_t override { return total_bytes_received_; }
+  [[nodiscard]] auto bytes_received() const -> size_t override {
+    return total_bytes_received_;
+  }
+
  private:
   /// The mutexes to manage buffer access.
-  std::vector<std::mutex *> mutexes;
+  std::vector<std::mutex*> mutexes;
   /// The buffers.
-  std::vector<RawJSONBuffer *> buffers;
+  std::vector<RawJSONBuffer*> buffers;
   /// The next available sequence number.
   uint64_t seq = 0;
   /// The number of received JSONs.
@@ -165,4 +165,4 @@ struct DirectBufferClient : public RawClient {
   size_t buffer_idx = 0;
 };
 
-}
+}  // namespace illex

@@ -108,7 +108,7 @@ class LatencyTracker {
   size_t sample_interval_;
   size_t num_samples_;
   size_t num_stages_;
-  TimePoint *points_;
+  TimePoint* points_;
 };
 
-}
+}  // namespace illex

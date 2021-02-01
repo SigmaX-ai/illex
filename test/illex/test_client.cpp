@@ -18,12 +18,12 @@
 
 namespace illex::test {
 
-auto Cast(const char *str) -> std::byte * {
-  return const_cast<std::byte *>(reinterpret_cast<const std::byte *>(str));
+auto Cast(const char* str) -> std::byte* {
+  return const_cast<std::byte*>(reinterpret_cast<const std::byte*>(str));
 }
 
-void GetResultFrom(const char *str, std::pair<size_t, size_t> *result) {
-  auto *buf = Cast(str);
+void GetResultFrom(const char* str, std::pair<size_t, size_t>* result) {
+  auto* buf = Cast(str);
   RawJSONBuffer b;
   ASSERT_TRUE(RawJSONBuffer::Create(buf, strlen(str), &b).ok());
   ASSERT_TRUE(b.SetSize(strlen(str)).ok());
@@ -49,4 +49,4 @@ TEST(Client, Scan) {
   ASSERT_EQ(result.second, 2);
 }
 
-}
+}  // namespace illex::test

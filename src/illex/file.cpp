@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <iostream>
-#include <fstream>
+#include "illex/file.h"
+
 #include <rapidjson/prettywriter.h>
 
-#include "illex/document.h"
-#include "illex/file.h"
+#include <fstream>
+#include <iostream>
+
 #include "illex/arrow.h"
+#include "illex/document.h"
 #include "illex/status.h"
 
 namespace illex {
@@ -26,7 +28,7 @@ namespace illex {
 // TODO(johanpel): convert file generation to make use of production facilities in
 //  producer.h
 
-auto RunFile(const FileOptions &opt) -> Status {
+auto RunFile(const FileOptions& opt) -> Status {
   // Generate the document:
   auto gen = FromArrowSchema(*opt.production.schema, opt.production.gen);
   auto json = gen.Get();
@@ -41,7 +43,7 @@ auto RunFile(const FileOptions &opt) -> Status {
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     json.Accept(writer);
   }
-  const char *output = buffer.GetString();
+  const char* output = buffer.GetString();
 
   // Print it to stdout if requested.
   if (opt.production.verbose || opt.out_path.empty()) {
@@ -57,4 +59,4 @@ auto RunFile(const FileOptions &opt) -> Status {
   return Status::OK();
 }
 
-}
+}  // namespace illex

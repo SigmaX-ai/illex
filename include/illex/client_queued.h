@@ -14,23 +14,23 @@
 
 #pragma once
 
-#include <future>
-#include <cstdint>
-#include <string>
-#include <utility>
 #include <arrow/api.h>
 #include <blockingconcurrentqueue.h>
-
-#include <kissnet.hpp>
 #include <putong/timer.h>
 
-#include "illex/document.h"
-#include "illex/log.h"
-#include "illex/status.h"
-#include "illex/client_queued.h"
-#include "illex/protocol.h"
-#include "illex/latency.h"
+#include <cstdint>
+#include <future>
+#include <kissnet.hpp>
+#include <string>
+#include <utility>
+
 #include "illex/client.h"
+#include "illex/client_queued.h"
+#include "illex/document.h"
+#include "illex/latency.h"
+#include "illex/log.h"
+#include "illex/protocol.h"
+#include "illex/status.h"
 
 namespace illex {
 
@@ -50,25 +50,22 @@ struct RawQueueingClient : public RawClient {
  public:
   /**
    * \brief Construct a new queueing client.
-   * \param[in] protocol    The protocol options.
-   * \param[in] host        The hostname to connect to.
-   * \param[in] seq         Starting sequence number.
-   * \param[in] queue           The queue to put the JSONs in.
-   * \param[out] out        The raw client that will be populated by this function.
+   * \param[in]  protocol The protocol options.
+   * \param[in]  host     The hostname to connect to.
+   * \param[in]  seq      Starting sequence number.
+   * \param[in]  queue    The queue to put the JSONs in.
+   * \param[out] out      The raw client that will be populated by this function.
    * \return Status::OK() if successful, some error otherwise.
    */
-  static auto Create(RawProtocol protocol,
-                     std::string host,
-                     uint64_t seq,
-                     JSONQueue *queue,
-                     RawQueueingClient *out,
+  static auto Create(RawProtocol protocol, std::string host, uint64_t seq,
+                     JSONQueue* queue, RawQueueingClient* out,
                      size_t buffer_size = ILLEX_TCP_BUFFER_SIZE) -> Status;
 
   /**
    * \brief Receive JSONs on this raw stream client and put them in a queue.
    * \return Status::OK() if successful, some error otherwise.
    */
-  auto ReceiveJSONs(LatencyTracker *lat_tracker) -> Status override;
+  auto ReceiveJSONs(LatencyTracker* lat_tracker) -> Status override;
 
   /**
    * \brief Close this raw client.
@@ -83,6 +80,7 @@ struct RawQueueingClient : public RawClient {
   [[nodiscard]] auto bytes_received() const -> size_t override { return bytes_received_; }
 
   ~RawQueueingClient();
+
  private:
   /// The next available sequence number.
   Seq seq = 0;
@@ -97,14 +95,13 @@ struct RawQueueingClient : public RawClient {
   /// The TCP socket.
   std::shared_ptr<RawSocket> client;
   // TCP receive buffer.
-  std::byte *buffer;
+  std::byte* buffer;
   // TCP receive buffer size.
   size_t buffer_size;
   // Whether the client must be closed.
   bool must_be_closed = false;
   // The queue to dump JSONs in.
-  JSONQueue *queue;
+  JSONQueue* queue;
 };
 
-
-}
+}  // namespace illex

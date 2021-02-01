@@ -14,9 +14,10 @@
 
 #pragma once
 
+#include <rapidjson/rapidjson.h>
+
 #include <random>
 #include <utility>
-#include <rapidjson/rapidjson.h>
 
 #include "illex/value.h"
 
@@ -53,6 +54,7 @@ class DocumentGenerator {
 
   /// \brief Return the context of this DocumentGenerator.
   auto context() -> Context { return context_; }
+
  protected:
   /// A placeholder for a rapidjson Document. Used to obtain an allocator.
   rj::Document doc_;
@@ -64,4 +66,4 @@ class DocumentGenerator {
   std::shared_ptr<Value> root_;
 };
 
-}
+}  // namespace illex
