@@ -69,9 +69,17 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
   auto *no_reuse_flag = stream->add_flag("--disable-socket-reuse",
                                          "Don't allow reuse of the server socket "
                                          "(need to wait for timeout).");
-  auto *repeat = stream->add_flag("--repeat",
-                                  "Indefinitely repeat creating the server and streaming "
-                                  "the messages.");
+  auto *repeat_server = stream->add_flag("--repeat-server",
+                                         "Indefinitely repeat creating the server and "
+                                         "streaming the messages.");
+  auto *repeat_jsons = stream->add_flag("--repeat-jsons",
+                                        "Create the server once, and indefinitely repeat "
+                                        "streaming messages as long as the connection is "
+                                        "valid.");
+  stream->add_option("--repeat-interval",
+                     result.stream.repeat.interval_ms,
+                     " Time to wait between streaming messages when using --repeat-jsons "
+                     "(milliseconds).")->default_val(250);
 
 
   // Attempt to parse the CLI arguments.
@@ -99,7 +107,8 @@ auto AppOptions::FromArguments(int argc, char *argv[], AppOptions *out) -> Statu
     RawProtocol raw;
     if (*port_opt) raw.port = stream_port;
     if (*no_reuse_flag) raw.reuse = false;
-    if (*repeat) result.stream.repeat = true;
+    if (*repeat_server) result.stream.repeat_server = true;
+    if (*repeat_jsons) result.stream.repeat.messages = true;
     result.stream.protocol = raw;
 
   } else {

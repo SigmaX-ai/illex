@@ -23,11 +23,12 @@ auto RunStream(const StreamOptions &opt) -> Status {
     if (std::holds_alternative<RawProtocol>(opt.protocol)) {
       ILLEX_ROE(RunRawServer(std::get<RawProtocol>(opt.protocol),
                              opt.production,
+                             opt.repeat,
                              opt.statistics));
     } else {
       throw std::runtime_error("Corrupt protocol.");
     }
-  } while (opt.repeat);
+  } while (opt.repeat_server);
 
   return Status::OK();
 }

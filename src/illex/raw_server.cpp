@@ -21,6 +21,7 @@
 #include <putong/timer.h>
 #include <kissnet.hpp>
 
+#include "illex/stream.h"
 #include "illex/log.h"
 #include "illex/document.h"
 #include "illex/arrow.h"
@@ -48,7 +49,8 @@ auto RawServer::Create(RawProtocol protocol_options, RawServer *out) -> Status {
   return Status::OK();
 }
 
-auto RawServer::SendJSONs(const ProductionOptions &options,
+auto RawServer::SendJSONs(const ProductionOptions &prod_opts,
+                          const RepeatOptions &repeat_opts,
                           StreamStatistics *stats) -> Status {
   // Check for some potential misuse.
   assert(stats != nullptr);
@@ -56,66 +58,76 @@ auto RawServer::SendJSONs(const ProductionOptions &options,
     return Status(Error::RawError, "RawServer uninitialized. Use RawServer::Create().");
   }
 
-  StreamStatistics result;
-  putong::Timer t;
-
-  // Create a concurrent queue for the JSON production threads.
-  ProductionQueue production_queue;
-  // Spawn production hive thread.
-  std::promise<ProductionStats> production_stats;
-  auto producer_stats_future = production_stats.get_future();
-  auto producer = std::thread(ProductionHiveThread,
-                              options,
-                              &production_queue,
-                              std::move(production_stats));
-
   // Accept a client.
   SPDLOG_DEBUG("Waiting for client to connect.");
   auto client = server->accept();
 
-  // Start a timer.
-  t.Start();
+  StreamStatistics result;
+  putong::Timer t;
 
-  // Attempt to pull all produced messages from the production queue and send them over
-  // the socket.
-  for (size_t m = 0; m < options.num_jsons; m++) {
-    // Get the message
-    std::string message_str;
-    while (!production_queue.try_dequeue(message_str)) {
+  ProductionOptions prod_opts_int = prod_opts;
+  do {
+    // Create a concurrent queue for the JSON production threads.
+    ProductionQueue production_queue;
+    // Spawn production hive thread.
+    std::promise<ProductionStats> production_stats;
+    auto producer_stats_future = production_stats.get_future();
+    auto producer = std::thread(ProductionHiveThread,
+                                prod_opts_int,
+                                &production_queue,
+                                std::move(production_stats));
+
+    // Start a timer.
+    t.Start();
+    // Attempt to pull all produced messages from the production queue and send them over
+    // the socket.
+    for (size_t m = 0; m < prod_opts.num_jsons; m++) {
+      // Get the message
+      std::string message_str;
+      while (!production_queue.try_dequeue(message_str)) {
 #ifndef NDEBUG
-      // Slow this down a bit in debug.
-      SPDLOG_DEBUG("Nothing in queue... {}");
-      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        // Slow this down a bit in debug.
+        SPDLOG_DEBUG("Nothing in queue... {}");
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
 #endif
+      }
+
+      // Attempt to send the message.
+      auto send_result = client.send(reinterpret_cast<std::byte *>(message_str.data()),
+                                     message_str.length());
+
+      auto send_result_socket = std::get<1>(send_result);
+      if (send_result_socket != kissnet::socket_status::valid) {
+        producer.join();
+        return Status(Error::RawError,
+                      "Socket not valid after send: "
+                          + std::to_string(send_result_socket));
+      }
+
+      // If verbose is enabled, also print the JSON to stdout
+      if (prod_opts.verbose) {
+        std::cout << message_str.substr(0, message_str.length() - 1) << std::endl;
+      }
+
+      result.num_messages++;
     }
 
-    // Attempt to send the message.
-    auto send_result = client.send(reinterpret_cast<std::byte *>(message_str.data()),
-                                   message_str.length());
+    // Stop the timer.
+    t.Stop();
+    result.time = t.seconds();
 
-    auto send_result_socket = std::get<1>(send_result);
-    if (send_result_socket != kissnet::socket_status::valid) {
-      producer.join();
-      return Status(Error::RawError,
-                    "Socket not valid after send: " + std::to_string(send_result_socket));
+    // Wait for the producer thread to stop, and obtain the statistics.
+    producer.join();
+    result.producer = producer_stats_future.get();
+    *stats = result;
+
+    if (repeat_opts.messages) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(repeat_opts.interval_ms));
     }
 
-    // If verbose is enabled, also print the JSON to stdout
-    if (options.verbose) {
-      std::cout << message_str.substr(0, message_str.length() - 1) << std::endl;
-    }
-
-    result.num_messages++;
-  }
-
-  // Stop the timer.
-  t.Stop();
-  result.time = t.seconds();
-
-  // Wait for the producer thread to stop, and obtain the statistics.
-  producer.join();
-  result.producer = producer_stats_future.get();
-  *stats = result;
+    // In case this is on repeat, increase the seed of the generator.
+    prod_opts_int.gen.seed += 42;
+  } while (repeat_opts.messages);
 
   return Status::OK();
 }
@@ -141,6 +153,7 @@ static void LogSendStats(const StreamStatistics &result) {
 
 auto RunRawServer(const RawProtocol &protocol_options,
                   const ProductionOptions &production_options,
+                  const RepeatOptions &repeat_options,
                   bool statistics) -> Status {
   SPDLOG_DEBUG("Starting Raw server.");
   RawServer server;
@@ -148,7 +161,7 @@ auto RunRawServer(const RawProtocol &protocol_options,
 
   SPDLOG_DEBUG("Streaming {} messages.", production_options.num_jsons);
   StreamStatistics stats;
-  ILLEX_ROE(server.SendJSONs(production_options, &stats));
+  ILLEX_ROE(server.SendJSONs(production_options, repeat_options, &stats));
 
   if (statistics) {
     LogSendStats(stats);
@@ -161,4 +174,3 @@ auto RunRawServer(const RawProtocol &protocol_options,
 }
 
 }
-

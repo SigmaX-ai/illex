@@ -17,6 +17,7 @@
 #include <arrow/api.h>
 #include <illex/protocol.h>
 
+#include "illex/raw_server.h"
 #include "illex/status.h"
 #include "illex/document.h"
 #include "illex/producer.h"
@@ -29,22 +30,12 @@ struct StreamOptions {
   StreamProtocol protocol;
   /// Options for the JSON production facilities.
   ProductionOptions production;
+  /// Options for repeated streaming mode
+  RepeatOptions repeat;
   /// Whether to log statistics
-  bool statistics = true;
-  /// Repeat indefinitely
-  bool repeat = false;
-};
-
-/// \brief Streaming statistics.
-struct StreamStatistics {
-  /// Number of messages transmitted.
-  size_t num_messages = 0;
-  /// Number of bytes transmitted.
-  size_t num_bytes = 0;
-  /// Total time spent transmitting.
-  double time = 0.0;
-  /// Statistics of the production facilities.
-  ProductionStats producer;
+  bool statistics = false;
+  /// Repeat server creation, connecting, and sending JSONs indefinitely
+  bool repeat_server = false;
 };
 
 /// \brief Run the stream subcommand.

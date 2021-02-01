@@ -131,10 +131,12 @@ void ProductionHiveThread(const ProductionOptions &opt,
   result.time = t.seconds();
 
   // Print some stats.
-  spdlog::info("Produced {} JSONs in {:.4f} seconds.", opt.num_jsons, result.time);
-  spdlog::info("  {:.1f} JSONs/second (avg).", opt.num_jsons / result.time);
-  spdlog::info("  {:.2f} gigabits/second (avg).",
-               static_cast<double>(total_size * 8) / result.time * 1E-9);
+  if (opt.statistics) {
+    spdlog::info("Produced {} JSONs in {:.4f} seconds.", opt.num_jsons, result.time);
+    spdlog::info("  {:.1f} JSONs/second (avg).", opt.num_jsons / result.time);
+    spdlog::info("  {:.2f} gigabits/second (avg).",
+                 static_cast<double>(total_size * 8) / result.time * 1E-9);
+  }
   stats.set_value(result);
 }
 

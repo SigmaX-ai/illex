@@ -39,6 +39,8 @@ struct ProductionOptions {
   char whitespace_char = '\n';
   /// Whether to print all generated JSONs to stdout.
   bool verbose = false;
+  /// Whether to print statistics.
+  bool statistics = false;
   /// Whether to pretty-print the JSONs.
   bool pretty = false;
   /// Number of production threads to spawn.

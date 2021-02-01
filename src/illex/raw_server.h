@@ -17,11 +17,32 @@
 #include <arrow/api.h>
 #include <kissnet.hpp>
 
+#include "illex/protocol.h"
+#include "illex/producer.h"
 #include "illex/status.h"
 #include "illex/document.h"
-#include "illex/stream.h"
 
 namespace illex {
+
+/// Streaming statistics.
+struct StreamStatistics {
+  /// Number of messages transmitted.
+  size_t num_messages = 0;
+  /// Number of bytes transmitted.
+  size_t num_bytes = 0;
+  /// Total time spent transmitting.
+  double time = 0.0;
+  /// Statistics of the production facilities.
+  ProductionStats producer;
+};
+
+/// Repeat mode options.
+struct RepeatOptions {
+  /// Keep sending JSONs while the connection is active.
+  bool messages = false;
+  /// Wait time in milliseconds between batches of JSONs when repeat_jsons is true.
+  size_t interval_ms = 250;
+};
 
 /**
  * \brief A streaming server for raw JSONs directly over TCP.
@@ -41,11 +62,14 @@ class RawServer {
 
   /**
    * \brief Send JSONs using this RawServer.
-   * \param[in] options Options for the JSON production facilities.
+   * \param[in] prod_opts Options for the JSON production facilities.
+   * \param[in] repeat_opts Options for repeated streaming mode
    * \param[out] stats Server statistics.
    * \return Status::OK() if successful, some error status otherwise.
    */
-  auto SendJSONs(const ProductionOptions &options, StreamStatistics *stats) -> Status;
+  auto SendJSONs(const ProductionOptions &prod_opts,
+                 const RepeatOptions &repeat_opts,
+                 StreamStatistics *stats) -> Status;
 
   /**
    * \brief Close the RawServer.
@@ -68,6 +92,7 @@ class RawServer {
  */
 auto RunRawServer(const RawProtocol &protocol_options,
                   const ProductionOptions &production_options,
+                  const RepeatOptions &repeat_options,
                   bool statistics) -> Status;
 
 }
