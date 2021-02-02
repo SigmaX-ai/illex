@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "illex/client_buffered.h"
+#include "illex/client_buffering.h"
 
 #include <string.h>
 
@@ -29,54 +29,50 @@
 
 namespace illex {
 
-auto RawJSONBuffer::Create(std::byte* buffer, size_t capacity, RawJSONBuffer* out,
-                           size_t lat_track_cap) -> Status {
+auto JSONBuffer::Create(std::byte* buffer, size_t capacity, JSONBuffer* out) -> Status {
   if (buffer == nullptr) {
-    return Status(Error::RawError, "Pre-allocated buffer cannot be nullptr.");
+    return Status(Error::ClientError, "Pre-allocated buffer cannot be nullptr.");
   }
   if (capacity == 0) {
-    return Status(Error::RawError, "Size cannot be 0.");
+    return Status(Error::ClientError, "Size cannot be 0.");
   }
-  *out = RawJSONBuffer(buffer, capacity);
+  *out = JSONBuffer(buffer, capacity);
 
   return Status::OK();
 }
 
-auto RawJSONBuffer::SetSize(size_t size) -> Status {
+auto JSONBuffer::SetSize(size_t size) -> Status {
   if (size <= capacity_) {
     size_ = size;
     return Status::OK();
   } else {
-    return Status(Error::RawError,
+    return Status(Error::ClientError,
                   "Cannot set buffer size larger than allocated capacity.");
   }
 }
 
-auto DirectBufferClient::Create(RawProtocol protocol, std::string host, uint64_t seq,
-                                const std::vector<RawJSONBuffer*>& buffers,
-                                const std::vector<std::mutex*>& mutexes,
-                                DirectBufferClient* out) -> Status {
+auto BufferingClient::Create(const ClientOptions& options,
+                             const std::vector<JSONBuffer*>& buffers,
+                             const std::vector<std::mutex*>& mutexes,
+                             BufferingClient* out) -> Status {
   // Sanity check.
   // TODO: we could also get a vector of a buffer-mutex pair
   if (mutexes.size() != buffers.size()) {
-    return Status(Error::RawError,
+    return Status(Error::ClientError,
                   "Cannot create client. "
                   "Number of buffers mismatches number of mutexes.");
   }
   out->mutexes = mutexes;
   out->buffers = buffers;
-  // Set other configuration params.
-  out->seq = seq;
-  out->host = std::move(host);
-  out->protocol = protocol;
+  out->seq = options.seq;
   // Create an endpoint.
-  auto endpoint = out->host + ":" + std::to_string(out->protocol.port);
-  out->client = std::make_shared<RawSocket>(kissnet::endpoint(endpoint));
+  auto endpoint = options.host + ":" + std::to_string(options.port);
+  out->client = std::make_shared<Socket>(kissnet::endpoint(endpoint));
   // Attempt to connect.
   SPDLOG_DEBUG("Client connecting to {}...", endpoint);
   auto success = out->client->connect();
   if (!success) {
-    return Status(Error::RawError, "Unable to connect to server.");
+    return Status(Error::ClientError, "Unable to connect to server.");
   }
   // Connect successful, remember we have to close it on deconstruction.
   out->must_be_closed = true;
@@ -84,7 +80,7 @@ auto DirectBufferClient::Create(RawProtocol protocol, std::string host, uint64_t
   return Status::OK();
 }
 
-auto RawJSONBuffer::Scan(size_t num_bytes, uint64_t seq) -> std::pair<size_t, size_t> {
+auto JSONBuffer::Scan(size_t num_bytes, uint64_t seq) -> std::pair<size_t, size_t> {
   size_t first = seq;
   size_t num_jsons = 0;
   // Scan the buffer for a newline.
@@ -117,17 +113,17 @@ auto RawJSONBuffer::Scan(size_t num_bytes, uint64_t seq) -> std::pair<size_t, si
   return {num_jsons, remaining};
 }
 
-void RawJSONBuffer::Reset() {
+void JSONBuffer::Reset() {
   size_ = 0;
   seq_range = {0, 0};
 }
 
-auto RawJSONBuffer::num_jsons() const -> size_t {
+auto JSONBuffer::num_jsons() const -> size_t {
   return seq_range.last - seq_range.first + 1;
 }
 
-auto TryGetEmptyBuffer(const std::vector<RawJSONBuffer*>& buffers,
-                       const std::vector<std::mutex*>& mutexes, RawJSONBuffer** out,
+auto TryGetEmptyBuffer(const std::vector<JSONBuffer*>& buffers,
+                       const std::vector<std::mutex*>& mutexes, JSONBuffer** out,
                        size_t* lock_idx) -> bool {
   const size_t num_buffers = buffers.size();
   for (size_t i = 0; i < num_buffers; i++) {
@@ -143,9 +139,9 @@ auto TryGetEmptyBuffer(const std::vector<RawJSONBuffer*>& buffers,
   return false;
 }
 
-auto DirectBufferClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
+auto BufferingClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
   // Buffer to temporary place leftover bytes from a buffer.
-  auto* spill = static_cast<std::byte*>(std::malloc(ILLEX_TCP_BUFFER_SIZE));
+  auto* spill = static_cast<std::byte*>(std::malloc(ILLEX_DEFAULT_TCP_BUFSIZE));
   // Bytes leftover from previous buffer.
   size_t remaining = 0;
 
@@ -153,8 +149,8 @@ auto DirectBufferClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
   while (client->is_valid()) {
     try {
       // Attempt to get a lock on an empty buffer.
-      RawJSONBuffer* buf;
-      size_t lock_idx;
+      JSONBuffer* buf = nullptr;
+      size_t lock_idx = 0;
       if (TryGetEmptyBuffer(buffers, mutexes, &buf, &lock_idx)) {
         // Copy leftovers from previous buffer into new buffer.
         if (remaining > 0) {
@@ -170,7 +166,7 @@ auto DirectBufferClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
         // Get some stats from recv() return value.
         auto bytes_received = std::get<0>(recv_status);
         auto sock_status = std::get<1>(recv_status).get_value();
-        this->total_bytes_received_ += bytes_received;
+        this->bytes_received_ += bytes_received;
 
         // Scan the buffer for JSONs.
         auto scan_size = remaining + bytes_received;
@@ -198,7 +194,7 @@ auto DirectBufferClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
           return Status::OK();
         } else if (sock_status != kissnet::socket_status::valid) {
           // Otherwise, if it's not valid, there is something wrong.
-          return Status(Error::RawError,
+          return Status(Error::ClientError,
                         "Server error. Status: " + std::to_string(sock_status));
         }
 
@@ -209,7 +205,7 @@ auto DirectBufferClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
       }
     } catch (const std::exception& e) {
       // But first we catch any exceptions.
-      return Status(Error::RawError, e.what());
+      return Status(Error::ClientError, e.what());
     }
   }
 
@@ -217,14 +213,20 @@ auto DirectBufferClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
   return Status::OK();
 }
 
-auto DirectBufferClient::Close() -> Status {
+auto BufferingClient::Close() -> Status {
   if (must_be_closed) {
     client->close();
     must_be_closed = false;
   } else {
-    return Status(Error::RawError, "Client was already closed.");
+    return Status(Error::ClientError, "Client was already closed.");
   }
   return Status::OK();
 }
+
+auto BufferingClient::bytes_received() const -> size_t { return bytes_received_; }
+
+auto BufferingClient::jsons_received() const -> size_t { return jsons_received_; }
+
+BufferingClient::~BufferingClient() { Close(); }
 
 }  // namespace illex

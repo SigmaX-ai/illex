@@ -15,14 +15,42 @@
 #pragma once
 
 #include "illex/latency.h"
+#include "illex/protocol.h"
 #include "illex/status.h"
 
 namespace illex {
 
-struct RawClient {
-  virtual auto ReceiveJSONs(LatencyTracker* lat_tracker) -> Status = 0;
+/// TCP default receive buffer size.
+#define ILLEX_DEFAULT_TCP_BUFSIZE (16 * 1024 * 1024)
+
+/// TCP default port.
+#define ILLEX_DEFAULT_PORT 10197
+
+/// Buffer sequence number.
+using Seq = uint64_t;
+
+/// A TCP socket.
+using Socket = kissnet::socket<kissnet::protocol::tcp>;
+
+/// Basic options for client implementations.
+struct ClientOptions {
+  /// The hostname to connect to.
+  std::string host = "localhost";
+  /// The port to connect to.
+  uint16_t port = ILLEX_DEFAULT_PORT;
+  /// The starting sequence number of the first JSON received.
+  uint64_t seq = 0;
+  /// Protocol options
+  Protocol protocol = {};
+};
+
+class Client {
+ public:
+  virtual auto ReceiveJSONs(LatencyTracker* lat_tracker = nullptr) -> Status = 0;
   virtual auto Close() -> Status = 0;
-  [[nodiscard]] virtual auto received() const -> size_t = 0;
+  /// \brief Return the number of received JSONs.
+  [[nodiscard]] virtual auto jsons_received() const -> size_t = 0;
+  /// \brief Return the number of received bytes.
   [[nodiscard]] virtual auto bytes_received() const -> size_t = 0;
 };
 

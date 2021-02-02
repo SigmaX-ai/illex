@@ -18,6 +18,7 @@
 
 #include <kissnet.hpp>
 
+#include "illex/client.h"
 #include "illex/document.h"
 #include "illex/producer.h"
 #include "illex/protocol.h"
@@ -45,24 +46,27 @@ struct RepeatOptions {
   size_t interval_ms = 250;
 };
 
+struct ServerOptions {
+  uint16_t port = ILLEX_DEFAULT_PORT;
+  bool reuse_socket = true;
+};
+
 /**
  * \brief A streaming server for raw JSONs directly over TCP.
  */
-class RawServer {
+class Server {
  public:
   /**
-   * \brief Create a new Raw server to stream JSONs to some pull socket.
+   * \brief Create a new Server to stream JSONs to a client.
    *
-   * The RawServer constructor cannot be used because setting up the server can fail.
-   *
-   * \param[in] protocol_options The protocol options.
-   * \param[out] out The RawServer to populate.
+   * \param[in]  options Server options.
+   * \param[out] out     The Server object to populate.
    * \return Status::OK() if successful, some error status otherwise.
    */
-  static auto Create(RawProtocol protocol_options, RawServer* out) -> Status;
+  static auto Create(const ServerOptions& options, Server* out) -> Status;
 
   /**
-   * \brief Send JSONs using this RawServer.
+   * \brief Send JSONs using this Server.
    * \param[in] prod_opts Options for the JSON production facilities.
    * \param[in] repeat_opts Options for repeated streaming mode
    * \param[out] stats Server statistics.
@@ -72,26 +76,25 @@ class RawServer {
                  StreamStatistics* stats) -> Status;
 
   /**
-   * \brief Close the RawServer.
+   * \brief Close the Server.
    * \return Status::OK() if successful, some error status otherwise.
    */
   auto Close() -> Status;
 
  private:
-  RawProtocol protocol;
-  std::string identity;
-  std::shared_ptr<RawSocket> server;
+  std::shared_ptr<Socket> server;
 };
 
 /**
  * \brief Use a RawServer to stream the specified JSONs out.
- * \param protocol_options Protocol options for the server.
- * \param production_options Options for JSON production.
- * \param statistics Whether to measure and log statistics.
+ * \param server_options     Server connection options.
+ * \param production_options JSON production options.
+ * \param repeat_options     Options related to how to repeat server functionality.
+ * \param statistics         Whether to measure and log statistics.
  * \return Status::OK if successful, some error otherwise.
  */
-auto RunRawServer(const RawProtocol& protocol_options,
-                  const ProductionOptions& production_options,
-                  const RepeatOptions& repeat_options, bool statistics) -> Status;
+auto RunServer(const ServerOptions& server_options,
+               const ProductionOptions& production_options,
+               const RepeatOptions& repeat_options, bool statistics) -> Status;
 
 }  // namespace illex

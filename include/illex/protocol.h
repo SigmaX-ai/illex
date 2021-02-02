@@ -19,31 +19,11 @@
 #include <kissnet.hpp>
 #include <variant>
 
-/// TCP default receive buffer size.
-#define ILLEX_TCP_BUFFER_SIZE (16 * 1024 * 1024)
-
 namespace illex {
 
-using RawSocket = kissnet::socket<kissnet::protocol::tcp>;
-
-/// TCP default port.
-constexpr uint16_t RAW_PORT = 10197;
-
 /// Protocol options for the raw streaming client/server
-struct RawProtocol {
-  /// \brief Constructor
-  explicit RawProtocol(uint16_t port = RAW_PORT) : port(port) {}
-  /// Port to use for the TCP connection.
-  uint16_t port;
-  /// Buffer size.
-  size_t buffer_size = ILLEX_TCP_BUFFER_SIZE;
-  /// Allow reuse of socket address.
-  bool reuse = true;
+struct Protocol {
+  // This protocol has no options.
 };
-
-using StreamProtocol = std::variant<RawProtocol>;
-
-/// Buffer sequence number.
-using Seq = uint64_t;
 
 }  // namespace illex

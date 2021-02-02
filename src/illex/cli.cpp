@@ -16,7 +16,6 @@
 
 #include "illex/arrow.h"
 #include "illex/file.h"
-#include "illex/log.h"
 #include "illex/status.h"
 
 namespace illex {
@@ -42,7 +41,6 @@ static void AddCommonOpts(CLI::App* sub, ProductionOptions* prod,
 auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Status {
   AppOptions result;
   std::string schema_file;
-  uint16_t stream_port = 0;
 
   CLI::App app{std::string(AppOptions::name) + ": " + AppOptions::desc};
 
@@ -58,11 +56,12 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
   auto* stream =
       app.add_subcommand("stream", "Stream raw JSONs over a TCP network socket.");
   AddCommonOpts(stream, &result.stream.production, &schema_file);
-  auto* port_opt = stream->add_option("-p,--port", stream_port,
-                                      "Port (default=" + std::to_string(RAW_PORT) + ").");
-  auto* no_reuse_flag = stream->add_flag("--disable-socket-reuse",
-                                         "Don't allow reuse of the server socket "
-                                         "(need to wait for timeout).");
+  stream->add_option("-p,--port", result.stream.server.port, "Port to listen on.")
+      ->default_val(ILLEX_DEFAULT_PORT);
+  auto* no_reuse_flag =
+      stream->add_flag("--disable-socket-reuse",
+                       "Don't allow reuse of the server socket "
+                       "(need to wait for timeout if socket already exists).");
   auto* repeat_server = stream->add_flag("--repeat-server",
                                          "Indefinitely repeat creating the server and "
                                          "streaming the messages.");
@@ -98,12 +97,9 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
     result.sub = SubCommand::STREAM;
     status = ReadSchemaFromFile(schema_file, &result.stream.production.schema);
 
-    RawProtocol raw;
-    if (*port_opt) raw.port = stream_port;
-    if (*no_reuse_flag) raw.reuse = false;
+    if (*no_reuse_flag) result.stream.server.reuse_socket = false;
     if (*repeat_server) result.stream.repeat_server = true;
     if (*repeat_jsons) result.stream.repeat.messages = true;
-    result.stream.protocol = raw;
 
   } else {
     result.sub = SubCommand::NONE;

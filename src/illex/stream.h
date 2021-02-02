@@ -19,7 +19,7 @@
 
 #include "illex/document.h"
 #include "illex/producer.h"
-#include "illex/raw_server.h"
+#include "illex/server.h"
 #include "illex/status.h"
 
 namespace illex {
@@ -27,7 +27,7 @@ namespace illex {
 /// \brief Options for the stream subcommand.
 struct StreamOptions {
   /// Properties of the message protocol.
-  StreamProtocol protocol;
+  ServerOptions server;
   /// Options for the JSON production facilities.
   ProductionOptions production;
   /// Options for repeated streaming mode
