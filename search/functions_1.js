@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bytes_5freceived',['bytes_received',['../structillex_1_1_raw_client.html#af1fe332d1a6dc8d1f381ae8de05df2a7',1,'illex::RawClient::bytes_received()'],['../structillex_1_1_direct_buffer_client.html#ab04396b5ead4b64e51c65fd8cbe43269',1,'illex::DirectBufferClient::bytes_received()'],['../structillex_1_1_raw_queueing_client.html#a2de589be4b13a348d328b02edc989919',1,'illex::RawQueueingClient::bytes_received()']]]
+  ['bytes_5freceived',['bytes_received',['../classillex_1_1_client.html#a35778b806ff9ae5a6301d246281fc160',1,'illex::Client::bytes_received()'],['../classillex_1_1_buffering_client.html#a9605a061c320f78b5c0afff14ee2f447',1,'illex::BufferingClient::bytes_received()'],['../structillex_1_1_queueing_client.html#a5c94f5346be473e374487ab5b4213572',1,'illex::QueueingClient::bytes_received()']]]
 ];

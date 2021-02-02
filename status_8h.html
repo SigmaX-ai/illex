@@ -24,7 +24,7 @@
    <div id="projectname">Illex
    &#160;<span id="projectnumber">0.0.1</span>
    </div>
-   <div id="projectbrief">A random JSON generator based on Arrow schemas.</div>
+   <div id="projectbrief">A random JSON generator and server based on Arrow schemas.</div>
   </td>
  </tr>
  </tbody>
@@ -87,24 +87,24 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="status_8h__dep__incl.png" border="0" usemap="#src_2illex_2status_8hdep" alt=""/></div>
 <map name="src_2illex_2status_8hdep" id="src_2illex_2status_8hdep">
-<area shape="rect" id="node2" href="arrow_8cpp.html" title="src/illex/arrow.cpp" alt="" coords="27,237,167,263"/>
-<area shape="rect" id="node3" href="cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="429,319,548,345"/>
-<area shape="rect" id="node4" href="client__buffered_8cpp.html" title="src/illex/client_buffered.cpp" alt="" coords="1252,319,1453,345"/>
-<area shape="rect" id="node5" href="file_8cpp.html" title="src/illex/file.cpp" alt="" coords="427,237,551,263"/>
-<area shape="rect" id="node6" href="file_8h.html" title="src/illex/file.h" alt="" coords="585,155,694,181"/>
-<area shape="rect" id="node9" href="raw__server_8h.html" title="src/illex/raw_server.h" alt="" coords="849,80,1009,107"/>
-<area shape="rect" id="node12" href="stream_8h.html" title="src/illex/stream.h" alt="" coords="861,155,996,181"/>
-<area shape="rect" id="node13" href="arrow_8h.html" title="include/illex/arrow.h" alt="" coords="323,155,476,181"/>
-<area shape="rect" id="node15" href="client_8h.html" title="include/illex/client.h" alt="" coords="1273,155,1427,181"/>
-<area shape="rect" id="node17" href="client__queued_8h.html" title="include/illex/client\l_queued.h" alt="" coords="1553,229,1694,271"/>
-<area shape="rect" id="node19" href="latency_8h.html" title="include/illex/latency.h" alt="" coords="1383,80,1546,107"/>
-<area shape="rect" id="node7" href="cli_8h.html" title="src/illex/cli.h" alt="" coords="877,237,981,263"/>
-<area shape="rect" id="node8" href="main_8cpp.html" title="src/illex/main.cpp" alt="" coords="860,319,997,345"/>
-<area shape="rect" id="node10" href="raw__server_8cpp.html" title="src/illex/raw_server.cpp" alt="" coords="677,237,852,263"/>
-<area shape="rect" id="node11" href="stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="1056,237,1207,263"/>
-<area shape="rect" id="node14" href="producer_8cpp.html" title="src/illex/producer.cpp" alt="" coords="191,237,351,263"/>
-<area shape="rect" id="node16" href="client__buffered_8h.html" title="include/illex/client\l_buffered.h" alt="" coords="1282,229,1423,271"/>
-<area shape="rect" id="node18" href="client__queued_8cpp.html" title="src/illex/client_queued.cpp" alt="" coords="1502,319,1697,345"/>
+<area shape="rect" id="node2" href="arrow_8cpp.html" title="src/illex/arrow.cpp" alt="" coords="343,319,483,345"/>
+<area shape="rect" id="node3" href="cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="22,468,141,495"/>
+<area shape="rect" id="node4" href="client__buffering_8cpp.html" title="src/illex/client_buffering.cpp" alt="" coords="1121,319,1327,345"/>
+<area shape="rect" id="node5" href="file_8cpp.html" title="src/illex/file.cpp" alt="" coords="195,319,319,345"/>
+<area shape="rect" id="node6" href="file_8h.html" title="src/illex/file.h" alt="" coords="103,237,212,263"/>
+<area shape="rect" id="node9" href="server_8h.html" title="src/illex/server.h" alt="" coords="801,237,930,263"/>
+<area shape="rect" id="node12" href="stream_8h.html" title="src/illex/stream.h" alt="" coords="911,319,1046,345"/>
+<area shape="rect" id="node13" href="arrow_8h.html" title="include/illex/arrow.h" alt="" coords="547,237,701,263"/>
+<area shape="rect" id="node15" href="client_8h.html" title="include/illex/client.h" alt="" coords="942,155,1095,181"/>
+<area shape="rect" id="node17" href="client__queueing_8h.html" title="include/illex/client\l_queueing.h" alt="" coords="1259,229,1400,271"/>
+<area shape="rect" id="node19" href="latency_8h.html" title="include/illex/latency.h" alt="" coords="1157,80,1320,107"/>
+<area shape="rect" id="node7" href="cli_8h.html" title="src/illex/cli.h" alt="" coords="144,393,248,420"/>
+<area shape="rect" id="node8" href="main_8cpp.html" title="src/illex/main.cpp" alt="" coords="217,468,354,495"/>
+<area shape="rect" id="node10" href="server_8cpp.html" title="src/illex/server.cpp" alt="" coords="743,319,887,345"/>
+<area shape="rect" id="node11" href="stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="955,393,1106,420"/>
+<area shape="rect" id="node14" href="producer_8cpp.html" title="src/illex/producer.cpp" alt="" coords="559,319,719,345"/>
+<area shape="rect" id="node16" href="client__buffering_8h.html" title="include/illex/client\l_buffering.h" alt="" coords="955,229,1096,271"/>
+<area shape="rect" id="node18" href="client__queueing_8cpp.html" title="src/illex/client_queueing.cpp" alt="" coords="1355,319,1562,345"/>
 </map>
 </div>
 </div>
@@ -130,8 +130,8 @@ Enumerations</h2></td></tr>
 <tr class="memitem:aac6d027847f276bd2ff1a54b89c16f44"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44">illex::Error</a> { <br />
 &#160;&#160;<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44ab8f3ed63a76e8f1710dfd83958de1789">illex::Error::GenericError</a>, 
 <a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a8d2aeea6dbe4bf6852e97fb66f45e84f">illex::Error::CLIError</a>, 
-<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44ab905a63d4511546eff4524d4d2db32ab">illex::Error::JSONError</a>, 
-<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a7a85fbcc926a749124f2367de2f2a4b3">illex::Error::RawError</a>, 
+<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a7d65c64901711bc2cd2a33ff2641fbe9">illex::Error::ServerError</a>, 
+<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44aa4097a97f20ebb7212625084936abcee">illex::Error::ClientError</a>, 
 <br />
 &#160;&#160;<a class="el" href="namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a5206bd7472156351d2d9a99633ac9580">illex::Error::IOError</a>
 <br />
@@ -154,7 +154,7 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{                                  \</div><div class="line">    auto status = s;                 \</div><div class="line">    if (!status.ok()) <span class="keywordflow">return</span> status; \</div><div class="line">  }</div></div><!-- fragment -->
+<b>Value:</b><div class="fragment"><div class="line">{                                      \</div><div class="line">    auto __status = (s);                 \</div><div class="line">    if (!__status.ok()) <span class="keywordflow">return</span> __status; \</div><div class="line">  }</div></div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

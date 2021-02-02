@@ -1,17 +1,12 @@
 var searchData=
 [
-  ['scan',['Scan',['../classillex_1_1_raw_j_s_o_n_buffer.html#a427a09d93f2d967bc4e0412e20254c55',1,'illex::RawJSONBuffer']]],
-  ['schemaanalyzer',['SchemaAnalyzer',['../classillex_1_1_schema_analyzer.html#a73bf752f8b525ba29e7faa569eacf070',1,'illex::SchemaAnalyzer']]],
-  ['sendjsons',['SendJSONs',['../classillex_1_1_raw_server.html#afcfef1c29ed9eb2e775ebe72bbff2f09',1,'illex::RawServer']]],
-  ['setcontext',['SetContext',['../classillex_1_1_value.html#aefdda2b9099ae1de9c65b600cd79e594',1,'illex::Value::SetContext()'],['../classillex_1_1_member.html#a87c4aeb135aec4b2e81bc626f603eb26',1,'illex::Member::SetContext()']]],
-  ['setname',['SetName',['../classillex_1_1_member.html#aca024ce2abacb2fc0575f220f317abdf',1,'illex::Member']]],
-  ['setrange',['SetRange',['../classillex_1_1_raw_j_s_o_n_buffer.html#aa8a3c577d0777620570be0d27dfbc865',1,'illex::RawJSONBuffer']]],
-  ['setrecvtime',['SetRecvTime',['../classillex_1_1_raw_j_s_o_n_buffer.html#ae24aa838e56081d44a07f41f55688f62',1,'illex::RawJSONBuffer']]],
-  ['setroot',['SetRoot',['../classillex_1_1_document_generator.html#a4af031c7c67bacfcc41df2915d9715e3',1,'illex::DocumentGenerator']]],
-  ['setsize',['SetSize',['../classillex_1_1_raw_j_s_o_n_buffer.html#afe418af2ce658ac3370b491b7b49e320',1,'illex::RawJSONBuffer']]],
-  ['setsizeunsafe',['SetSizeUnsafe',['../classillex_1_1_raw_j_s_o_n_buffer.html#a76a8c067a1c1c2ca0b5a21bee6352169',1,'illex::RawJSONBuffer']]],
-  ['setvalue',['SetValue',['../classillex_1_1_member.html#a313220bb37668f3ddbef4f1fc70353a1',1,'illex::Member']]],
-  ['size',['size',['../classillex_1_1_raw_j_s_o_n_buffer.html#abd5fbfdda4df15588f97eea789d59598',1,'illex::RawJSONBuffer']]],
-  ['startlogger',['StartLogger',['../namespaceillex.html#a3ce95e1487109601311cdc1ba71ecc77',1,'illex']]],
-  ['string',['String',['../structillex_1_1_string.html#af1ce2c0e5fc8cbedb7db0e2c6812a902',1,'illex::String']]]
+  ['range',['range',['../classillex_1_1_j_s_o_n_buffer.html#ae40766f19f825734854cf8ba47c37b1a',1,'illex::JSONBuffer']]],
+  ['readschemafromfile',['ReadSchemaFromFile',['../namespaceillex.html#ae50d001477ebf99b5a53565862fdf60c',1,'illex']]],
+  ['receivejsons',['ReceiveJSONs',['../classillex_1_1_client.html#a4b525dd3de56ea5b6dd7ee23c338bd87',1,'illex::Client::ReceiveJSONs()'],['../classillex_1_1_buffering_client.html#a120de3ed4636dd215f415abd4c4a2dc7',1,'illex::BufferingClient::ReceiveJSONs()'],['../structillex_1_1_queueing_client.html#ac54be43ac317ae9b4e7a0e98c57bc301',1,'illex::QueueingClient::ReceiveJSONs()']]],
+  ['recv_5ftime',['recv_time',['../classillex_1_1_j_s_o_n_buffer.html#a6aa3d3b92fec731015ea7282eb678023',1,'illex::JSONBuffer']]],
+  ['reset',['Reset',['../classillex_1_1_j_s_o_n_buffer.html#a797ea9ccaf42481807cdefb02d13f523',1,'illex::JSONBuffer']]],
+  ['root',['root',['../classillex_1_1_document_generator.html#acdbfa729da5c7d46705dc448615d0dbd',1,'illex::DocumentGenerator']]],
+  ['runfile',['RunFile',['../namespaceillex.html#a36db3575f6c9f676e2f996512e3cbcc9',1,'illex']]],
+  ['runserver',['RunServer',['../namespaceillex.html#af439ec40ba77fbbebd9b4ba87173cdd4',1,'illex']]],
+  ['runstream',['RunStream',['../namespaceillex.html#a1a7d55bd26e692018470e8749e06b3f8',1,'illex']]]
 ];

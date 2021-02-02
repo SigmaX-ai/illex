@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classillex_1_1_field_analyzer.html" title="Class to analyze an Arrow field, and populate a Member generator. " alt="" coords="159,5,304,32"/>
-<area shape="rect" id="node3" href="$classillex_1_1_schema_analyzer.html" title="Class to analyze an Arrow schema and populate a DocumentGenerator. " alt="" coords="148,56,315,83"/>
+<area shape="rect" id="node1" href="$structillex_1_1_context.html" title="Context for generators to operate in. " alt="" coords="5,5,115,32"/>
 </map>

@@ -1,17 +1,21 @@
 var searchData=
 [
-  ['capacity',['capacity',['../classillex_1_1_raw_j_s_o_n_buffer.html#a09ee186c960c63e2aea4556d826f9d9a',1,'illex::RawJSONBuffer']]],
-  ['capacity_5f',['capacity_',['../classillex_1_1_raw_j_s_o_n_buffer.html#a2290f6aa99fdf12c1c33402786d3de61',1,'illex::RawJSONBuffer']]],
+  ['capacity',['capacity',['../classillex_1_1_j_s_o_n_buffer.html#ae72975c10be835e5c49843d56e0a1110',1,'illex::JSONBuffer']]],
+  ['capacity_5f',['capacity_',['../classillex_1_1_j_s_o_n_buffer.html#aa1b15f3641a5a847415fe155718b42a0',1,'illex::JSONBuffer']]],
+  ['chars_5fdist_5f',['chars_dist_',['../structillex_1_1_string.html#a345cb70b13e63a1cba453d09c07a7bab',1,'illex::String']]],
   ['cli_2ecpp',['cli.cpp',['../cli_8cpp.html',1,'']]],
   ['cli_2eh',['cli.h',['../cli_8h.html',1,'']]],
+  ['client',['Client',['../classillex_1_1_client.html',1,'illex::Client'],['../classillex_1_1_buffering_client.html#ab0b7358881a47aa30b43a21e782aa572',1,'illex::BufferingClient::client()'],['../structillex_1_1_queueing_client.html#a7eb81c270864a0efc777f19b3fc23efa',1,'illex::QueueingClient::client()']]],
   ['client_2eh',['client.h',['../client_8h.html',1,'']]],
-  ['client_5fbuffered_2ecpp',['client_buffered.cpp',['../client__buffered_8cpp.html',1,'']]],
-  ['client_5fbuffered_2eh',['client_buffered.h',['../client__buffered_8h.html',1,'']]],
-  ['client_5fqueued_2ecpp',['client_queued.cpp',['../client__queued_8cpp.html',1,'']]],
-  ['client_5fqueued_2eh',['client_queued.h',['../client__queued_8h.html',1,'']]],
+  ['client_5fbuffering_2ecpp',['client_buffering.cpp',['../client__buffering_8cpp.html',1,'']]],
+  ['client_5fbuffering_2eh',['client_buffering.h',['../client__buffering_8h.html',1,'']]],
+  ['client_5fqueueing_2ecpp',['client_queueing.cpp',['../client__queueing_8cpp.html',1,'']]],
+  ['client_5fqueueing_2eh',['client_queueing.h',['../client__queueing_8h.html',1,'']]],
+  ['clienterror',['ClientError',['../namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44aa4097a97f20ebb7212625084936abcee',1,'illex']]],
+  ['clientoptions',['ClientOptions',['../structillex_1_1_client_options.html',1,'illex']]],
   ['clierror',['CLIError',['../namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44a8d2aeea6dbe4bf6852e97fb66f45e84f',1,'illex']]],
-  ['close',['Close',['../classillex_1_1_raw_server.html#ab592eb3b613ae15cb99a269ef1ef971a',1,'illex::RawServer::Close()'],['../structillex_1_1_raw_client.html#a50f00d871aaf6465bc68825a80395c87',1,'illex::RawClient::Close()'],['../structillex_1_1_direct_buffer_client.html#a0cbe2b4877447bd2517ae150dbd1a778',1,'illex::DirectBufferClient::Close()'],['../structillex_1_1_raw_queueing_client.html#a4c49f154e9944f5d629f27a9efba3385',1,'illex::RawQueueingClient::Close()']]],
+  ['close',['Close',['../classillex_1_1_server.html#a3a26602e538ebd9255511c60f546074f',1,'illex::Server::Close()'],['../classillex_1_1_client.html#a0f257ad2bd9b4c92ff3f50b7da09e309',1,'illex::Client::Close()'],['../classillex_1_1_buffering_client.html#a330436da7859f8f1884a0b66dd90d25c',1,'illex::BufferingClient::Close()'],['../structillex_1_1_queueing_client.html#ada09c1ccd87ae8bc0aecc8cb74320503',1,'illex::QueueingClient::Close()']]],
   ['context',['Context',['../structillex_1_1_context.html',1,'illex::Context'],['../classillex_1_1_document_generator.html#a4bf948f92b229b737cc4c94d2c1beaca',1,'illex::DocumentGenerator::context()'],['../classillex_1_1_member.html#a1217c8d2373db57390f5104f7f30b3de',1,'illex::Member::context()']]],
   ['context_5f',['context_',['../classillex_1_1_document_generator.html#a86618cfabbcd8a5df1c6eec296d92b4d',1,'illex::DocumentGenerator::context_()'],['../classillex_1_1_value.html#a0ae04047e2a718a88063732a92ae6ba0',1,'illex::Value::context_()'],['../classillex_1_1_member.html#a7b4f04880ee1437730b2efdc6c522042',1,'illex::Member::context_()']]],
-  ['create',['Create',['../classillex_1_1_raw_server.html#a9de1565118929cea841735d147b9d579',1,'illex::RawServer::Create()'],['../classillex_1_1_raw_j_s_o_n_buffer.html#abe075b11219be5bfe51602cfae415e3d',1,'illex::RawJSONBuffer::Create()'],['../structillex_1_1_direct_buffer_client.html#a9e1bc5c59bd0aa91dd57fc282b503b43',1,'illex::DirectBufferClient::Create()'],['../structillex_1_1_raw_queueing_client.html#a0e29187aac5103d6e1e816b717ccc88a',1,'illex::RawQueueingClient::Create()']]]
+  ['create',['Create',['../classillex_1_1_server.html#a50c9f40d0c2150ba5347b1feb3f4d99a',1,'illex::Server::Create()'],['../classillex_1_1_j_s_o_n_buffer.html#ac8aece04c1625ecdc24c9428239a3722',1,'illex::JSONBuffer::Create()'],['../classillex_1_1_buffering_client.html#acec5c0c7340b28c6cbfedb0b5f948f09',1,'illex::BufferingClient::Create()'],['../structillex_1_1_queueing_client.html#a4c46e30fd1b8968b0ba49943face70ff',1,'illex::QueueingClient::Create()']]]
 ];

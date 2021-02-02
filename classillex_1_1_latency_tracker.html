@@ -24,7 +24,7 @@
    <div id="projectname">Illex
    &#160;<span id="projectnumber">0.0.1</span>
    </div>
-   <div id="projectbrief">A random JSON generator based on Arrow schemas.</div>
+   <div id="projectbrief">A random JSON generator and server based on Arrow schemas.</div>
   </td>
  </tr>
  </tbody>
@@ -66,6 +66,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classillex_1_1_latency_tracker-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">illex::LatencyTracker Class Reference</div>  </div>
@@ -91,6 +92,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a74a9cce786d155a67fa77938dfdf09fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acab57823518877b8ff5974edf67ed94b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_latency_tracker.html#acab57823518877b8ff5974edf67ed94b">num_samples</a> () const -&gt; size_t</td></tr>
 <tr class="separator:acab57823518877b8ff5974edf67ed94b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aa59959eca3e5c4d8a54861cae85bd150"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_latency_tracker.html#aa59959eca3e5c4d8a54861cae85bd150">sample_interval_</a></td></tr>
+<tr class="separator:aa59959eca3e5c4d8a54861cae85bd150"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4f03da7cd9db74685c89df0d7ea0d2d"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_latency_tracker.html#ac4f03da7cd9db74685c89df0d7ea0d2d">num_samples_</a></td></tr>
+<tr class="separator:ac4f03da7cd9db74685c89df0d7ea0d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac135c58b8a814b26ce6fd34afea0c774"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_latency_tracker.html#ac135c58b8a814b26ce6fd34afea0c774">num_stages_</a></td></tr>
+<tr class="separator:ac135c58b8a814b26ce6fd34afea0c774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a5eb10426aa92dceac22bdb0523ec28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceillex.html#a6c93539a83df4c13ed1c19dc77ff2289">TimePoint</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_latency_tracker.html#a2a5eb10426aa92dceac22bdb0523ec28">points_</a></td></tr>
+<tr class="separator:a2a5eb10426aa92dceac22bdb0523ec28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac727b2ec773f8db50368cb12a387e2a3"></a>
@@ -332,6 +344,95 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if it was put, false otherwise. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac4f03da7cd9db74685c89df0d7ea0d2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4f03da7cd9db74685c89df0d7ea0d2d">&#9670;&nbsp;</a></span>num_samples_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t illex::LatencyTracker::num_samples_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac135c58b8a814b26ce6fd34afea0c774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac135c58b8a814b26ce6fd34afea0c774">&#9670;&nbsp;</a></span>num_stages_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t illex::LatencyTracker::num_stages_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a5eb10426aa92dceac22bdb0523ec28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a5eb10426aa92dceac22bdb0523ec28">&#9670;&nbsp;</a></span>points_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceillex.html#a6c93539a83df4c13ed1c19dc77ff2289">TimePoint</a>* illex::LatencyTracker::points_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa59959eca3e5c4d8a54861cae85bd150"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa59959eca3e5c4d8a54861cae85bd150">&#9670;&nbsp;</a></span>sample_interval_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t illex::LatencyTracker::sample_interval_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

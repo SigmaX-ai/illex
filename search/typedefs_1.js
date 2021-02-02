@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jsonqueue',['JSONQueue',['../namespaceillex.html#ad457a19601f154106b7b594719790fa4',1,'illex']]]
+  ['jsonqueue',['JSONQueue',['../namespaceillex.html#a81dc650d07599ac532864dc81ed3ef67',1,'illex']]]
 ];

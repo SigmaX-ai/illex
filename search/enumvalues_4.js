@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jsonerror',['JSONError',['../namespaceillex.html#aac6d027847f276bd2ff1a54b89c16f44ab905a63d4511546eff4524d4d2db32ab',1,'illex']]]
+  ['none',['NONE',['../namespaceillex.html#ab8fff30d055af311ffab6d46b1f7bf38ab50339a10e1de285ac99d4c3990b8693',1,'illex']]]
 ];

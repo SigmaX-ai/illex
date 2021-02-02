@@ -24,7 +24,7 @@
    <div id="projectname">Illex
    &#160;<span id="projectnumber">0.0.1</span>
    </div>
-   <div id="projectbrief">A random JSON generator based on Arrow schemas.</div>
+   <div id="projectbrief">A random JSON generator and server based on Arrow schemas.</div>
   </td>
  </tr>
  </tbody>
@@ -70,18 +70,38 @@ $(function() {
 
 
 <h3><a id="index_b"></a>- b -</h3><ul>
+<li>buffer
+: <a class="el" href="structillex_1_1_queueing_client.html#ad23187558f749027099df88681f92f5c">illex::QueueingClient</a>
+</li>
 <li>buffer_
-: <a class="el" href="classillex_1_1_raw_j_s_o_n_buffer.html#a43336ea90bacadf207acd8499b37a291">illex::RawJSONBuffer</a>
+: <a class="el" href="classillex_1_1_j_s_o_n_buffer.html#a428750a610981f4dc11480484cf6648d">illex::JSONBuffer</a>
+</li>
+<li>buffer_idx
+: <a class="el" href="classillex_1_1_buffering_client.html#a3734ec9840dbda208e8f7141320cd6a8">illex::BufferingClient</a>
 </li>
 <li>buffer_size
-: <a class="el" href="structillex_1_1_raw_protocol.html#a1ac5704b61315da24583adc46affc537">illex::RawProtocol</a>
+: <a class="el" href="structillex_1_1_queueing_client.html#a71cb49a486fb0a853da1787bfb2217c2">illex::QueueingClient</a>
+</li>
+<li>buffers
+: <a class="el" href="classillex_1_1_buffering_client.html#a221892f3103ed7d0f88a3be23202f559">illex::BufferingClient</a>
+</li>
+<li>bytes_received_
+: <a class="el" href="classillex_1_1_buffering_client.html#acae6a0f242b9c93922fffba5a14f2488">illex::BufferingClient</a>
+, <a class="el" href="structillex_1_1_queueing_client.html#a50a9c30aa7ffe3247210a75d79210034">illex::QueueingClient</a>
 </li>
 </ul>
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>capacity_
-: <a class="el" href="classillex_1_1_raw_j_s_o_n_buffer.html#a2290f6aa99fdf12c1c33402786d3de61">illex::RawJSONBuffer</a>
+: <a class="el" href="classillex_1_1_j_s_o_n_buffer.html#aa1b15f3641a5a847415fe155718b42a0">illex::JSONBuffer</a>
+</li>
+<li>chars_dist_
+: <a class="el" href="structillex_1_1_string.html#a345cb70b13e63a1cba453d09c07a7bab">illex::String</a>
+</li>
+<li>client
+: <a class="el" href="classillex_1_1_buffering_client.html#ab0b7358881a47aa30b43a21e782aa572">illex::BufferingClient</a>
+, <a class="el" href="structillex_1_1_queueing_client.html#a7eb81c270864a0efc777f19b3fc23efa">illex::QueueingClient</a>
 </li>
 <li>context_
 : <a class="el" href="classillex_1_1_document_generator.html#a86618cfabbcd8a5df1c6eec296d92b4d">illex::DocumentGenerator</a>
@@ -92,8 +112,14 @@ $(function() {
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>day
+: <a class="el" href="structillex_1_1_date_string.html#a1bc2e69ace5bb3d921f8cfa3b2cf323c">illex::DateString</a>
+</li>
 <li>desc
 : <a class="el" href="structillex_1_1_app_options.html#abaf4493fb02a632e99c2780a467c17d3">illex::AppOptions</a>
+</li>
+<li>dist_
+: <a class="el" href="classillex_1_1_int.html#a890736db1da4bff908290c58fcc971fa">illex::Int&lt; T &gt;</a>
 </li>
 <li>doc_
 : <a class="el" href="classillex_1_1_document_generator.html#a2ac49e27b07e72a053a25418c3380cf6">illex::DocumentGenerator</a>
@@ -132,9 +158,30 @@ $(function() {
 </ul>
 
 
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>host
+: <a class="el" href="structillex_1_1_client_options.html#ae402d48047037668506141fa47f57ffe">illex::ClientOptions</a>
+</li>
+<li>hour
+: <a class="el" href="structillex_1_1_date_string.html#a6108e6e49aeb2b998a78ed6cffc2e4b7">illex::DateString</a>
+</li>
+</ul>
+
+
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>interval_ms
 : <a class="el" href="structillex_1_1_repeat_options.html#add936c92a09e4e4929baebae847098c1">illex::RepeatOptions</a>
+</li>
+<li>item_
+: <a class="el" href="structillex_1_1_array.html#a64490a3a3492a5b1b5cbc47fcaa5870e">illex::Array</a>
+, <a class="el" href="structillex_1_1_fixed_size_array.html#a65d22ca31477ce393c1a463d05e8d0db">illex::FixedSizeArray</a>
+</li>
+</ul>
+
+
+<h3><a id="index_j"></a>- j -</h3><ul>
+<li>jsons_received_
+: <a class="el" href="classillex_1_1_buffering_client.html#a194f45d5c9a5569ec748fbe67c26799e">illex::BufferingClient</a>
 </li>
 </ul>
 
@@ -143,10 +190,28 @@ $(function() {
 <li>last
 : <a class="el" href="structillex_1_1_seq_range.html#a9980773cc7b439ac37c7b0158fc8557c">illex::SeqRange</a>
 </li>
+<li>len_dist_
+: <a class="el" href="structillex_1_1_string.html#ae375d743902aca973f93006ad4060c29">illex::String</a>
+</li>
+<li>length
+: <a class="el" href="structillex_1_1_array.html#a38cb5c3961a6bcf9e115d4866c561925">illex::Array</a>
+</li>
+<li>length_
+: <a class="el" href="structillex_1_1_fixed_size_array.html#af2f92fa2db8abe2e992529b806b38a2c">illex::FixedSizeArray</a>
+</li>
+<li>length_clip_max_
+: <a class="el" href="structillex_1_1_string.html#aa70b67e2158da66f33209db5817a09e0">illex::String</a>
+</li>
+<li>length_clip_min_
+: <a class="el" href="structillex_1_1_string.html#af9e40a98a4340bf626c23cc6d131d869">illex::String</a>
+</li>
 </ul>
 
 
 <h3><a id="index_m"></a>- m -</h3><ul>
+<li>max_length
+: <a class="el" href="structillex_1_1_array.html#a18d720a9282de57cd0efab711a27cca3">illex::Array</a>
+</li>
 <li>member_out_
 : <a class="el" href="classillex_1_1_field_analyzer.html#ac8dad53bb5d9b3a71e65ec1ec718a2f4">illex::FieldAnalyzer</a>
 </li>
@@ -155,6 +220,22 @@ $(function() {
 </li>
 <li>messages
 : <a class="el" href="structillex_1_1_repeat_options.html#a5ef9102afaf7ba4c83c57557305147b6">illex::RepeatOptions</a>
+</li>
+<li>min
+: <a class="el" href="structillex_1_1_date_string.html#a1669c4d79720ffc0a570146a5e59c94f">illex::DateString</a>
+</li>
+<li>min_length
+: <a class="el" href="structillex_1_1_array.html#ab302bc213e41238d192f411b03d40671">illex::Array</a>
+</li>
+<li>month
+: <a class="el" href="structillex_1_1_date_string.html#ac257cf8c977e04639382794995ce4c5c">illex::DateString</a>
+</li>
+<li>must_be_closed
+: <a class="el" href="classillex_1_1_buffering_client.html#ab68d125dc0d0e8312fabae00fae18a9e">illex::BufferingClient</a>
+, <a class="el" href="structillex_1_1_queueing_client.html#afea2f34c432c732f0766e5b43f46b3df">illex::QueueingClient</a>
+</li>
+<li>mutexes
+: <a class="el" href="classillex_1_1_buffering_client.html#a5399c5b769fe1f84ec4223edf3c7d738">illex::BufferingClient</a>
 </li>
 </ul>
 
@@ -175,6 +256,12 @@ $(function() {
 <li>num_messages
 : <a class="el" href="structillex_1_1_stream_statistics.html#a8de2bf49b2ce92df0043a18d5b1d71e1">illex::StreamStatistics</a>
 </li>
+<li>num_samples_
+: <a class="el" href="classillex_1_1_latency_tracker.html#ac4f03da7cd9db74685c89df0d7ea0d2d">illex::LatencyTracker</a>
+</li>
+<li>num_stages_
+: <a class="el" href="classillex_1_1_latency_tracker.html#ac135c58b8a814b26ce6fd34afea0c774">illex::LatencyTracker</a>
+</li>
 <li>num_threads
 : <a class="el" href="structillex_1_1_production_options.html#a5b887168ee4e95da5f570bfb2350e774">illex::ProductionOptions</a>
 </li>
@@ -192,8 +279,12 @@ $(function() {
 
 
 <h3><a id="index_p"></a>- p -</h3><ul>
+<li>points_
+: <a class="el" href="classillex_1_1_latency_tracker.html#a2a5eb10426aa92dceac22bdb0523ec28">illex::LatencyTracker</a>
+</li>
 <li>port
-: <a class="el" href="structillex_1_1_raw_protocol.html#abdbe72ca379e68958a2c63785722d72f">illex::RawProtocol</a>
+: <a class="el" href="structillex_1_1_client_options.html#aad3a7826b11e299daffd31d5c072afaf">illex::ClientOptions</a>
+, <a class="el" href="structillex_1_1_server_options.html#ada036e4a3d4886e2540479a0fa7e660c">illex::ServerOptions</a>
 </li>
 <li>pretty
 : <a class="el" href="structillex_1_1_production_options.html#a5c476aa60b04935bc7e00794727296fe">illex::ProductionOptions</a>
@@ -206,14 +297,24 @@ $(function() {
 , <a class="el" href="structillex_1_1_stream_options.html#a10df5cedf1033eb919db2f0ea35a70ab">illex::StreamOptions</a>
 </li>
 <li>protocol
-: <a class="el" href="structillex_1_1_stream_options.html#affeea0bb165aea885bc915870cd9157f">illex::StreamOptions</a>
+: <a class="el" href="structillex_1_1_client_options.html#a62c800783d3a366e6d2e74b0b6110d31">illex::ClientOptions</a>
+</li>
+</ul>
+
+
+<h3><a id="index_q"></a>- q -</h3><ul>
+<li>queue
+: <a class="el" href="structillex_1_1_queueing_client.html#a06cff38d434e34f6151a2edf5a107276">illex::QueueingClient</a>
 </li>
 </ul>
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
+<li>received_
+: <a class="el" href="structillex_1_1_queueing_client.html#a4d904fb22cfc90d860617af24621c5f2">illex::QueueingClient</a>
+</li>
 <li>recv_time_
-: <a class="el" href="classillex_1_1_raw_j_s_o_n_buffer.html#acf9af7be5e1674adbed5eafe89b602da">illex::RawJSONBuffer</a>
+: <a class="el" href="classillex_1_1_j_s_o_n_buffer.html#a5fc031fc9210e5ccc632082bbcdb9be4">illex::JSONBuffer</a>
 </li>
 <li>repeat
 : <a class="el" href="structillex_1_1_stream_options.html#af34df5e57982c4489fb82aeb5e5fe009">illex::StreamOptions</a>
@@ -224,8 +325,8 @@ $(function() {
 <li>return_value
 : <a class="el" href="structillex_1_1_app_options.html#a8e1ffb08c3828fddd386e00a19123758">illex::AppOptions</a>
 </li>
-<li>reuse
-: <a class="el" href="structillex_1_1_raw_protocol.html#ae353919e862dd8d02b95ded40dfeafc2">illex::RawProtocol</a>
+<li>reuse_socket
+: <a class="el" href="structillex_1_1_server_options.html#a52ecfc0a7694600d6cd2b5b3b5a68836">illex::ServerOptions</a>
 </li>
 <li>root_
 : <a class="el" href="classillex_1_1_document_generator.html#a84aabbb6f060aa98c316470daa901051">illex::DocumentGenerator</a>
@@ -234,20 +335,33 @@ $(function() {
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>sample_interval_
+: <a class="el" href="classillex_1_1_latency_tracker.html#aa59959eca3e5c4d8a54861cae85bd150">illex::LatencyTracker</a>
+</li>
 <li>schema
 : <a class="el" href="structillex_1_1_production_options.html#a93949df4f40036ee36d9a10828e9a148">illex::ProductionOptions</a>
+</li>
+<li>sec
+: <a class="el" href="structillex_1_1_date_string.html#aacf5c8d407a067f0e0499d7aaddf24ac">illex::DateString</a>
 </li>
 <li>seed
 : <a class="el" href="structillex_1_1_generate_options.html#a757fc60f803aa6bba444a07740a214cd">illex::GenerateOptions</a>
 </li>
 <li>seq
-: <a class="el" href="structillex_1_1_j_s_o_n_queue_item.html#a2429b36f3474e10eee2e59ff6f3761a2">illex::JSONQueueItem</a>
+: <a class="el" href="classillex_1_1_buffering_client.html#a6aa636d035172a93255538e8f4e9f105">illex::BufferingClient</a>
+, <a class="el" href="structillex_1_1_client_options.html#aea5f0731a5af08fe134ac1c6290b4074">illex::ClientOptions</a>
+, <a class="el" href="structillex_1_1_j_s_o_n_item.html#ac42f50f5657741c589546dbaeb2fd2c5">illex::JSONItem</a>
+, <a class="el" href="structillex_1_1_queueing_client.html#ac477cc9035ed9218c05136ced6e303c5">illex::QueueingClient</a>
 </li>
 <li>seq_range
-: <a class="el" href="classillex_1_1_raw_j_s_o_n_buffer.html#a1f277637b58e3980195cb1c748a9f491">illex::RawJSONBuffer</a>
+: <a class="el" href="classillex_1_1_j_s_o_n_buffer.html#a4aff931b73633bb94b773b5504f19622">illex::JSONBuffer</a>
+</li>
+<li>server
+: <a class="el" href="classillex_1_1_server.html#a6ddfb1b777f46a25ea564728a859721a">illex::Server</a>
+, <a class="el" href="structillex_1_1_stream_options.html#aeea26c65e8110e1ed4f28016fbafc608">illex::StreamOptions</a>
 </li>
 <li>size_
-: <a class="el" href="classillex_1_1_raw_j_s_o_n_buffer.html#a61d123f159265e8adfd3f003e334a029">illex::RawJSONBuffer</a>
+: <a class="el" href="classillex_1_1_j_s_o_n_buffer.html#ac72e565073ab0fba8a632342d9ca041e">illex::JSONBuffer</a>
 </li>
 <li>statistics
 : <a class="el" href="structillex_1_1_production_options.html#a0798f84ca41655ad4abb1f23df9475e1">illex::ProductionOptions</a>
@@ -257,7 +371,7 @@ $(function() {
 : <a class="el" href="structillex_1_1_app_options.html#ac8a5017c8560e807d61411573af9d9cd">illex::AppOptions</a>
 </li>
 <li>string
-: <a class="el" href="structillex_1_1_j_s_o_n_queue_item.html#aea6198da2ee6cc35734fb94c728a303c">illex::JSONQueueItem</a>
+: <a class="el" href="structillex_1_1_j_s_o_n_item.html#a1ea81dd8dfbb6241bd83dbe73123932b">illex::JSONItem</a>
 </li>
 <li>sub
 : <a class="el" href="structillex_1_1_app_options.html#a357e54c8062831217e08c20f2aca4dcb">illex::AppOptions</a>
@@ -269,6 +383,9 @@ $(function() {
 <li>time
 : <a class="el" href="structillex_1_1_production_stats.html#ab075870f6e2b0d70cab674e653fb056e">illex::ProductionStats</a>
 , <a class="el" href="structillex_1_1_stream_statistics.html#a5cae60f84630a5e5a8dbc96cefa466c4">illex::StreamStatistics</a>
+</li>
+<li>timezone
+: <a class="el" href="structillex_1_1_date_string.html#ae1eb03efe2ca047fc4ac9ea36f7db7c3">illex::DateString</a>
 </li>
 </ul>
 
@@ -289,6 +406,13 @@ $(function() {
 </li>
 <li>whitespace_char
 : <a class="el" href="structillex_1_1_production_options.html#a3787b95311e3e8c75cde4f4e74c043b4">illex::ProductionOptions</a>
+</li>
+</ul>
+
+
+<h3><a id="index_y"></a>- y -</h3><ul>
+<li>year
+: <a class="el" href="structillex_1_1_date_string.html#a7a35c2d6f371899da627313815f1be6c">illex::DateString</a>
 </li>
 </ul>
 </div><!-- contents -->

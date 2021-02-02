@@ -24,7 +24,7 @@
    <div id="projectname">Illex
    &#160;<span id="projectnumber">0.0.1</span>
    </div>
-   <div id="projectbrief">A random JSON generator based on Arrow schemas.</div>
+   <div id="projectbrief">A random JSON generator and server based on Arrow schemas.</div>
   </td>
  </tr>
  </tbody>
@@ -66,6 +66,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="structillex_1_1_fixed_size_array-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">illex::FixedSizeArray Struct Reference</div>  </div>
@@ -106,6 +107,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aefdda2b9099ae1de9c65b600cd79e594 inherit pub_methods_classillex_1_1_value"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_value.html#aefdda2b9099ae1de9c65b600cd79e594">SetContext</a> (<a class="el" href="structillex_1_1_context.html">Context</a> context)</td></tr>
 <tr class="memdesc:aefdda2b9099ae1de9c65b600cd79e594 inherit pub_methods_classillex_1_1_value"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the context for this generator.  <a href="classillex_1_1_value.html#aefdda2b9099ae1de9c65b600cd79e594">More...</a><br /></td></tr>
 <tr class="separator:aefdda2b9099ae1de9c65b600cd79e594 inherit pub_methods_classillex_1_1_value"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a65d22ca31477ce393c1a463d05e8d0db"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classillex_1_1_value.html">Value</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_fixed_size_array.html#a65d22ca31477ce393c1a463d05e8d0db">item_</a></td></tr>
+<tr class="memdesc:a65d22ca31477ce393c1a463d05e8d0db"><td class="mdescLeft">&#160;</td><td class="mdescRight">The generator for the array values.  <a href="#a65d22ca31477ce393c1a463d05e8d0db">More...</a><br /></td></tr>
+<tr class="separator:a65d22ca31477ce393c1a463d05e8d0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2f92fa2db8abe2e992529b806b38a2c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_fixed_size_array.html#af2f92fa2db8abe2e992529b806b38a2c">length_</a></td></tr>
+<tr class="memdesc:af2f92fa2db8abe2e992529b806b38a2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The length of every array generated.  <a href="#af2f92fa2db8abe2e992529b806b38a2c">More...</a><br /></td></tr>
+<tr class="separator:af2f92fa2db8abe2e992529b806b38a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -174,6 +184,55 @@ Additional Inherited Members</h2></td></tr>
 <p>Return an array of fixed length with items generated through its value gen. </p>
 
 <p>Implements <a class="el" href="classillex_1_1_value.html#a99783d72e7936fbd95f9fd2a7295dbfb">illex::Value</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a65d22ca31477ce393c1a463d05e8d0db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65d22ca31477ce393c1a463d05e8d0db">&#9670;&nbsp;</a></span>item_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classillex_1_1_value.html">Value</a>&gt; illex::FixedSizeArray::item_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The generator for the array values. </p>
+
+</div>
+</div>
+<a id="af2f92fa2db8abe2e992529b806b38a2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2f92fa2db8abe2e992529b806b38a2c">&#9670;&nbsp;</a></span>length_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t illex::FixedSizeArray::length_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The length of every array generated. </p>
 
 </div>
 </div>

@@ -24,7 +24,7 @@
    <div id="projectname">Illex
    &#160;<span id="projectnumber">0.0.1</span>
    </div>
-   <div id="projectbrief">A random JSON generator based on Arrow schemas.</div>
+   <div id="projectbrief">A random JSON generator and server based on Arrow schemas.</div>
   </td>
  </tr>
  </tbody>
@@ -66,6 +66,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="structillex_1_1_string-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">illex::String Struct Reference</div>  </div>
@@ -106,6 +107,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aefdda2b9099ae1de9c65b600cd79e594 inherit pub_methods_classillex_1_1_value"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_value.html#aefdda2b9099ae1de9c65b600cd79e594">SetContext</a> (<a class="el" href="structillex_1_1_context.html">Context</a> context)</td></tr>
 <tr class="memdesc:aefdda2b9099ae1de9c65b600cd79e594 inherit pub_methods_classillex_1_1_value"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the context for this generator.  <a href="classillex_1_1_value.html#aefdda2b9099ae1de9c65b600cd79e594">More...</a><br /></td></tr>
 <tr class="separator:aefdda2b9099ae1de9c65b600cd79e594 inherit pub_methods_classillex_1_1_value"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aa70b67e2158da66f33209db5817a09e0"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_string.html#aa70b67e2158da66f33209db5817a09e0">length_clip_max_</a></td></tr>
+<tr class="memdesc:aa70b67e2158da66f33209db5817a09e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length for generated stings.  <a href="#aa70b67e2158da66f33209db5817a09e0">More...</a><br /></td></tr>
+<tr class="separator:aa70b67e2158da66f33209db5817a09e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9e40a98a4340bf626c23cc6d131d869"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_string.html#af9e40a98a4340bf626c23cc6d131d869">length_clip_min_</a></td></tr>
+<tr class="memdesc:af9e40a98a4340bf626c23cc6d131d869"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum length for generated strings.  <a href="#af9e40a98a4340bf626c23cc6d131d869">More...</a><br /></td></tr>
+<tr class="separator:af9e40a98a4340bf626c23cc6d131d869"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae375d743902aca973f93006ad4060c29"><td class="memItemLeft" align="right" valign="top">std::normal_distribution&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_string.html#ae375d743902aca973f93006ad4060c29">len_dist_</a></td></tr>
+<tr class="memdesc:ae375d743902aca973f93006ad4060c29"><td class="mdescLeft">&#160;</td><td class="mdescRight">The normal distribution to pull the length from.  <a href="#ae375d743902aca973f93006ad4060c29">More...</a><br /></td></tr>
+<tr class="separator:ae375d743902aca973f93006ad4060c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a345cb70b13e63a1cba453d09c07a7bab"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_string.html#a345cb70b13e63a1cba453d09c07a7bab">chars_dist_</a></td></tr>
+<tr class="memdesc:a345cb70b13e63a1cba453d09c07a7bab"><td class="mdescLeft">&#160;</td><td class="mdescRight">The uniform distribution to pull characters from.  <a href="#a345cb70b13e63a1cba453d09c07a7bab">More...</a><br /></td></tr>
+<tr class="separator:a345cb70b13e63a1cba453d09c07a7bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -194,6 +210,103 @@ Additional Inherited Members</h2></td></tr>
 <p>Returns a string value with some random characters between a-z. </p>
 
 <p>Implements <a class="el" href="classillex_1_1_value.html#a99783d72e7936fbd95f9fd2a7295dbfb">illex::Value</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a345cb70b13e63a1cba453d09c07a7bab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a345cb70b13e63a1cba453d09c07a7bab">&#9670;&nbsp;</a></span>chars_dist_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_int_distribution illex::String::chars_dist_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The uniform distribution to pull characters from. </p>
+
+</div>
+</div>
+<a id="ae375d743902aca973f93006ad4060c29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae375d743902aca973f93006ad4060c29">&#9670;&nbsp;</a></span>len_dist_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::normal_distribution illex::String::len_dist_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The normal distribution to pull the length from. </p>
+
+</div>
+</div>
+<a id="aa70b67e2158da66f33209db5817a09e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa70b67e2158da66f33209db5817a09e0">&#9670;&nbsp;</a></span>length_clip_max_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t illex::String::length_clip_max_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maximum length for generated stings. </p>
+
+</div>
+</div>
+<a id="af9e40a98a4340bf626c23cc6d131d869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9e40a98a4340bf626c23cc6d131d869">&#9670;&nbsp;</a></span>length_clip_min_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t illex::String::length_clip_min_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minimum length for generated strings. </p>
 
 </div>
 </div>

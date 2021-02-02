@@ -1,7 +1,8 @@
 <map id="illex::AppOptions" name="illex::AppOptions">
-<area shape="rect" id="node2" href="$structillex_1_1_stream_options.html" title="Options for the stream subcommand. " alt="" coords="27,184,182,211"/>
-<area shape="rect" id="node3" href="$structillex_1_1_repeat_options.html" title="Repeat mode options. " alt="" coords="5,95,159,121"/>
-<area shape="rect" id="node4" href="$structillex_1_1_production_options.html" title="Options for the random JSON production facility. " alt="" coords="183,95,360,121"/>
-<area shape="rect" id="node6" href="$structillex_1_1_file_options.html" title="Options for the file subcommand. " alt="" coords="206,184,337,211"/>
-<area shape="rect" id="node5" href="$structillex_1_1_generate_options.html" title="Options for pseudo&#45;random generators. " alt="" coords="187,5,355,32"/>
+<area shape="rect" id="node2" href="$structillex_1_1_stream_options.html" title="Options for the stream subcommand. " alt="" coords="189,184,343,211"/>
+<area shape="rect" id="node3" href="$structillex_1_1_server_options.html" title="illex::ServerOptions" alt="" coords="5,95,156,121"/>
+<area shape="rect" id="node4" href="$structillex_1_1_repeat_options.html" title="Repeat mode options. " alt="" coords="180,95,333,121"/>
+<area shape="rect" id="node5" href="$structillex_1_1_production_options.html" title="Options for the random JSON production facility. " alt="" coords="357,95,535,121"/>
+<area shape="rect" id="node7" href="$structillex_1_1_file_options.html" title="Options for the file subcommand. " alt="" coords="373,184,503,211"/>
+<area shape="rect" id="node6" href="$structillex_1_1_generate_options.html" title="Options for pseudo&#45;random generators. " alt="" coords="362,5,530,32"/>
 </map>

@@ -24,7 +24,7 @@
    <div id="projectname">Illex
    &#160;<span id="projectnumber">0.0.1</span>
    </div>
-   <div id="projectbrief">A random JSON generator based on Arrow schemas.</div>
+   <div id="projectbrief">A random JSON generator and server based on Arrow schemas.</div>
   </td>
  </tr>
  </tbody>
@@ -66,6 +66,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="structillex_1_1_date_string-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">illex::DateString Struct Reference</div>  </div>
@@ -105,6 +106,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aefdda2b9099ae1de9c65b600cd79e594 inherit pub_methods_classillex_1_1_value"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_value.html#aefdda2b9099ae1de9c65b600cd79e594">SetContext</a> (<a class="el" href="structillex_1_1_context.html">Context</a> context)</td></tr>
 <tr class="memdesc:aefdda2b9099ae1de9c65b600cd79e594 inherit pub_methods_classillex_1_1_value"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the context for this generator.  <a href="classillex_1_1_value.html#aefdda2b9099ae1de9c65b600cd79e594">More...</a><br /></td></tr>
 <tr class="separator:aefdda2b9099ae1de9c65b600cd79e594 inherit pub_methods_classillex_1_1_value"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a7a35c2d6f371899da627313815f1be6c"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; int32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a7a35c2d6f371899da627313815f1be6c">year</a></td></tr>
+<tr class="memdesc:a7a35c2d6f371899da627313815f1be6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Year distribution.  <a href="#a7a35c2d6f371899da627313815f1be6c">More...</a><br /></td></tr>
+<tr class="separator:a7a35c2d6f371899da627313815f1be6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac257cf8c977e04639382794995ce4c5c"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#ac257cf8c977e04639382794995ce4c5c">month</a></td></tr>
+<tr class="memdesc:ac257cf8c977e04639382794995ce4c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Month distribution.  <a href="#ac257cf8c977e04639382794995ce4c5c">More...</a><br /></td></tr>
+<tr class="separator:ac257cf8c977e04639382794995ce4c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc2e69ace5bb3d921f8cfa3b2cf323c"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a1bc2e69ace5bb3d921f8cfa3b2cf323c">day</a></td></tr>
+<tr class="memdesc:a1bc2e69ace5bb3d921f8cfa3b2cf323c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Day distribution.  <a href="#a1bc2e69ace5bb3d921f8cfa3b2cf323c">More...</a><br /></td></tr>
+<tr class="separator:a1bc2e69ace5bb3d921f8cfa3b2cf323c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6108e6e49aeb2b998a78ed6cffc2e4b7"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a6108e6e49aeb2b998a78ed6cffc2e4b7">hour</a></td></tr>
+<tr class="memdesc:a6108e6e49aeb2b998a78ed6cffc2e4b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hour distribution.  <a href="#a6108e6e49aeb2b998a78ed6cffc2e4b7">More...</a><br /></td></tr>
+<tr class="separator:a6108e6e49aeb2b998a78ed6cffc2e4b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1669c4d79720ffc0a570146a5e59c94f"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a1669c4d79720ffc0a570146a5e59c94f">min</a></td></tr>
+<tr class="memdesc:a1669c4d79720ffc0a570146a5e59c94f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minute distribution.  <a href="#a1669c4d79720ffc0a570146a5e59c94f">More...</a><br /></td></tr>
+<tr class="separator:a1669c4d79720ffc0a570146a5e59c94f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacf5c8d407a067f0e0499d7aaddf24ac"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#aacf5c8d407a067f0e0499d7aaddf24ac">sec</a></td></tr>
+<tr class="memdesc:aacf5c8d407a067f0e0499d7aaddf24ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second distribution.  <a href="#aacf5c8d407a067f0e0499d7aaddf24ac">More...</a><br /></td></tr>
+<tr class="separator:aacf5c8d407a067f0e0499d7aaddf24ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1eb03efe2ca047fc4ac9ea36f7db7c3"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#ae1eb03efe2ca047fc4ac9ea36f7db7c3">timezone</a></td></tr>
+<tr class="memdesc:ae1eb03efe2ca047fc4ac9ea36f7db7c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timezone distribution.  <a href="#ae1eb03efe2ca047fc4ac9ea36f7db7c3">More...</a><br /></td></tr>
+<tr class="separator:ae1eb03efe2ca047fc4ac9ea36f7db7c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -160,6 +185,175 @@ Additional Inherited Members</h2></td></tr>
 <p>Returns a string value formatted according to an ISO 8601 date and time. </p>
 
 <p>Implements <a class="el" href="classillex_1_1_value.html#a99783d72e7936fbd95f9fd2a7295dbfb">illex::Value</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1bc2e69ace5bb3d921f8cfa3b2cf323c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bc2e69ace5bb3d921f8cfa3b2cf323c">&#9670;&nbsp;</a></span>day</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::day</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Day distribution. </p>
+
+</div>
+</div>
+<a id="a6108e6e49aeb2b998a78ed6cffc2e4b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6108e6e49aeb2b998a78ed6cffc2e4b7">&#9670;&nbsp;</a></span>hour</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::hour</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hour distribution. </p>
+
+</div>
+</div>
+<a id="a1669c4d79720ffc0a570146a5e59c94f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1669c4d79720ffc0a570146a5e59c94f">&#9670;&nbsp;</a></span>min</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::min</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minute distribution. </p>
+
+</div>
+</div>
+<a id="ac257cf8c977e04639382794995ce4c5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac257cf8c977e04639382794995ce4c5c">&#9670;&nbsp;</a></span>month</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::month</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Month distribution. </p>
+
+</div>
+</div>
+<a id="aacf5c8d407a067f0e0499d7aaddf24ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacf5c8d407a067f0e0499d7aaddf24ac">&#9670;&nbsp;</a></span>sec</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::sec</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Second distribution. </p>
+
+</div>
+</div>
+<a id="ae1eb03efe2ca047fc4ac9ea36f7db7c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1eb03efe2ca047fc4ac9ea36f7db7c3">&#9670;&nbsp;</a></span>timezone</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_int_distribution&lt;int8_t&gt; illex::DateString::timezone</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Timezone distribution. </p>
+
+</div>
+</div>
+<a id="a7a35c2d6f371899da627313815f1be6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a35c2d6f371899da627313815f1be6c">&#9670;&nbsp;</a></span>year</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uniform_int_distribution&lt;int32_t&gt; illex::DateString::year</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Year distribution. </p>
 
 </div>
 </div>

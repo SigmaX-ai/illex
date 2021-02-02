@@ -1,11 +1,13 @@
 var searchData=
 [
-  ['main',['main',['../main_8cpp.html#a7114aa2dd6837734db57667a298dfcc4',1,'main.cpp']]],
-  ['main_2ecpp',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['member',['Member',['../classillex_1_1_member.html',1,'illex::Member'],['../classillex_1_1_member.html#ac668422e7dcd75e5fcff440cdff22b16',1,'illex::Member::Member()'],['../classillex_1_1_member.html#ac5f559a4109a6bba5a90e0e5e8a15c4e',1,'illex::Member::Member(std::string name, std::shared_ptr&lt; Value &gt; value)']]],
-  ['member_5fout_5f',['member_out_',['../classillex_1_1_field_analyzer.html#ac8dad53bb5d9b3a71e65ec1ec718a2f4',1,'illex::FieldAnalyzer']]],
-  ['members_5f',['members_',['../classillex_1_1_object.html#a320b6b756881d277a53ffbabd0bb82bd',1,'illex::Object']]],
-  ['messages',['messages',['../structillex_1_1_repeat_options.html#a5ef9102afaf7ba4c83c57557305147b6',1,'illex::RepeatOptions']]],
-  ['meta',['META',['../arrow_8cpp.html#a803c50154ec167b409a0f3172b28aa20',1,'arrow.cpp']]],
-  ['mutable_5fdata',['mutable_data',['../classillex_1_1_raw_j_s_o_n_buffer.html#a9a672eb80166c8e518c50972a65a7bc1',1,'illex::RawJSONBuffer']]]
+  ['last',['last',['../structillex_1_1_seq_range.html#a9980773cc7b439ac37c7b0158fc8557c',1,'illex::SeqRange']]],
+  ['latency_2eh',['latency.h',['../latency_8h.html',1,'']]],
+  ['latencytracker',['LatencyTracker',['../classillex_1_1_latency_tracker.html',1,'illex::LatencyTracker'],['../classillex_1_1_latency_tracker.html#ac727b2ec773f8db50368cb12a387e2a3',1,'illex::LatencyTracker::LatencyTracker()']]],
+  ['len_5fdist_5f',['len_dist_',['../structillex_1_1_string.html#ae375d743902aca973f93006ad4060c29',1,'illex::String']]],
+  ['length',['length',['../structillex_1_1_array.html#a38cb5c3961a6bcf9e115d4866c561925',1,'illex::Array']]],
+  ['length_5f',['length_',['../structillex_1_1_fixed_size_array.html#af2f92fa2db8abe2e992529b806b38a2c',1,'illex::FixedSizeArray']]],
+  ['length_5fclip_5fmax_5f',['length_clip_max_',['../structillex_1_1_string.html#aa70b67e2158da66f33209db5817a09e0',1,'illex::String']]],
+  ['length_5fclip_5fmin_5f',['length_clip_min_',['../structillex_1_1_string.html#af9e40a98a4340bf626c23cc6d131d869',1,'illex::String']]],
+  ['log_2eh',['log.h',['../log_8h.html',1,'']]],
+  ['logsendstats',['LogSendStats',['../namespaceillex.html#a98ba4566075b49517b0866f07ab9071d',1,'illex']]]
 ];
