@@ -20,13 +20,19 @@
 
 namespace illex {
 
-#define ILLEX_ROE(s)                 \
-  {                                  \
-    auto status = s;                 \
-    if (!status.ok()) return status; \
+#define ILLEX_ROE(s)                     \
+  {                                      \
+    auto __status = (s);                 \
+    if (!__status.ok()) return __status; \
   }
 
-enum class Error { GenericError, CLIError, JSONError, RawError, IOError };
+enum class Error {
+  GenericError,  ///< Generic errors.
+  CLIError,      ///< Errors related to the CLI.
+  ServerError,   ///< Errors related to the stream mode server.
+  ClientError,   ///< Errors related to the stream mode client.
+  IOError        ///< Errors related to file I/O.
+};
 
 using Status = putong::Status<Error>;
 

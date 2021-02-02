@@ -25,7 +25,7 @@
 #include <utility>
 
 #include "illex/client.h"
-#include "illex/client_queued.h"
+#include "illex/client_queueing.h"
 #include "illex/document.h"
 #include "illex/latency.h"
 #include "illex/log.h"
@@ -34,8 +34,8 @@
 
 namespace illex {
 
-/// An item in a JSON queue.
-struct JSONQueueItem {
+/// A single JSON item
+struct JSONItem {
   /// Sequence number.
   Seq seq = 0;
   /// Raw JSON string.
@@ -43,29 +43,23 @@ struct JSONQueueItem {
 };
 
 /// A JSON queue for downstream tools.
-using JSONQueue = moodycamel::BlockingConcurrentQueue<JSONQueueItem>;
+using JSONQueue = moodycamel::BlockingConcurrentQueue<JSONItem>;
 
-/// A streaming client using the Raw protocol that queues received JSONs.
-struct RawQueueingClient : public RawClient {
+/**
+ * \brief A client that attempts to immediately queue received JSONs.
+ */
+struct QueueingClient : public Client {
  public:
-  /**
-   * \brief Construct a new queueing client.
-   * \param[in]  protocol The protocol options.
-   * \param[in]  host     The hostname to connect to.
-   * \param[in]  seq      Starting sequence number.
-   * \param[in]  queue    The queue to put the JSONs in.
-   * \param[out] out      The raw client that will be populated by this function.
-   * \return Status::OK() if successful, some error otherwise.
-   */
-  static auto Create(RawProtocol protocol, std::string host, uint64_t seq,
-                     JSONQueue* queue, RawQueueingClient* out,
-                     size_t buffer_size = ILLEX_TCP_BUFFER_SIZE) -> Status;
+  ~QueueingClient();
+
+  static auto Create(const ClientOptions& options, JSONQueue* queue, QueueingClient* out,
+                     size_t buffer_size = ILLEX_DEFAULT_TCP_BUFSIZE) -> Status;
 
   /**
    * \brief Receive JSONs on this raw stream client and put them in a queue.
    * \return Status::OK() if successful, some error otherwise.
    */
-  auto ReceiveJSONs(LatencyTracker* lat_tracker) -> Status override;
+  auto ReceiveJSONs(LatencyTracker* lat_tracker = nullptr) -> Status override;
 
   /**
    * \brief Close this raw client.
@@ -74,34 +68,28 @@ struct RawQueueingClient : public RawClient {
   auto Close() -> Status override;
 
   /// \brief Return the number of received JSONs
-  [[nodiscard]] auto received() const -> size_t override { return received_; }
+  [[nodiscard]] auto jsons_received() const -> size_t override { return received_; }
 
   /// \brief Return the number of received bytes
   [[nodiscard]] auto bytes_received() const -> size_t override { return bytes_received_; }
 
-  ~RawQueueingClient();
-
  private:
+  // TCP receive buffer.
+  std::byte* buffer = nullptr;
+  // TCP receive buffer size.
+  size_t buffer_size = ILLEX_DEFAULT_TCP_BUFSIZE;
+  // Whether the client must be closed.
+  bool must_be_closed = false;
+  // The queue to dump JSONs in.
+  JSONQueue* queue = nullptr;
   /// The next available sequence number.
   Seq seq = 0;
   /// The number of received JSONs.
   size_t received_ = 0;
   /// The number of received bytes.
   size_t bytes_received_ = 0;
-  /// The host name to connect to.
-  std::string host = "localhost";
-  /// The protocol options.
-  illex::RawProtocol protocol;
   /// The TCP socket.
-  std::shared_ptr<RawSocket> client;
-  // TCP receive buffer.
-  std::byte* buffer;
-  // TCP receive buffer size.
-  size_t buffer_size;
-  // Whether the client must be closed.
-  bool must_be_closed = false;
-  // The queue to dump JSONs in.
-  JSONQueue* queue;
+  std::shared_ptr<Socket> client = nullptr;
 };
 
 }  // namespace illex

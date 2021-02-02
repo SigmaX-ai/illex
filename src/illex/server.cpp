@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "illex/raw_server.h"
+#include "illex/server.h"
 
 #include <concurrentqueue.h>
 #include <putong/timer.h>
 #include <rapidjson/prettywriter.h>
 
+#include <cassert>
 #include <future>
 #include <kissnet.hpp>
 #include <string>
@@ -25,44 +26,43 @@
 #include <tuple>
 
 #include "illex/arrow.h"
-#include "illex/document.h"
 #include "illex/log.h"
-#include "illex/stream.h"
 
 namespace illex {
 
 namespace kn = kissnet;
 
-auto RawServer::Create(RawProtocol protocol_options, RawServer* out) -> Status {
-  out->protocol = protocol_options;
-  out->server = std::make_shared<RawSocket>(
-      kn::endpoint("0.0.0.0:" + std::to_string(out->protocol.port)));
-  if (protocol_options.reuse) {
+auto Server::Create(const ServerOptions& options, Server* out) -> Status {
+  assert(out != nullptr);
+  out->server =
+      std::make_shared<Socket>(kn::endpoint("0.0.0.0:" + std::to_string(options.port)));
+  if (options.reuse_socket) {
     out->server->set_reuse();
   }
-
   try {
     out->server->bind();
   } catch (const std::runtime_error& e) {
-    return Status(Error::RawError, e.what());
+    return Status(Error::ServerError, e.what());
   }
   out->server->listen();
-  SPDLOG_DEBUG("Listening on port {}", out->protocol.port);
+  spdlog::info("Listening on port {}", options.port);
   return Status::OK();
 }
 
-auto RawServer::SendJSONs(const ProductionOptions& prod_opts,
-                          const RepeatOptions& repeat_opts, StreamStatistics* stats)
+auto Server::SendJSONs(const ProductionOptions& prod_opts,
+                       const RepeatOptions& repeat_opts, StreamStatistics* stats)
     -> Status {
   // Check for some potential misuse.
   assert(stats != nullptr);
   if (this->server == nullptr) {
-    return Status(Error::RawError, "RawServer uninitialized. Use RawServer::Create().");
+    return Status(Error::ServerError, "Server uninitialized. Use RawServer::Create().");
   }
 
   // Accept a client.
-  SPDLOG_DEBUG("Waiting for client to connect.");
+  spdlog::info("Waiting for client to connect.");
   auto client = server->accept();
+  spdlog::info("Client connected.");
+  spdlog::info("Streaming {} messages.", prod_opts.num_jsons);
 
   StreamStatistics result;
   putong::Timer t;
@@ -99,8 +99,8 @@ auto RawServer::SendJSONs(const ProductionOptions& prod_opts,
       auto send_result_socket = std::get<1>(send_result);
       if (send_result_socket != kissnet::socket_status::valid) {
         producer.join();
-        return Status(Error::RawError, "Socket not valid after send: " +
-                                           std::to_string(send_result_socket));
+        return Status(Error::ServerError, "Socket not valid after send: " +
+                                              std::to_string(send_result_socket));
       }
 
       // If verbose is enabled, also print the JSON to stdout
@@ -131,11 +131,11 @@ auto RawServer::SendJSONs(const ProductionOptions& prod_opts,
   return Status::OK();
 }
 
-auto RawServer::Close() -> Status {
+auto Server::Close() -> Status {
   try {
     server->close();
   } catch (const std::exception& e) {
-    return Status(Error::RawError, e.what());
+    return Status(Error::ServerError, e.what());
   }
 
   return Status::OK();
@@ -149,14 +149,13 @@ static void LogSendStats(const StreamStatistics& result) {
                static_cast<double>(result.num_bytes * 8) / result.time * 1E-9);
 }
 
-auto RunRawServer(const RawProtocol& protocol_options,
-                  const ProductionOptions& production_options,
-                  const RepeatOptions& repeat_options, bool statistics) -> Status {
-  SPDLOG_DEBUG("Starting Raw server.");
-  RawServer server;
-  ILLEX_ROE(RawServer::Create(protocol_options, &server));
+auto RunServer(const ServerOptions& server_options,
+               const ProductionOptions& production_options,
+               const RepeatOptions& repeat_options, bool statistics) -> Status {
+  spdlog::info("Starting server.");
+  Server server;
+  ILLEX_ROE(Server::Create(server_options, &server));
 
-  SPDLOG_DEBUG("Streaming {} messages.", production_options.num_jsons);
   StreamStatistics stats;
   ILLEX_ROE(server.SendJSONs(production_options, repeat_options, &stats));
 
@@ -164,7 +163,7 @@ auto RunRawServer(const RawProtocol& protocol_options,
     LogSendStats(stats);
   }
 
-  SPDLOG_DEBUG("Raw server shutting down.");
+  spdlog::info("Server shutting down.");
   ILLEX_ROE(server.Close());
 
   return Status::OK();

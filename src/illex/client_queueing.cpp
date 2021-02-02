@@ -12,58 +12,55 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "illex/client_queued.h"
+#include "illex/client_queueing.h"
 
+#include <cassert>
 #include <chrono>
 #include <iostream>
 #include <memory>
-#include <utility>
 
 #include "illex/latency.h"
 #include "illex/protocol.h"
 
 namespace illex {
 
-auto RawQueueingClient::Close() -> Status {
+auto QueueingClient::Close() -> Status {
   if (must_be_closed) {
     client->close();
     must_be_closed = false;
   } else {
-    return Status(Error::RawError, "Client was already closed.");
+    return Status(Error::ClientError, "Client was already closed.");
   }
   return Status::OK();
 }
 
-RawQueueingClient::~RawQueueingClient() {
+QueueingClient::~QueueingClient() {
   if (must_be_closed) {
     this->Close();
   }
   free(buffer);
 }
 
-auto RawQueueingClient::Create(RawProtocol protocol, std::string host, uint64_t seq,
-                               JSONQueue* queue, RawQueueingClient* out,
-                               size_t buffer_size) -> Status {
-  auto* buffer = static_cast<std::byte*>(malloc(buffer_size));
+auto QueueingClient::Create(const ClientOptions& options, JSONQueue* queue,
+                            QueueingClient* out, size_t buffer_size) -> Status {
+  assert(out != nullptr);
+  assert(queue != nullptr);
 
-  if (buffer == nullptr) {
-    return Status(Error::RawError, "Could not allocate TCP recv buffer.");
+  out->seq = options.seq;
+  out->buffer = static_cast<std::byte*>(malloc(buffer_size));
+  if (out->buffer == nullptr) {
+    return Status(Error::ClientError, "Could not allocate TCP recv buffer.");
   }
-
-  out->seq = seq;
-  out->host = std::move(host);
-  out->protocol = protocol;
-  out->buffer = buffer;
   out->buffer_size = buffer_size;
   out->queue = queue;
 
-  auto endpoint = out->host + ":" + std::to_string(out->protocol.port);
-  out->client = std::make_shared<RawSocket>(kissnet::endpoint(endpoint));
+  auto endpoint = options.host + ":" + std::to_string(options.port);
+  out->client = std::make_shared<Socket>(kissnet::endpoint(endpoint));
 
   SPDLOG_DEBUG("Client connecting to {}...", endpoint);
   auto success = out->client->connect();
   if (!success) {
-    return Status(Error::RawError, "Unable to connect to server.");
+    return Status(Error::ClientError, "Unable to connect to server.");
   }
 
   out->must_be_closed = true;
@@ -74,12 +71,14 @@ auto RawQueueingClient::Create(RawProtocol protocol, std::string host, uint64_t 
 /**
  * \brief Enqueue all JSONs in the TCP buffer.
  * \param[out]      json_buffer     Reusable JSON string buffer.
- * \param[in,out]   tcp_buffer      The TCP buffer that is cleared after all JSONs are
- *                                   queued.
+ * \param[in,out]   recv_buffer     The TCP buffer that is cleared after all JSONs are
+ *                                  queued.
  * \param[in]       tcp_valid_bytes Number of valid bytes in the TCP buffer.
  * \param[out]      queue           The queue to enqueue the JSON queue items in.
  * \param[in,out]   seq             The sequence number for the next JSON item, is
  *                                  increased when item is enqueued.
+ * \param[in]       receive_time    Point in time when this buffer was received.
+ * \param[out]      tracker         Latency tracking device, set to nullptr if unused.
  * \return The number of JSONs enqueued.
  */
 static auto EnqueueAllJSONsInBuffer(std::string* json_buffer, std::byte* recv_buffer,
@@ -109,7 +108,7 @@ static auto EnqueueAllJSONsInBuffer(std::string* json_buffer, std::byte* recv_bu
 
       // Copy the JSON string into the consumption queue.
       auto pre_queue_time = Timer::now();
-      queue->enqueue(JSONQueueItem{*seq, *json_buffer});
+      queue->enqueue(JSONItem{*seq, *json_buffer});
       // Place the receive time for this JSON in the tracker.
       if (tracker != nullptr) {
         tracker->Put(*seq, 0, receive_time);
@@ -134,12 +133,12 @@ static auto EnqueueAllJSONsInBuffer(std::string* json_buffer, std::byte* recv_bu
   } while (remaining > 0);
 
   // Clear the buffer when finished.
-  memset(recv_buffer, 0, ILLEX_TCP_BUFFER_SIZE);
+  memset(recv_buffer, 0, ILLEX_DEFAULT_TCP_BUFSIZE);
 
   return queued;
 }
 
-auto RawQueueingClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
+auto QueueingClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
   // Buffer to store the JSON string, is reused to prevent allocations.
   std::string json_string;
 
@@ -167,12 +166,12 @@ auto RawQueueingClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
         return Status::OK();
       } else if (sock_status != kissnet::socket_status::valid) {
         // Otherwise, if it's not valid, there is something wrong.
-        return Status(Error::RawError,
+        return Status(Error::ClientError,
                       "Server error. Status: " + std::to_string(sock_status));
       }
     } catch (const std::exception& e) {
       // But first we catch any exceptions.
-      return Status(Error::RawError, e.what());
+      return Status(Error::ClientError, e.what());
     }
   }
 

@@ -14,21 +14,14 @@
 
 #include "illex/stream.h"
 
-#include "illex/log.h"
-#include "illex/raw_server.h"
+#include "illex/server.h"
 
 namespace illex {
 
 auto RunStream(const StreamOptions& opt) -> Status {
   do {
-    if (std::holds_alternative<RawProtocol>(opt.protocol)) {
-      ILLEX_ROE(RunRawServer(std::get<RawProtocol>(opt.protocol), opt.production,
-                             opt.repeat, opt.statistics));
-    } else {
-      throw std::runtime_error("Corrupt protocol.");
-    }
+    RunServer(opt.server, opt.production, opt.repeat, opt.statistics);
   } while (opt.repeat_server);
-
   return Status::OK();
 }
 

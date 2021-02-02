@@ -30,18 +30,16 @@ struct SeqRange {
 };
 
 /// A structure to manage multi-buffered client implementation.
-class RawJSONBuffer {
+class JSONBuffer {
  public:
   /**
    * \brief Create a new buffer wrapper to dump JSONs in.
    * \param[in]  buffer         The buffer address, managed elsewhere.
    * \param[in]  capacity       The capacity of the buffer.
    * \param[out] out            The resulting
-   * \param[in]  lat_track_cap  Initial capacity for latency tracking seq no buffer.
    * \return Status::OK() if successful, some error otherwise.
    */
-  static auto Create(std::byte* buffer, size_t capacity, RawJSONBuffer* out,
-                     size_t lat_track_cap = 8) -> Status;
+  static auto Create(std::byte* buffer, size_t capacity, JSONBuffer* out) -> Status;
 
   /**
    * \brief Scan the first num_bytes bytes in the buffer for newline delimited JSONs.
@@ -86,11 +84,10 @@ class RawJSONBuffer {
   /// \brief Reset the buffer.
   void Reset();
 
-  RawJSONBuffer() = default;
+  JSONBuffer() = default;
 
  protected:
-  RawJSONBuffer(std::byte* buffer, size_t capacity)
-      : buffer_(buffer), capacity_(capacity) {}
+  JSONBuffer(std::byte* buffer, size_t capacity) : buffer_(buffer), capacity_(capacity) {}
   /// A pointer to the buffer.
   std::byte* buffer_ = nullptr;
   /// The number of valid bytes in the buffer.
@@ -103,66 +100,56 @@ class RawJSONBuffer {
   TimePoint recv_time_;
 };
 
-/// A streaming client using the Raw protocol that receives the JSONs over multiple
-/// buffers with mutexes. It applies a non-blocking round-robin approach to finding an
-/// available buffer to dump the contents in, but keeps track of sequence numbers to not
-/// lose order.
-struct DirectBufferClient : public RawClient {
+/**
+ * \brief A client that buffers received JSONs.
+ *
+ * This client can be supplied to work with multiple, lockable buffers. When the client
+ * has obtained a buffer lock, it will attempt to fill the buffer until it is full, or
+ * until there are no TCP packets to deliver. It will then unlock the buffer. This allows
+ * multiple downstream threads to consume from multiple buffers simultaneously.
+ *
+ * The client keeps track of the order of received JSONs by adding sequence numbers.
+ */
+class BufferingClient : public Client {
  public:
-  /**
-   * \brief Construct a DirectBufferClient
-   * \param[in]  protocol The protocol options.
-   * \param[in]  host The hostname.
-   * \param[in]  seq The sequence number to start at.
-   * \param[in]  buffers The pre-allocated buffers.
-   * \param[out] out The RawMultiBufferClient output.
-   * \return Status::OK() if successful, some error otherwise.
-   */
-  static auto Create(RawProtocol protocol, std::string host, uint64_t seq,
-                     const std::vector<RawJSONBuffer*>& buffers,
-                     const std::vector<std::mutex*>& mutexes, DirectBufferClient* out)
-      -> Status;
+  ~BufferingClient();
 
   /**
-   * \brief Receive JSONs into the pre-allocated buffers.
+   * \brief Create a new buffering client.
    *
-   * This function is meant to run in a main thread, where consuming threads access the
-   * buffers through buffer() and mutex() to absorb the data. Consuming threads must
-   * Reset() the buffers after they are done processing the data.
-   *
-   * \param lat_tracker Latency tracking device.
+   * \param options The options for this client.
+   * \param buffers A set of pre-allocated buffers on which to operate.
+   * \param mutexes A set of mutexes to obtain locks on each buffer.
+   * \param out     The BufferingClient object to populate.
    * \return Status::OK() if successful, some error otherwise.
    */
-  auto ReceiveJSONs(LatencyTracker* lat_tracker) -> Status override;
+  static auto Create(const ClientOptions& options,
+                     const std::vector<JSONBuffer*>& buffers,
+                     const std::vector<std::mutex*>& mutexes, BufferingClient* out)
+      -> Status;
+
+  auto ReceiveJSONs(LatencyTracker* lat_tracker = nullptr) -> Status override;
   auto Close() -> Status override;
-  /// \brief Return the number of received JSONs
-  [[nodiscard]] auto received() const -> size_t override { return jsons_received_; }
-  /// \brief Return the number of received bytes
-  [[nodiscard]] auto bytes_received() const -> size_t override {
-    return total_bytes_received_;
-  }
+  [[nodiscard]] auto jsons_received() const -> size_t override;
+  [[nodiscard]] auto bytes_received() const -> size_t override;
 
  private:
   /// The mutexes to manage buffer access.
   std::vector<std::mutex*> mutexes;
   /// The buffers.
-  std::vector<RawJSONBuffer*> buffers;
-  /// The next available sequence number.
-  uint64_t seq = 0;
-  /// The number of received JSONs.
-  size_t jsons_received_ = 0;
-  /// The number of received bytes.
-  size_t total_bytes_received_ = 0;
-  /// The host name to connect to.
-  std::string host = "localhost";
-  /// The protocol options.
-  illex::RawProtocol protocol;
-  /// The TCP socket.
-  std::shared_ptr<RawSocket> client;
+  std::vector<JSONBuffer*> buffers;
   // Whether the client must be closed.
   bool must_be_closed = false;
   // The current buffer to receive the TCP data in.
   size_t buffer_idx = 0;
+  /// The next available sequence number.
+  Seq seq = 0;
+  /// The number of received JSONs.
+  size_t jsons_received_ = 0;
+  /// The number of received bytes.
+  size_t bytes_received_ = 0;
+  /// The TCP socket.
+  std::shared_ptr<Socket> client;
 };
 
 }  // namespace illex
