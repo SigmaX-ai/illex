@@ -58,6 +58,16 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
     return Status(Error::ServerError, "Server uninitialized. Use RawServer::Create().");
   }
 
+  // Start producing before connection is made.
+  ProductionOptions prod_opts_int = prod_opts;
+  // Create a concurrent queue for the JSON production threads.
+  ProductionQueue production_queue;
+  // Spawn production hive thread.
+  std::promise<ProductionStats> production_stats;
+  auto producer_stats_future = production_stats.get_future();
+  auto producer = std::thread(ProductionHiveThread, prod_opts_int, &production_queue,
+                              std::move(production_stats));
+
   // Accept a client.
   spdlog::info("Waiting for client to connect.");
   auto client = server->accept();
@@ -67,16 +77,8 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
   StreamStatistics result;
   putong::Timer t;
 
-  ProductionOptions prod_opts_int = prod_opts;
-  do {
-    // Create a concurrent queue for the JSON production threads.
-    ProductionQueue production_queue;
-    // Spawn production hive thread.
-    std::promise<ProductionStats> production_stats;
-    auto producer_stats_future = production_stats.get_future();
-    auto producer = std::thread(ProductionHiveThread, prod_opts_int, &production_queue,
-                                std::move(production_stats));
 
+  do {
     // Start a timer.
     t.Start();
     // Attempt to pull all produced messages from the production queue and send them over

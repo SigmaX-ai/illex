@@ -81,6 +81,7 @@ TEST(Client, Queueing) {
 
   JSONItem item;
   ASSERT_TRUE(client_queue.try_dequeue(item));
+  ASSERT_EQ(client.jsons_received(), 1);
 }
 
 void ConsumeBufferThread(JSONBuffer* buffer, std::mutex* mutex) {
@@ -122,6 +123,8 @@ TEST(Client, Buffering) {
   FAIL_ON_ERROR(server_status);
 
   delete[] raw_buffer;
+
+  ASSERT_EQ(client.jsons_received(), 1);
 }
 
 }  // namespace illex
