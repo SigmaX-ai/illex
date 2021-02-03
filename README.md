@@ -5,12 +5,12 @@ Schemas.
 
 ## Build & install
 
-* Requirements
-    * To build:
-        - CMake 3.14+
-        - A C++17 compiler.
-    * Dependencies:
-        - [Arrow 3.0.0](https://arrow.apache.org)
+- Requirements
+  - To build:
+    - CMake 3.14+
+    - A C++17 compiler.
+  - Dependencies:
+    - [Arrow 3.0.0](https://arrow.apache.org)
 
 ### Build
 
@@ -30,9 +30,9 @@ After building:
 make install
 ```
 
-### Docker container
+### Docker image
 
-A Docker container is provided that builds and installs Illex:
+A Dockerfile is provided to build a Docker image that runs Illex:
 
 ```bash
 docker build -t illex .
@@ -102,10 +102,10 @@ This results in the following output:
 }
 ```
 
-Or using the Docker container:
+Or using a Docker container:
 
 ```bash
-docker run --rm -it -v `pwd`:/io illex illex file /io/examples/tripreport.as -s 0 --pretty
+docker run --rm -it -v `pwd`:/io illex file /io/examples/tripreport.as -s 0 --pretty
 ```
 
 ### Stream subcommand
@@ -117,14 +117,14 @@ to generate the JSONs:
 illex stream examples/battery.as -m 1048576 -t 8
 ```
 
-Or using the Docker container:
+Or using a Docker container:
 
 ```bash
-docker run --rm -it --net=host -v `pwd`:/io illex illex stream /io/examples/battery.as -m 1048576 -t 8
+docker run --rm -it -p 10197:10197 -v `pwd`:/io illex stream /io/examples/battery.as -m 1048576 -t 8
 ```
 
 ## FAQ
 
-* Why is it named Illex?
-    - Because this thing spouts random JSONs, it's called Illex, like the little
-      squid species. It's a working title.
+- Why is it named Illex?
+  - Because this thing spouts random JSONs, it's called Illex, like the little
+    squid species. It's a working title.
