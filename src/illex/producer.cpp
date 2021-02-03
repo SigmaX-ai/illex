@@ -76,8 +76,9 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
   size.set_value(drone_size);
 }
 
-void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
-                          std::promise<ProductionStats>&& stats) {
+auto ProduceJSONs(const ProductionOptions& opt, ProductionQueue* queue,
+                  ProductionStats* stats_out) -> Status {
+  assert(stats_out != nullptr);
   putong::Timer t;
   ProductionStats result;
 
@@ -108,7 +109,7 @@ void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
     futures.push_back(promise_num_chars.get_future());
     // Spawn the threads and let the first thread do the remainder of the work.
     threads.emplace_back(ProductionDroneThread, thread, opt,
-                         jsons_per_thread + (thread == 0 ? remainder : 0), q,
+                         jsons_per_thread + (thread == 0 ? remainder : 0), queue,
                          std::move(promise_num_chars));
   }
 
@@ -130,11 +131,14 @@ void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
   // Print some stats.
   if (opt.statistics) {
     spdlog::info("Produced {} JSONs in {:.4f} seconds.", opt.num_jsons, result.time);
-    spdlog::info("  {:.1f} JSONs/second (avg).", opt.num_jsons / result.time);
-    spdlog::info("  {:.2f} gigabits/second (avg).",
-                 static_cast<double>(total_size * 8) / result.time * 1E-9);
+    spdlog::info("  {:.1f} JSON/s (avg).", opt.num_jsons / result.time);
+    spdlog::info("  {:.2f} GB/s   (avg).",
+                 (static_cast<double>(total_size) * 1E-9) / result.time);
   }
-  stats.set_value(result);
+
+  *stats_out = result;
+
+  return Status::OK();
 }
 
 }  // namespace illex

@@ -58,15 +58,10 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
     return Status(Error::ServerError, "Server uninitialized. Use RawServer::Create().");
   }
 
-  // Start producing before connection is made.
-  ProductionOptions prod_opts_int = prod_opts;
   // Create a concurrent queue for the JSON production threads.
   ProductionQueue production_queue;
-  // Spawn production hive thread.
-  std::promise<ProductionStats> production_stats;
-  auto producer_stats_future = production_stats.get_future();
-  auto producer = std::thread(ProductionHiveThread, prod_opts_int, &production_queue,
-                              std::move(production_stats));
+
+  ProductionOptions prod_opts_int = prod_opts;
 
   // Accept a client.
   spdlog::info("Waiting for client to connect.");
@@ -77,16 +72,20 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
   StreamStatistics result;
   putong::Timer t;
 
-
   do {
+    // Produce JSONs.
+    ProductionStats production_stats;
+    auto produce_stats =
+        ProduceJSONs(prod_opts_int, &production_queue, &production_stats);
+
     // Start a timer.
     t.Start();
     // Attempt to pull all produced messages from the production queue and send them over
     // the socket.
     for (size_t m = 0; m < prod_opts.num_jsons; m++) {
-      // Get the message
-      std::string message_str;
-      while (!production_queue.try_dequeue(message_str)) {
+      // Pop a message from the queue.
+      std::string message;
+      while (!production_queue.try_dequeue(message)) {
 #ifndef NDEBUG
         // Slow this down a bit in debug.
         SPDLOG_DEBUG("Nothing in queue... {}");
@@ -95,31 +94,26 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
       }
 
       // Attempt to send the message.
-      auto send_result = client.send(reinterpret_cast<std::byte*>(message_str.data()),
-                                     message_str.length());
+      auto send_result =
+          client.send(reinterpret_cast<std::byte*>(message.data()), message.length());
 
       auto send_result_socket = std::get<1>(send_result);
       if (send_result_socket != kissnet::socket_status::valid) {
-        producer.join();
         return Status(Error::ServerError, "Socket not valid after send: " +
                                               std::to_string(send_result_socket));
       }
 
       // If verbose is enabled, also print the JSON to stdout
       if (prod_opts.verbose) {
-        std::cout << message_str.substr(0, message_str.length() - 1) << std::endl;
+        std::cout << message.substr(0, message.length() - 1) << std::endl;
       }
 
       result.num_messages++;
     }
-
-    // Stop the timer.
+    // Stop the timer after sending all messages and update statistics.
     t.Stop();
-    result.time = t.seconds();
-
-    // Wait for the producer thread to stop, and obtain the statistics.
-    producer.join();
-    result.producer = producer_stats_future.get();
+    result.time += t.seconds();
+    result.producer += production_stats;
     *stats = result;
 
     if (repeat_opts.messages) {

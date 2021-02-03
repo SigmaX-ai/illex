@@ -21,6 +21,7 @@
 #include <future>
 
 #include "illex/document.h"
+#include "illex/status.h"
 
 namespace illex {
 
@@ -52,6 +53,11 @@ struct ProductionOptions {
 struct ProductionStats {
   /// The time spent producing all JSONs
   double time = 0.0;
+
+  auto operator+=(const ProductionStats& rhs) -> ProductionStats& {
+    this->time += rhs.time;
+    return *this;
+  }
 };
 
 /**
@@ -67,12 +73,13 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
                            std::promise<size_t>&& size);
 
 /**
- * \brief Production hive thread. Spawns JSON production drones.
- * \param opt   Options for the production drones.
- * \param q     The concurrent queue to operate on.
- * \param stats Statistics about the hive and drone thread(s).
+ * \brief Produce JSONs and push them onto a queue.
+ * \param[in]  opt   Options related to how to produce the JSONs
+ * \param[out] queue The concurrent queue to operate on.
+ * \param[out] stats Statistics about producing JSONs.
+ * \returns Status::OK() if successful, some error otherwise.
  */
-void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
-                          std::promise<ProductionStats>&& stats);
+auto ProduceJSONs(const ProductionOptions& opt, ProductionQueue* queue,
+                  ProductionStats* stats_out) -> Status;
 
 }  // namespace illex
