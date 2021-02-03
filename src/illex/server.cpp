@@ -68,11 +68,15 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
   auto client = server->accept();
   spdlog::info("Client connected.");
   spdlog::info("Streaming {} messages.", prod_opts.num_jsons);
+  if (repeat_opts.times > 1) {
+    spdlog::info("Repeating {} times.", repeat_opts.times);
+    spdlog::info("  Interval: {} ms (+ production time)", repeat_opts.interval_ms);
+  }
 
   StreamStatistics result;
   putong::Timer t;
 
-  do {
+  for (size_t repeats = 0; repeats < repeat_opts.times; repeats++) {
     // Produce JSONs.
     ProductionStats production_stats;
     auto produce_stats =
@@ -116,13 +120,11 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
     result.producer += production_stats;
     *stats = result;
 
-    if (repeat_opts.messages) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(repeat_opts.interval_ms));
-    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(repeat_opts.interval_ms));
 
     // In case this is on repeat, increase the seed of the generator.
     prod_opts_int.gen.seed += 42;
-  } while (repeat_opts.messages);
+  }
 
   return Status::OK();
 }

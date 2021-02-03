@@ -114,13 +114,13 @@ To start a TCP server streaming out 1048576 JSONs to a client, using 8 threads
 to generate the JSONs:
 
 ```bash
-illex stream examples/battery.as -m 1048576 -t 8
+illex stream examples/battery.as -n 1048576 -t 8
 ```
 
 Or using a Docker container:
 
 ```bash
-docker run --rm -it -p 10197:10197 -v `pwd`:/io illex stream /io/examples/battery.as -m 1048576 -t 8
+docker run --rm -it -p 10197:10197 -v `pwd`:/io illex stream /io/examples/battery.as -n 1048576 -t 8
 ```
 
 ## FAQ
