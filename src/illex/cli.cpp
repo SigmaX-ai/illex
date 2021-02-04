@@ -28,7 +28,7 @@ static void AddCommonOpts(CLI::App* sub, ProductionOptions* prod,
       ->required()
       ->check(CLI::ExistingFile);
   sub->add_option("-n,--num-jsons", prod->num_jsons,
-                  "Number of JSONs to send (default=1).");
+                  "Number of JSONs to produce (per batch, if applicable) (default=1).");
   sub->add_option("-s,--seed", prod->gen.seed,
                   "Random generator seed (default: taken from random device).");
   sub->add_flag("--pretty", prod->pretty, "Generate \"pretty-printed\" JSONs.");
@@ -75,6 +75,10 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
                    " Time to wait between streaming messages when using --repeat-jsons "
                    "(milliseconds).")
       ->default_val(250);
+
+  stream->add_flag("--batch", result.stream.production.batching, "Enable batching.");
+  stream->add_option("-m", result.stream.production.num_batches,
+                     "Number of batches to send.");
 
   // Attempt to parse the CLI arguments.
   try {

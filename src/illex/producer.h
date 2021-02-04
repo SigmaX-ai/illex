@@ -47,6 +47,10 @@ struct ProductionOptions {
   bool pretty = false;
   /// Number of production threads to spawn.
   size_t num_threads = 1;
+  /// Produce JSONs in batches, this causes every batch to hold num_jsons.
+  bool batching = false;
+  /// Number of batches to produce.
+  size_t num_batches = 1;
 };
 
 /// Statistics on JSON production.
@@ -62,14 +66,15 @@ struct ProductionStats {
 
 /**
  * \brief A thread producing JSONs
- * \param thread_id The ID of this thread.
- * \param opt       Production options for this thread.
- * \param num_items Number of JSONs to produce.
- * \param q         The queue to store the produced JSONs in.
- * \param size      The number of characters generated.
+ * \param thread_id   The ID of this thread.
+ * \param opt         Production options for this thread.
+ * \param num_batches Number of batches to produce.
+ * \param num_items   Number of JSONs to produce per batch.
+ * \param q           The queue to store the produced JSONs in.
+ * \param size        The number of characters generated.
  */
 void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
-                           size_t num_items, ProductionQueue* q,
+                           size_t num_batches, size_t num_items, ProductionQueue* q,
                            std::promise<size_t>&& size);
 
 /**
