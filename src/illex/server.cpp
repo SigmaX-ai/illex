@@ -58,35 +58,40 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
     return Status(Error::ServerError, "Server uninitialized. Use RawServer::Create().");
   }
 
-  // Start producing before connection is made.
-  ProductionOptions prod_opts_int = prod_opts;
   // Create a concurrent queue for the JSON production threads.
   ProductionQueue production_queue;
-  // Spawn production hive thread.
-  std::promise<ProductionStats> production_stats;
-  auto producer_stats_future = production_stats.get_future();
-  auto producer = std::thread(ProductionHiveThread, prod_opts_int, &production_queue,
-                              std::move(production_stats));
+
+  ProductionOptions prod_opts_int = prod_opts;
 
   // Accept a client.
   spdlog::info("Waiting for client to connect.");
   auto client = server->accept();
   spdlog::info("Client connected.");
-  spdlog::info("Streaming {} messages.", prod_opts.num_jsons);
+  spdlog::info("Streaming JSONs...");
+  if (repeat_opts.times > 1) {
+    spdlog::info("Repeating {} times.", repeat_opts.times);
+    spdlog::info("  Interval: {} ms (+ production time)", repeat_opts.interval_ms);
+  }
 
   StreamStatistics result;
   putong::Timer t;
 
+  bool color = false;
 
-  do {
+  for (size_t repeats = 0; repeats < repeat_opts.times; repeats++) {
+    // Produce JSONs.
+    ProductionStats production_stats;
+    auto produce_stats =
+        ProduceJSONs(prod_opts_int, &production_queue, &production_stats);
+
     // Start a timer.
     t.Start();
     // Attempt to pull all produced messages from the production queue and send them over
     // the socket.
-    for (size_t m = 0; m < prod_opts.num_jsons; m++) {
-      // Get the message
-      std::string message_str;
-      while (!production_queue.try_dequeue(message_str)) {
+    while (result.num_messages != prod_opts.num_batches * prod_opts.num_jsons) {
+      // Pop a message from the queue.
+      std::string message;
+      while (!production_queue.try_dequeue(message)) {
 #ifndef NDEBUG
         // Slow this down a bit in debug.
         SPDLOG_DEBUG("Nothing in queue... {}");
@@ -95,40 +100,36 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
       }
 
       // Attempt to send the message.
-      auto send_result = client.send(reinterpret_cast<std::byte*>(message_str.data()),
-                                     message_str.length());
+      auto send_result =
+          client.send(reinterpret_cast<std::byte*>(message.data()), message.length());
 
       auto send_result_socket = std::get<1>(send_result);
       if (send_result_socket != kissnet::socket_status::valid) {
-        producer.join();
         return Status(Error::ServerError, "Socket not valid after send: " +
                                               std::to_string(send_result_socket));
       }
 
-      // If verbose is enabled, also print the JSON to stdout
+      // If verbose is enabled, also print the JSON to stdout. Swap colors for each batch.
       if (prod_opts.verbose) {
-        std::cout << message_str.substr(0, message_str.length() - 1) << std::endl;
+        std::cout << (color ? "\033[34m" : "\033[35m");
+        color = !color;
+        std::cout << message.substr(0, message.length() - 1) << std::endl;
+        std::cout << "\033[39m";
       }
 
-      result.num_messages++;
+      result.num_messages += prod_opts.num_jsons;
     }
-
-    // Stop the timer.
+    // Stop the timer after sending all messages and update statistics.
     t.Stop();
-    result.time = t.seconds();
-
-    // Wait for the producer thread to stop, and obtain the statistics.
-    producer.join();
-    result.producer = producer_stats_future.get();
+    result.time += t.seconds();
+    result.producer += production_stats;
     *stats = result;
 
-    if (repeat_opts.messages) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(repeat_opts.interval_ms));
-    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(repeat_opts.interval_ms));
 
     // In case this is on repeat, increase the seed of the generator.
     prod_opts_int.gen.seed += 42;
-  } while (repeat_opts.messages);
+  }
 
   return Status::OK();
 }

@@ -21,6 +21,7 @@
 #include <future>
 
 #include "illex/document.h"
+#include "illex/status.h"
 
 namespace illex {
 
@@ -46,33 +47,44 @@ struct ProductionOptions {
   bool pretty = false;
   /// Number of production threads to spawn.
   size_t num_threads = 1;
+  /// Produce JSONs in batches, this causes every batch to hold num_jsons.
+  bool batching = false;
+  /// Number of batches to produce.
+  size_t num_batches = 1;
 };
 
 /// Statistics on JSON production.
 struct ProductionStats {
   /// The time spent producing all JSONs
   double time = 0.0;
+
+  auto operator+=(const ProductionStats& rhs) -> ProductionStats& {
+    this->time += rhs.time;
+    return *this;
+  }
 };
 
 /**
  * \brief A thread producing JSONs
- * \param thread_id The ID of this thread.
- * \param opt       Production options for this thread.
- * \param num_items Number of JSONs to produce.
- * \param q         The queue to store the produced JSONs in.
- * \param size      The number of characters generated.
+ * \param thread_id   The ID of this thread.
+ * \param opt         Production options for this thread.
+ * \param num_batches Number of batches to produce.
+ * \param num_items   Number of JSONs to produce per batch.
+ * \param q           The queue to store the produced JSONs in.
+ * \param size        The number of characters generated.
  */
 void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
-                           size_t num_items, ProductionQueue* q,
+                           size_t num_batches, size_t num_items, ProductionQueue* q,
                            std::promise<size_t>&& size);
 
 /**
- * \brief Production hive thread. Spawns JSON production drones.
- * \param opt   Options for the production drones.
- * \param q     The concurrent queue to operate on.
- * \param stats Statistics about the hive and drone thread(s).
+ * \brief Produce JSONs and push them onto a queue.
+ * \param[in]  opt       Options related to how to produce the JSONs
+ * \param[out] queue     The concurrent queue to operate on.
+ * \param[out] stats_out Statistics about producing JSONs.
+ * \returns Status::OK() if successful, some error otherwise.
  */
-void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
-                          std::promise<ProductionStats>&& stats);
+auto ProduceJSONs(const ProductionOptions& opt, ProductionQueue* queue,
+                  ProductionStats* stats_out) -> Status;
 
 }  // namespace illex

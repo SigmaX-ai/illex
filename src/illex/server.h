@@ -40,9 +40,9 @@ struct StreamStatistics {
 
 /// Repeat mode options.
 struct RepeatOptions {
-  /// Keep sending JSONs while the connection is active.
-  bool messages = false;
-  /// Wait time in milliseconds between batches of JSONs when repeat_jsons is true.
+  /// Number of times to repeat sending.
+  size_t times = 1;
+  /// Interval between repeated sending in milliseconds.
   size_t interval_ms = 250;
 };
 

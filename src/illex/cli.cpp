@@ -27,8 +27,8 @@ static void AddCommonOpts(CLI::App* sub, ProductionOptions* prod,
                   "An Arrow schema to generate the JSON from.")
       ->required()
       ->check(CLI::ExistingFile);
-  sub->add_option("-m,--num-jsons", prod->num_jsons,
-                  "Number of JSONs to send (default=1).");
+  sub->add_option("-n,--num-jsons", prod->num_jsons,
+                  "Number of JSONs to produce (per batch, if applicable) (default=1).");
   sub->add_option("-s,--seed", prod->gen.seed,
                   "Random generator seed (default: taken from random device).");
   sub->add_flag("--pretty", prod->pretty, "Generate \"pretty-printed\" JSONs.");
@@ -65,15 +65,20 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
   auto* repeat_server = stream->add_flag("--repeat-server",
                                          "Indefinitely repeat creating the server and "
                                          "streaming the messages.");
-  auto* repeat_jsons = stream->add_flag("--repeat-jsons",
-                                        "Create the server once, and indefinitely repeat "
-                                        "streaming messages as long as the connection is "
-                                        "valid.");
+  stream
+      ->add_option("--repeat-jsons", result.stream.repeat.times,
+                   "Repeat streaming messages this many times.")
+      ->default_val(1);
+
   stream
       ->add_option("--repeat-interval", result.stream.repeat.interval_ms,
                    " Time to wait between streaming messages when using --repeat-jsons "
                    "(milliseconds).")
       ->default_val(250);
+
+  stream->add_flag("--batch", result.stream.production.batching, "Enable batching.");
+  stream->add_option("-m", result.stream.production.num_batches,
+                     "Number of batches to send.");
 
   // Attempt to parse the CLI arguments.
   try {
@@ -99,7 +104,6 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
 
     if (*no_reuse_flag) result.stream.server.reuse_socket = false;
     if (*repeat_server) result.stream.repeat_server = true;
-    if (*repeat_jsons) result.stream.repeat.messages = true;
 
   } else {
     result.sub = SubCommand::NONE;

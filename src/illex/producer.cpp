@@ -27,7 +27,7 @@ namespace illex {
 namespace rj = rapidjson;
 
 void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
-                           size_t num_items, ProductionQueue* q,
+                           size_t num_batches, size_t num_items, ProductionQueue* q,
                            std::promise<size_t>&& size) {
   // Accumulator for total number of characters generated.
   size_t drone_size = 0;
@@ -37,36 +37,39 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
   auto gen_opt = opt.gen;
   gen_opt.seed += thread_id;
 
-  // Generate a message with tweets in JSON format.
+  // Set up generator.
   auto gen = FromArrowSchema(*opt.schema, gen_opt);
+
+  // Set up RapidJSON
   rapidjson::StringBuffer buffer;
+  std::shared_ptr<rapidjson::Writer<rapidjson::StringBuffer>> writer;
+  if (opt.pretty) {
+    auto pw = std::make_shared<rapidjson::PrettyWriter<rapidjson::StringBuffer>>(buffer);
+    pw->SetFormatOptions(rj::PrettyFormatOptions::kFormatSingleLineArray);
+    writer = pw;
+  } else {
+    writer = std::make_shared<rapidjson::Writer<rapidjson::StringBuffer>>(buffer);
+  }
 
-  for (size_t m = 0; m < num_items; m++) {
-    auto json = gen.Get();
+  for (size_t b = 0; b < num_batches; b++) {
     buffer.Clear();
-
-    // Check whether we must pretty-prent the JSON
-    if (opt.pretty) {
-      rapidjson::PrettyWriter<rapidjson::StringBuffer> writer(buffer);
-      writer.SetFormatOptions(rj::PrettyFormatOptions::kFormatSingleLineArray);
-      json.Accept(writer);
-    } else {
-      rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-      json.Accept(writer);
+    for (size_t m = 0; m < num_items; m++) {
+      // Get a new value.
+      auto json = gen.Get();
+      // Write it to the buffer.
+      json.Accept(*writer);
+      // Check if we need to append whitespace.
+      if (opt.whitespace) {
+        buffer.Put(opt.whitespace_char);
+      }
     }
-
     // Put the JSON string in the queue.
     auto json_str = std::string(buffer.GetString());
-
-    // Check if we need to append whitespace.
-    if (opt.whitespace) {
-      json_str.push_back(opt.whitespace_char);
-    }
 
     // Accumulate the number of characters this drone has produced.
     drone_size += json_str.size();
 
-    // Place the JSON in the queue.
+    // Place the batch in the queue.
     if (!q->enqueue(std::move(json_str))) {
       spdlog::error("Drone {} could not place JSON string in queue.", thread_id);
       // TODO(johanpel): allow threads to return with an error state.
@@ -76,20 +79,34 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
   size.set_value(drone_size);
 }
 
-void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
-                          std::promise<ProductionStats>&& stats) {
+auto ProduceJSONs(const ProductionOptions& opt, ProductionQueue* queue,
+                  ProductionStats* stats_out) -> Status {
+  assert(stats_out != nullptr);
   putong::Timer t;
   ProductionStats result;
 
   // Number of JSONs to produce per thread
-  const auto jsons_per_thread = opt.num_jsons / opt.num_threads;
-
+  size_t batches_per_thread = 1;
+  size_t batches_remainder = 0;
+  auto jsons_per_thread = opt.num_jsons / opt.num_threads;
   // Remainder for the first thread.
-  size_t remainder = 0;
+  size_t jsons_remainder = 0;
   if (jsons_per_thread == 0) {
-    remainder = opt.num_jsons;
+    jsons_remainder = opt.num_jsons;
   } else {
-    remainder = opt.num_jsons % jsons_per_thread;
+    jsons_remainder = opt.num_jsons % jsons_per_thread;
+  }
+
+  // Recalculate if batching is enabled.
+  if (opt.batching) {
+    jsons_per_thread = opt.num_jsons;
+    batches_per_thread = opt.num_batches / opt.num_threads;
+    // Remainder for the first thread.
+    if (batches_per_thread == 0) {
+      batches_remainder = opt.num_batches;
+    } else {
+      batches_remainder = opt.num_batches % batches_per_thread;
+    }
   }
 
   SPDLOG_DEBUG("Starting {} JSON producer drones.", opt.num_threads);
@@ -106,10 +123,13 @@ void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
     // Set up promise for the number of characters produced
     std::promise<size_t> promise_num_chars;
     futures.push_back(promise_num_chars.get_future());
+
     // Spawn the threads and let the first thread do the remainder of the work.
-    threads.emplace_back(ProductionDroneThread, thread, opt,
-                         jsons_per_thread + (thread == 0 ? remainder : 0), q,
-                         std::move(promise_num_chars));
+    size_t thread_jsons = jsons_per_thread + (thread == 0 ? jsons_remainder : 0);
+    size_t thread_batches = batches_per_thread + (thread == 0 ? batches_remainder : 0);
+
+    threads.emplace_back(ProductionDroneThread, thread, opt, thread_batches, thread_jsons,
+                         queue, std::move(promise_num_chars));
   }
 
   // Wait for all threads to complete.
@@ -130,11 +150,14 @@ void ProductionHiveThread(const ProductionOptions& opt, ProductionQueue* q,
   // Print some stats.
   if (opt.statistics) {
     spdlog::info("Produced {} JSONs in {:.4f} seconds.", opt.num_jsons, result.time);
-    spdlog::info("  {:.1f} JSONs/second (avg).", opt.num_jsons / result.time);
-    spdlog::info("  {:.2f} gigabits/second (avg).",
-                 static_cast<double>(total_size * 8) / result.time * 1E-9);
+    spdlog::info("  {:.1f} JSON/s (avg).", opt.num_jsons / result.time);
+    spdlog::info("  {:.2f} GB/s   (avg).",
+                 (static_cast<double>(total_size) * 1E-9) / result.time);
   }
-  stats.set_value(result);
+
+  *stats_out = result;
+
+  return Status::OK();
 }
 
 }  // namespace illex
