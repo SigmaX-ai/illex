@@ -242,12 +242,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a3ce95e1487109601311cdc1ba71ecc77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a3ce95e1487109601311cdc1ba71ecc77">StartLogger</a> ()</td></tr>
 <tr class="memdesc:a3ce95e1487109601311cdc1ba71ecc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the logging facility.  <a href="#a3ce95e1487109601311cdc1ba71ecc77">More...</a><br /></td></tr>
 <tr class="separator:a3ce95e1487109601311cdc1ba71ecc77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2b14b34bba95c96f6b7b1a6f76935fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ae2b14b34bba95c96f6b7b1a6f76935fb">ProductionDroneThread</a> (size_t thread_id, const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;opt, size_t num_items, <a class="el" href="namespaceillex.html#a9a02fafdb6f1295445e5adb0e31c2591">ProductionQueue</a> *q, std::promise&lt; size_t &gt; &amp;&amp;size)</td></tr>
-<tr class="memdesc:ae2b14b34bba95c96f6b7b1a6f76935fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thread producing JSONs.  <a href="#ae2b14b34bba95c96f6b7b1a6f76935fb">More...</a><br /></td></tr>
-<tr class="separator:ae2b14b34bba95c96f6b7b1a6f76935fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f2a03591148c741e7de975dfaa50e72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a7f2a03591148c741e7de975dfaa50e72">ProductionHiveThread</a> (const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;opt, <a class="el" href="namespaceillex.html#a9a02fafdb6f1295445e5adb0e31c2591">ProductionQueue</a> *q, std::promise&lt; <a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a> &gt; &amp;&amp;stats)</td></tr>
-<tr class="memdesc:a7f2a03591148c741e7de975dfaa50e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Production hive thread. Spawns JSON production drones.  <a href="#a7f2a03591148c741e7de975dfaa50e72">More...</a><br /></td></tr>
-<tr class="separator:a7f2a03591148c741e7de975dfaa50e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5abc16396258409be53dad248f3cc892"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a5abc16396258409be53dad248f3cc892">ProductionDroneThread</a> (size_t thread_id, const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;opt, size_t num_batches, size_t num_items, <a class="el" href="namespaceillex.html#a9a02fafdb6f1295445e5adb0e31c2591">ProductionQueue</a> *q, std::promise&lt; size_t &gt; &amp;&amp;size)</td></tr>
+<tr class="memdesc:a5abc16396258409be53dad248f3cc892"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thread producing JSONs.  <a href="#a5abc16396258409be53dad248f3cc892">More...</a><br /></td></tr>
+<tr class="separator:a5abc16396258409be53dad248f3cc892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a457eacdf606c613c7dd409c9d1a9d402"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a457eacdf606c613c7dd409c9d1a9d402">ProduceJSONs</a> (const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;opt, <a class="el" href="namespaceillex.html#a9a02fafdb6f1295445e5adb0e31c2591">ProductionQueue</a> *queue, <a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a> *stats_out) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
+<tr class="memdesc:a457eacdf606c613c7dd409c9d1a9d402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produce JSONs and push them onto a queue.  <a href="#a457eacdf606c613c7dd409c9d1a9d402">More...</a><br /></td></tr>
+<tr class="separator:a457eacdf606c613c7dd409c9d1a9d402"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98ba4566075b49517b0866f07ab9071d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a98ba4566075b49517b0866f07ab9071d">LogSendStats</a> (const <a class="el" href="structillex_1_1_stream_statistics.html">StreamStatistics</a> &amp;result)</td></tr>
 <tr class="separator:a98ba4566075b49517b0866f07ab9071d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af439ec40ba77fbbebd9b4ba87173cdd4"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#af439ec40ba77fbbebd9b4ba87173cdd4">RunServer</a> (const <a class="el" href="structillex_1_1_server_options.html">ServerOptions</a> &amp;server_options, const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;production_options, const <a class="el" href="structillex_1_1_repeat_options.html">RepeatOptions</a> &amp;repeat_options, bool statistics) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
@@ -758,8 +758,53 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae2b14b34bba95c96f6b7b1a6f76935fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2b14b34bba95c96f6b7b1a6f76935fb">&#9670;&nbsp;</a></span>ProductionDroneThread()</h2>
+<a id="a457eacdf606c613c7dd409c9d1a9d402"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a457eacdf606c613c7dd409c9d1a9d402">&#9670;&nbsp;</a></span>ProduceJSONs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto illex::ProduceJSONs </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>opt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceillex.html#a9a02fafdb6f1295445e5adb0e31c2591">ProductionQueue</a> *&#160;</td>
+          <td class="paramname"><em>queue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a> *&#160;</td>
+          <td class="paramname"><em>stats_out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Produce JSONs and push them onto a queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">opt</td><td>Options related to how to produce the JSONs </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">queue</td><td>The concurrent queue to operate on. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">stats_out</td><td>Statistics about producing JSONs. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status::OK() if successful, some error otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a5abc16396258409be53dad248f3cc892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5abc16396258409be53dad248f3cc892">&#9670;&nbsp;</a></span>ProductionDroneThread()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -775,6 +820,12 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;&#160;</td>
           <td class="paramname"><em>opt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>num_batches</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -807,53 +858,10 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">thread_id</td><td>The ID of this thread. </td></tr>
     <tr><td class="paramname">opt</td><td>Production options for this thread. </td></tr>
-    <tr><td class="paramname">num_items</td><td>Number of JSONs to produce. </td></tr>
+    <tr><td class="paramname">num_batches</td><td>Number of batches to produce. </td></tr>
+    <tr><td class="paramname">num_items</td><td>Number of JSONs to produce per batch. </td></tr>
     <tr><td class="paramname">q</td><td>The queue to store the produced JSONs in. </td></tr>
     <tr><td class="paramname">size</td><td>The number of characters generated. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a7f2a03591148c741e7de975dfaa50e72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f2a03591148c741e7de975dfaa50e72">&#9670;&nbsp;</a></span>ProductionHiveThread()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void illex::ProductionHiveThread </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structillex_1_1_production_options.html">ProductionOptions</a> &amp;&#160;</td>
-          <td class="paramname"><em>opt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceillex.html#a9a02fafdb6f1295445e5adb0e31c2591">ProductionQueue</a> *&#160;</td>
-          <td class="paramname"><em>q</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::promise&lt; <a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a> &gt; &amp;&amp;&#160;</td>
-          <td class="paramname"><em>stats</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Production hive thread. Spawns JSON production drones. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">opt</td><td>Options for the production drones. </td></tr>
-    <tr><td class="paramname">q</td><td>The concurrent queue to operate on. </td></tr>
-    <tr><td class="paramname">stats</td><td>Statistics about the hive and drone thread(s). </td></tr>
   </table>
   </dd>
 </dl>

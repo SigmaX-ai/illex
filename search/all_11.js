@@ -36,7 +36,7 @@ var searchData=
   ['stream_2eh',['stream.h',['../stream_8h.html',1,'']]],
   ['streamoptions',['StreamOptions',['../structillex_1_1_stream_options.html',1,'illex']]],
   ['streamstatistics',['StreamStatistics',['../structillex_1_1_stream_statistics.html',1,'illex']]],
-  ['string',['String',['../structillex_1_1_string.html',1,'illex::String'],['../structillex_1_1_j_s_o_n_item.html#a1ea81dd8dfbb6241bd83dbe73123932b',1,'illex::JSONItem::string()'],['../structillex_1_1_string.html#af1ce2c0e5fc8cbedb7db0e2c6812a902',1,'illex::String::String()']]],
+  ['string',['String',['../structillex_1_1_string.html',1,'illex::String'],['../structillex_1_1_string.html#af1ce2c0e5fc8cbedb7db0e2c6812a902',1,'illex::String::String()'],['../structillex_1_1_j_s_o_n_item.html#a1ea81dd8dfbb6241bd83dbe73123932b',1,'illex::JSONItem::string()']]],
   ['sub',['sub',['../structillex_1_1_app_options.html#a357e54c8062831217e08c20f2aca4dcb',1,'illex::AppOptions']]],
   ['subcommand',['SubCommand',['../namespaceillex.html#ab8fff30d055af311ffab6d46b1f7bf38',1,'illex']]]
 ];

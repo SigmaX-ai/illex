@@ -78,13 +78,15 @@ $(function() {
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;future&gt;</code><br />
 <code>#include &quot;<a class="el" href="document_8h_source.html">illex/document.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="status_8h_source.html">illex/status.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for producer.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="producer_8h__incl.png" border="0" usemap="#src_2illex_2producer_8h" alt=""/></div>
 <map name="src_2illex_2producer_8h" id="src_2illex_2producer_8h">
 <area shape="rect" id="node6" href="document_8h.html" title="illex/document.h" alt="" coords="467,80,598,107"/>
-<area shape="rect" id="node10" href="value_8h.html" title="illex/value.h" alt="" coords="619,155,721,181"/>
+<area shape="rect" id="node14" href="status_8h.html" title="illex/status.h" alt="" coords="695,80,802,107"/>
+<area shape="rect" id="node10" href="value_8h.html" title="illex/value.h" alt="" coords="327,155,429,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -128,12 +130,12 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae2b14b34bba95c96f6b7b1a6f76935fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ae2b14b34bba95c96f6b7b1a6f76935fb">illex::ProductionDroneThread</a> (size_t thread_id, const ProductionOptions &amp;opt, size_t num_items, ProductionQueue *q, std::promise&lt; size_t &gt; &amp;&amp;size)</td></tr>
-<tr class="memdesc:ae2b14b34bba95c96f6b7b1a6f76935fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thread producing JSONs.  <a href="namespaceillex.html#ae2b14b34bba95c96f6b7b1a6f76935fb">More...</a><br /></td></tr>
-<tr class="separator:ae2b14b34bba95c96f6b7b1a6f76935fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f2a03591148c741e7de975dfaa50e72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a7f2a03591148c741e7de975dfaa50e72">illex::ProductionHiveThread</a> (const ProductionOptions &amp;opt, ProductionQueue *q, std::promise&lt; ProductionStats &gt; &amp;&amp;stats)</td></tr>
-<tr class="memdesc:a7f2a03591148c741e7de975dfaa50e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Production hive thread. Spawns JSON production drones.  <a href="namespaceillex.html#a7f2a03591148c741e7de975dfaa50e72">More...</a><br /></td></tr>
-<tr class="separator:a7f2a03591148c741e7de975dfaa50e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5abc16396258409be53dad248f3cc892"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a5abc16396258409be53dad248f3cc892">illex::ProductionDroneThread</a> (size_t thread_id, const ProductionOptions &amp;opt, size_t num_batches, size_t num_items, ProductionQueue *q, std::promise&lt; size_t &gt; &amp;&amp;size)</td></tr>
+<tr class="memdesc:a5abc16396258409be53dad248f3cc892"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thread producing JSONs.  <a href="namespaceillex.html#a5abc16396258409be53dad248f3cc892">More...</a><br /></td></tr>
+<tr class="separator:a5abc16396258409be53dad248f3cc892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a457eacdf606c613c7dd409c9d1a9d402"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a457eacdf606c613c7dd409c9d1a9d402">illex::ProduceJSONs</a> (const ProductionOptions &amp;opt, ProductionQueue *queue, ProductionStats *stats_out) -&gt; Status</td></tr>
+<tr class="memdesc:a457eacdf606c613c7dd409c9d1a9d402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produce JSONs and push them onto a queue.  <a href="namespaceillex.html#a457eacdf606c613c7dd409c9d1a9d402">More...</a><br /></td></tr>
+<tr class="separator:a457eacdf606c613c7dd409c9d1a9d402"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,11 +1,11 @@
 <map id="src/illex/stream.cpp" name="src/illex/stream.cpp">
-<area shape="rect" id="node2" href="$stream_8h.html" title="illex/stream.h" alt="" coords="651,80,763,107"/>
-<area shape="rect" id="node20" href="$server_8h.html" title="illex/server.h" alt="" coords="747,155,854,181"/>
-<area shape="rect" id="node4" href="$protocol_8h.html" title="illex/protocol.h" alt="" coords="740,304,859,331"/>
-<area shape="rect" id="node9" href="$document_8h.html" title="illex/document.h" alt="" coords="162,304,293,331"/>
-<area shape="rect" id="node17" href="$producer_8h.html" title="illex/producer.h" alt="" coords="498,229,621,256"/>
-<area shape="rect" id="node25" href="$status_8h.html" title="illex/status.h" alt="" coords="994,379,1101,405"/>
-<area shape="rect" id="node13" href="$value_8h.html" title="illex/value.h" alt="" coords="295,379,397,405"/>
-<area shape="rect" id="node21" href="$client_8h.html" title="illex/client.h" alt="" coords="899,229,1001,256"/>
-<area shape="rect" id="node22" href="$latency_8h.html" title="illex/latency.h" alt="" coords="1127,304,1239,331"/>
+<area shape="rect" id="node2" href="$stream_8h.html" title="illex/stream.h" alt="" coords="875,80,987,107"/>
+<area shape="rect" id="node23" href="$server_8h.html" title="illex/server.h" alt="" coords="971,155,1077,181"/>
+<area shape="rect" id="node4" href="$protocol_8h.html" title="illex/protocol.h" alt="" coords="1271,304,1390,331"/>
+<area shape="rect" id="node9" href="$document_8h.html" title="illex/document.h" alt="" coords="355,304,485,331"/>
+<area shape="rect" id="node17" href="$producer_8h.html" title="illex/producer.h" alt="" coords="753,229,876,256"/>
+<area shape="rect" id="node20" href="$status_8h.html" title="illex/status.h" alt="" coords="844,379,951,405"/>
+<area shape="rect" id="node13" href="$value_8h.html" title="illex/value.h" alt="" coords="155,379,258,405"/>
+<area shape="rect" id="node24" href="$client_8h.html" title="illex/client.h" alt="" coords="1093,229,1195,256"/>
+<area shape="rect" id="node25" href="$latency_8h.html" title="illex/latency.h" alt="" coords="1136,304,1248,331"/>
 </map>
