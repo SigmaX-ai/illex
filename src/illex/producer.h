@@ -79,9 +79,9 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
 
 /**
  * \brief Produce JSONs and push them onto a queue.
- * \param[in]  opt   Options related to how to produce the JSONs
- * \param[out] queue The concurrent queue to operate on.
- * \param[out] stats Statistics about producing JSONs.
+ * \param[in]  opt       Options related to how to produce the JSONs
+ * \param[out] queue     The concurrent queue to operate on.
+ * \param[out] stats_out Statistics about producing JSONs.
  * \returns Status::OK() if successful, some error otherwise.
  */
 auto ProduceJSONs(const ProductionOptions& opt, ProductionQueue* queue,
