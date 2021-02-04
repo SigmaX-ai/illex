@@ -2,7 +2,6 @@ var searchData=
 [
   ['randomengine',['RandomEngine',['../namespaceillex.html#a97705ea223301062572c9eddfa05ebb3',1,'illex']]],
   ['range',['range',['../classillex_1_1_j_s_o_n_buffer.html#ae40766f19f825734854cf8ba47c37b1a',1,'illex::JSONBuffer']]],
-  ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
   ['readschemafromfile',['ReadSchemaFromFile',['../namespaceillex.html#ae50d001477ebf99b5a53565862fdf60c',1,'illex']]],
   ['received_5f',['received_',['../structillex_1_1_queueing_client.html#a4d904fb22cfc90d860617af24621c5f2',1,'illex::QueueingClient']]],
   ['receivejsons',['ReceiveJSONs',['../classillex_1_1_client.html#a4b525dd3de56ea5b6dd7ee23c338bd87',1,'illex::Client::ReceiveJSONs()'],['../classillex_1_1_buffering_client.html#a120de3ed4636dd215f415abd4c4a2dc7',1,'illex::BufferingClient::ReceiveJSONs()'],['../structillex_1_1_queueing_client.html#ac54be43ac317ae9b4e7a0e98c57bc301',1,'illex::QueueingClient::ReceiveJSONs()']]],
