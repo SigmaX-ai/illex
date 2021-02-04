@@ -10,3 +10,5 @@ output_schema = pa.schema([
 ])
 
 pa.output_stream("battery.as").write(output_schema.serialize())
+
+print("Battery Status schema generated.")

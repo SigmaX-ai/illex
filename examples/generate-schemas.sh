@@ -1,0 +1,1 @@
+for p in *.py; do python3 $p; done;
