@@ -20,19 +20,11 @@
 
 namespace illex {
 
-#define FAIL_ON_ERROR(status)                   \
-  {                                             \
-    auto __status = (status);                   \
-    if (!__status.ok()) {                       \
-      throw std::runtime_error(__status.msg()); \
-    }                                           \
-  }
-
-auto Cast(const char* str) -> std::byte* {
+inline static auto Cast(const char* str) -> std::byte* {
   return const_cast<std::byte*>(reinterpret_cast<const std::byte*>(str));
 }
 
-void GetResultFrom(const char* str, std::pair<size_t, size_t>* result) {
+static void GetResultFrom(const char* str, std::pair<size_t, size_t>* result) {
   auto* buf = Cast(str);
   JSONBuffer b;
   ASSERT_TRUE(JSONBuffer::Create(buf, strlen(str), &b).ok());
@@ -57,74 +49,6 @@ TEST(Client, Scan) {
   GetResultFrom("{}", &result);
   ASSERT_EQ(result.first, 0);
   ASSERT_EQ(result.second, 2);
-}
-
-void RunStreamThread(const StreamOptions& opts, Status* status) {
-  *status = RunStream(opts);
-}
-
-TEST(Client, Queueing) {
-  Status server_status;
-  StreamOptions opts;
-  opts.production.schema = arrow::schema({arrow::field("test", arrow::uint64(), false)});
-  auto server = std::thread(RunStreamThread, opts, &server_status);
-
-  QueueingClient client;
-  JSONQueue client_queue;
-  FAIL_ON_ERROR(QueueingClient::Create(ClientOptions(), &client_queue, &client));
-
-  FAIL_ON_ERROR(client.ReceiveJSONs());
-  FAIL_ON_ERROR(client.Close());
-
-  server.join();
-  FAIL_ON_ERROR(server_status);
-
-  JSONItem item;
-  ASSERT_TRUE(client_queue.try_dequeue(item));
-  ASSERT_EQ(client.jsons_received(), 1);
-}
-
-void ConsumeBufferThread(JSONBuffer* buffer, std::mutex* mutex) {
-  while (true) {
-    if (!buffer->empty()) {
-      std::lock_guard<std::mutex> lg(*mutex);
-      ASSERT_EQ(buffer->num_jsons(), 1);
-      buffer->Reset();
-      return;
-    }
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
-  }
-}
-
-TEST(Client, Buffering) {
-  Status server_status;
-  StreamOptions opts;
-  opts.production.schema = arrow::schema({arrow::field("test", arrow::uint64(), false)});
-  auto server = std::thread(RunStreamThread, opts, &server_status);
-
-  BufferingClient client;
-  JSONBuffer buffer;
-  std::mutex mutex;
-
-  auto* raw_buffer = new std::byte[ILLEX_DEFAULT_TCP_BUFSIZE];
-  FAIL_ON_ERROR(JSONBuffer::Create(raw_buffer, ILLEX_DEFAULT_TCP_BUFSIZE, &buffer));
-
-  auto consumer = std::thread(ConsumeBufferThread, &buffer, &mutex);
-
-  std::vector vbp = {&buffer};
-  std::vector vmp = {&mutex};
-  FAIL_ON_ERROR(BufferingClient::Create(ClientOptions(), vbp, vmp, &client));
-  FAIL_ON_ERROR(client.ReceiveJSONs());
-  FAIL_ON_ERROR(client.Close());
-
-  consumer.join();
-
-  server.join();
-  FAIL_ON_ERROR(server_status);
-
-  delete[] raw_buffer;
-
-  ASSERT_EQ(client.jsons_received(), 1);
 }
 
 }  // namespace illex
