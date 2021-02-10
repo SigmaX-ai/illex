@@ -58,10 +58,6 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
   AddCommonOpts(stream, &result.stream.production, &schema_file);
   stream->add_option("-p,--port", result.stream.server.port, "Port to listen on.")
       ->default_val(ILLEX_DEFAULT_PORT);
-  auto* no_reuse_flag =
-      stream->add_flag("--disable-socket-reuse",
-                       "Don't allow reuse of the server socket "
-                       "(need to wait for timeout if socket already exists).");
   auto* repeat_server = stream->add_flag("--repeat-server",
                                          "Indefinitely repeat creating the server and "
                                          "streaming the messages.");
@@ -102,7 +98,6 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
     result.sub = SubCommand::STREAM;
     status = ReadSchemaFromFile(schema_file, &result.stream.production.schema);
 
-    if (*no_reuse_flag) result.stream.server.reuse_socket = false;
     if (*repeat_server) result.stream.repeat_server = true;
 
   } else {

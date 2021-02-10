@@ -36,9 +36,6 @@ auto Server::Create(const ServerOptions& options, Server* out) -> Status {
   assert(out != nullptr);
   out->server =
       std::make_shared<Socket>(kn::endpoint("0.0.0.0:" + std::to_string(options.port)));
-  if (options.reuse_socket) {
-    out->server->set_reuse();
-  }
   try {
     out->server->bind();
   } catch (const std::runtime_error& e) {

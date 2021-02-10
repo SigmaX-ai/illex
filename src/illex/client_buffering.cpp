@@ -67,7 +67,14 @@ auto BufferingClient::Create(const ClientOptions& options,
   out->seq = options.seq;
   // Create an endpoint.
   auto endpoint = options.host + ":" + std::to_string(options.port);
-  out->client = std::make_shared<Socket>(kissnet::endpoint(endpoint));
+  try {
+    out->client = std::make_shared<Socket>(kissnet::endpoint(endpoint));
+  } catch (std::exception& e) {
+    return Status(Error::ClientError,
+                  "Unable to create socket."
+                  "\nException: " +
+                      std::string(e.what()) + "\nWith: " + endpoint);
+  }
   // Attempt to connect.
   SPDLOG_DEBUG("Client connecting to {}...", endpoint);
   auto success = out->client->connect();

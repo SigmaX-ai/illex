@@ -51,8 +51,8 @@ include_directories("${concurrentqueue_SOURCE_DIR}")
 
 # kissnet
 FetchContent_Declare(kissnet
-  GIT_REPOSITORY  https://github.com/johanpel/kissnet
-  GIT_TAG         master
+  GIT_REPOSITORY  https://github.com/Ybalrid/kissnet
+  GIT_TAG         a1c624499315093d99c5bf37f5ceb048c3b671cc
 )
 FetchContent_MakeAvailable(kissnet)
 
