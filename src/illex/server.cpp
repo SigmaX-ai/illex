@@ -57,7 +57,6 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
 
   // Create a concurrent queue for the JSON production threads.
   ProductionQueue production_queue;
-
   ProductionOptions prod_opts_int = prod_opts;
 
   // Accept a client.

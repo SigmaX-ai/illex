@@ -58,9 +58,6 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
   AddCommonOpts(stream, &result.stream.production, &schema_file);
   stream->add_option("-p,--port", result.stream.server.port, "Port to listen on.")
       ->default_val(ILLEX_DEFAULT_PORT);
-  auto* repeat_server = stream->add_flag("--repeat-server",
-                                         "Indefinitely repeat creating the server and "
-                                         "streaming the messages.");
   stream
       ->add_option("--repeat-jsons", result.stream.repeat.times,
                    "Repeat streaming messages this many times.")
@@ -97,9 +94,6 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
   } else if (stream->parsed()) {
     result.sub = SubCommand::STREAM;
     status = ReadSchemaFromFile(schema_file, &result.stream.production.schema);
-
-    if (*repeat_server) result.stream.repeat_server = true;
-
   } else {
     result.sub = SubCommand::NONE;
   }
