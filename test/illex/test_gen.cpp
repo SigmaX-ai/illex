@@ -28,4 +28,14 @@ TEST(Generators, EmptyDocument) {
   ASSERT_STREQ(b.GetString(), "null");
 }
 
+TEST(Generators, TwoValuesFromOneGenerator) {
+  DocumentGenerator doc(0);
+  rapidjson::StringBuffer b;
+  rapidjson::Writer p(b);
+  doc.Get().Accept(p);
+  p.Reset(b);
+  doc.Get().Accept(p);
+  ASSERT_STREQ(b.GetString(), "nullnull");
+}
+
 }  // namespace illex::test
