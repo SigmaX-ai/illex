@@ -53,6 +53,7 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
 
   for (size_t b = 0; b < num_batches; b++) {
     buffer.Clear();
+    // Generate num_items JSON items in the buffer.
     for (size_t m = 0; m < num_items; m++) {
       // Get a new value.
       auto json = gen.Get();
@@ -64,14 +65,13 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
         buffer.Put(opt.whitespace_char);
       }
     }
-    // Put the JSON string in the queue.
-    auto json_str = std::string(buffer.GetString());
 
-    // Accumulate the number of characters this drone has produced.
-    drone_size += json_str.size();
-
+    // Put the batch of JSON strings in the queue.
+    auto batch = std::string(buffer.GetString());
+    // Accumulate the number of bytes in the batch to all that this drone has produced.
+    drone_size += batch.size();
     // Place the batch in the queue.
-    if (!q->enqueue(std::move(json_str))) {
+    if (!q->enqueue(std::move(batch))) {
       spdlog::error("Drone {} could not place JSON string in queue.", thread_id);
       // TODO(johanpel): allow threads to return with an error state.
     }
