@@ -19,6 +19,7 @@
 #include <rapidjson/prettywriter.h>
 
 #include <cassert>
+#include <csignal>
 #include <future>
 #include <kissnet.hpp>
 #include <string>
@@ -61,6 +62,13 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
 
   // Accept a client.
   spdlog::info("Waiting for client to connect.");
+
+  // Set signal handler for server->accept()
+  std::signal(SIGINT, [](int) {
+    spdlog::critical("Interrupted... exiting.\n");
+    std::exit(0);
+  });
+
   auto client = server->accept();
   spdlog::info("Client connected.");
 
