@@ -12,7 +12,6 @@ var searchData=
   ['repeatoptions',['RepeatOptions',['../structillex_1_1_repeat_options.html',1,'illex']]],
   ['reset',['Reset',['../classillex_1_1_j_s_o_n_buffer.html#a797ea9ccaf42481807cdefb02d13f523',1,'illex::JSONBuffer']]],
   ['return_5fvalue',['return_value',['../structillex_1_1_app_options.html#a8e1ffb08c3828fddd386e00a19123758',1,'illex::AppOptions']]],
-  ['reuse_5fsocket',['reuse_socket',['../structillex_1_1_server_options.html#a52ecfc0a7694600d6cd2b5b3b5a68836',1,'illex::ServerOptions']]],
   ['root',['root',['../classillex_1_1_document_generator.html#acdbfa729da5c7d46705dc448615d0dbd',1,'illex::DocumentGenerator']]],
   ['root_5f',['root_',['../classillex_1_1_document_generator.html#a84aabbb6f060aa98c316470daa901051',1,'illex::DocumentGenerator']]],
   ['runfile',['RunFile',['../namespaceillex.html#a36db3575f6c9f676e2f996512e3cbcc9',1,'illex']]],
