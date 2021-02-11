@@ -76,6 +76,7 @@ add_compile_unit(
     src/illex/arrow.cpp
     src/illex/value.cpp
   DEPS
+    arrow_shared
     kissnet
     putong
     spdlog::spdlog
