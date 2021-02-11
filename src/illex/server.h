@@ -48,7 +48,6 @@ struct RepeatOptions {
 
 struct ServerOptions {
   uint16_t port = ILLEX_DEFAULT_PORT;
-  bool reuse_socket = true;
 };
 
 /**

@@ -56,7 +56,8 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
     for (size_t m = 0; m < num_items; m++) {
       // Get a new value.
       auto json = gen.Get();
-      // Write it to the buffer.
+      // Reset writer and write it to the buffer.
+      writer->Reset(buffer);
       json.Accept(*writer);
       // Check if we need to append whitespace.
       if (opt.whitespace) {

@@ -19,10 +19,7 @@
 namespace illex {
 
 auto RunStream(const StreamOptions& opt) -> Status {
-  do {
-    RunServer(opt.server, opt.production, opt.repeat, opt.statistics);
-  } while (opt.repeat_server);
-  return Status::OK();
+  return RunServer(opt.server, opt.production, opt.repeat, opt.statistics);
 }
 
 }  // namespace illex
