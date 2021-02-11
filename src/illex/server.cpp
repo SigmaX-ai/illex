@@ -63,6 +63,7 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
   spdlog::info("Waiting for client to connect.");
   auto client = server->accept();
   spdlog::info("Client connected.");
+
   spdlog::info("Streaming JSONs...");
   if (repeat_opts.times > 1) {
     spdlog::info("Repeating {} times.", repeat_opts.times);
@@ -75,6 +76,7 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
   bool color = false;
 
   for (size_t repeats = 0; repeats < repeat_opts.times; repeats++) {
+    size_t num_messages = 0;
     // Produce JSONs.
     ProductionStats production_stats;
     auto produce_stats =
@@ -84,7 +86,7 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
     t.Start();
     // Attempt to pull all produced messages from the production queue and send them over
     // the socket.
-    while (result.num_messages != prod_opts.num_batches * prod_opts.num_jsons) {
+    while (num_messages != prod_opts.num_batches * prod_opts.num_jsons) {
       // Pop a message from the queue.
       std::string message;
       while (!production_queue.try_dequeue(message)) {
@@ -92,6 +94,8 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
         // Slow this down a bit in debug.
         SPDLOG_DEBUG("Nothing in queue... {}");
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
+#else
+        std::this_thread::sleep_for(std::chrono::microseconds(1));
 #endif
       }
 
@@ -113,10 +117,11 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
         std::cout << "\033[39m";
       }
 
-      result.num_messages += prod_opts.num_jsons;
+      num_messages += prod_opts.num_jsons;
     }
     // Stop the timer after sending all messages and update statistics.
     t.Stop();
+    result.num_messages += num_messages;
     result.time += t.seconds();
     result.producer += production_stats;
     *stats = result;
