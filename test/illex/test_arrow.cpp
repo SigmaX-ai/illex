@@ -39,7 +39,7 @@ TEST(Arrow, Empty) {
 TEST(Arrow, UInt64) {
   auto schema =
       arrow::Schema({std::make_shared<arrow::Field>("uint64", arrow::uint64(), false)});
-  ASSERT_EQ(GenerateJSON(schema), R"({"uint64":1537163486874432223})");
+  ASSERT_EQ(GenerateJSON(schema), R"({"uint64":1537412910361083904})");
 }
 
 TEST(Arrow, UInt64Meta) {
@@ -59,7 +59,7 @@ TEST(Arrow, UInt64Meta) {
 TEST(Arrow, String) {
   auto schema =
       arrow::Schema({std::make_shared<arrow::Field>("str", arrow::utf8(), false)});
-  ASSERT_EQ(GenerateJSON(schema), R"({"str":"htgwxfziuvfnabo"})");
+  ASSERT_EQ(GenerateJSON(schema, 12), R"({"str":"nowfvusfgsksrqv"})");
 }
 
 TEST(Arrow, FixedSizeList) {
@@ -68,7 +68,7 @@ TEST(Arrow, FixedSizeList) {
       std::make_shared<arrow::Field>("fsl", arrow::fixed_size_list(list_item, 3), false);
   auto schema = arrow::Schema({list_field});
   ASSERT_EQ(GenerateJSON(schema),
-            R"({"fsl":[1537163486874432223,18143445020509408007,5528658168453055457]})");
+            R"({"fsl":[1537412910361083904,1876889274928791552,18143394317626638336]})");
 }
 
 }  // namespace illex::test
