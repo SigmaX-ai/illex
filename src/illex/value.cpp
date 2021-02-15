@@ -30,19 +30,16 @@ void Value::SetContext(Context context) {
   context_ = context;
 }
 
-String::String(double length_mean, double length_stddev, size_t length_clip_max,
-               size_t length_clip_min)
-    : length_clip_max_(length_clip_max), length_clip_min_(length_clip_min) {
-  len_dist_ = std::normal_distribution<>(length_mean, length_stddev);
-  chars_dist_ = std::uniform_int_distribution<>('a', 'z');
+String::String(size_t length_min, size_t length_max)
+    : length_min_(length_min), length_max_(length_max) {
+  len_dist_ = UniformIntDistribution<size_t>(length_min_, length_max_);
+  chars_dist_ = UniformIntDistribution<char>('a', 'z');
 }
 
 auto String::Get() -> rapidjson::Value {
   rapidjson::Value result;
-  // Generate the length, and clip if necessary.
-  size_t length = std::max(
-      length_clip_min_,
-      std::min(length_clip_max_, static_cast<size_t>(len_dist_(*context_.engine_))));
+  // Generate the length.
+  size_t length = len_dist_(*context_.engine_);
 
   std::string str(length, 0);
   // Pull characters from the character distribution.
@@ -69,18 +66,18 @@ auto DateString::Get() -> rapidjson::Value {
 }
 
 DateString::DateString() {
-  year = std::uniform_int_distribution<>(2000, 2020);
-  month = std::uniform_int_distribution<uint8_t>(1, 12);
-  day = std::uniform_int_distribution<uint8_t>(1, 28);
-  hour = std::uniform_int_distribution<uint8_t>(0, 23);
-  min = std::uniform_int_distribution<uint8_t>(0, 59);
-  sec = std::uniform_int_distribution<uint8_t>(0, 59);
-  timezone = std::uniform_int_distribution<int8_t>(-12, 12);
+  year = UniformIntDistribution<int64_t>(2000, 2020);
+  month = UniformIntDistribution<uint8_t>(1, 12);
+  day = UniformIntDistribution<uint8_t>(1, 28);
+  hour = UniformIntDistribution<uint8_t>(0, 23);
+  min = UniformIntDistribution<uint8_t>(0, 59);
+  sec = UniformIntDistribution<uint8_t>(0, 59);
+  timezone = UniformIntDistribution<int8_t>(-12, 12);
 }
 
 Array::Array(std::shared_ptr<Value> item_generator, size_t max_length, size_t min_length)
     : min_length(min_length), max_length(max_length), item_(std::move(item_generator)) {
-  length = std::uniform_int_distribution<int32_t>(min_length, max_length);
+  length = UniformIntDistribution<int32_t>(min_length, max_length);
 }
 
 auto Array::Get() -> rapidjson::Value {

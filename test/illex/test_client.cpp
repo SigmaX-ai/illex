@@ -15,8 +15,6 @@
 #include <gtest/gtest.h>
 
 #include "illex/client_buffering.h"
-#include "illex/client_queueing.h"
-#include "illex/stream.h"
 
 namespace illex {
 

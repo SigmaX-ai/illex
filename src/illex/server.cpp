@@ -20,7 +20,6 @@
 
 #include <cassert>
 #include <csignal>
-#include <future>
 #include <kissnet.hpp>
 #include <string>
 #include <thread>
@@ -43,7 +42,7 @@ auto Server::Create(const ServerOptions& options, Server* out) -> Status {
     return Status(Error::ServerError, e.what());
   }
   out->server->listen();
-  spdlog::info("Listening on port {}", options.port);
+  spdlog::info("Listening on port {}...", options.port);
   return Status::OK();
 }
 
@@ -60,22 +59,21 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
   ProductionQueue production_queue;
   ProductionOptions prod_opts_int = prod_opts;
 
-  // Accept a client.
-  spdlog::info("Waiting for client to connect.");
-
   // Set signal handler for server->accept()
   std::signal(SIGINT, [](int) {
     spdlog::critical("Interrupted... exiting.\n");
     std::exit(0);
   });
 
+  // Accept a client.
+  spdlog::info("Waiting for client to connect...");
   auto client = server->accept();
   spdlog::info("Client connected.");
 
   spdlog::info("Streaming JSONs...");
   if (repeat_opts.times > 1) {
     spdlog::info("Repeating {} times.", repeat_opts.times);
-    spdlog::info("  Interval: {} ms (+ production time)", repeat_opts.interval_ms);
+    spdlog::info("  Interval: {} ms (+ production time).", repeat_opts.interval_ms);
   }
 
   StreamStatistics result;
@@ -164,7 +162,7 @@ static void LogSendStats(const StreamStatistics& result) {
 auto RunServer(const ServerOptions& server_options,
                const ProductionOptions& production_options,
                const RepeatOptions& repeat_options, bool statistics) -> Status {
-  spdlog::info("Starting server.");
+  spdlog::info("Starting server...");
   Server server;
   ILLEX_ROE(Server::Create(server_options, &server));
 
@@ -175,7 +173,7 @@ auto RunServer(const ServerOptions& server_options,
     LogSendStats(stats);
   }
 
-  spdlog::info("Server shutting down.");
+  spdlog::info("Server shutting down...");
   ILLEX_ROE(server.Close());
 
   return Status::OK();

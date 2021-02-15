@@ -20,6 +20,15 @@
 
 namespace illex::test {
 
+TEST(Generators, UniformIntDistribution) {
+  std::mt19937 gen(0);
+  UniformIntDistribution<int64_t> dist(-1, 1);
+  for (int i = 0; i < 4096; i++) {
+    ASSERT_GT(dist(gen), -2);
+    ASSERT_LT(dist(gen), 2);
+  }
+}
+
 TEST(Generators, EmptyDocument) {
   DocumentGenerator doc(0);
   rapidjson::StringBuffer b;

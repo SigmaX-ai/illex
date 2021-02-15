@@ -29,6 +29,36 @@ namespace rj = rapidjson;
 // this is documented to be the fastest engine.
 // See: https://en.cppreference.com/w/cpp/numeric/random
 using RandomEngine = std::ranlux48_base;
+
+// Need to roll our own distributions, since the STL distributions give implementation
+// defined results and may differ between platforms.
+// Also see: https://stackoverflow.com/questions/34903356
+template <typename T>
+class UniformIntDistribution {
+ public:
+  typedef T result_type;
+
+  explicit UniformIntDistribution(T min = std::numeric_limits<T>::min(),
+                                  T max = std::numeric_limits<T>::max())
+      : min_(min), max_(max) {}
+
+  void reset() {}
+
+  template <class G>
+  auto operator()(G& gen) -> T {
+    auto gen_range = static_cast<double>(gen.max() - gen.min());
+    auto scale = (max_ - min_) / (gen_range + 1);
+    return min_ + static_cast<T>((gen() - gen.min()) * scale);
+  }
+
+  [[nodiscard]] auto min() const -> T { return min_; }
+  [[nodiscard]] auto max() const -> T { return max_; }
+
+ protected:
+  T min_;
+  T max_;
+};
+
 using Allocator = rj::Document::AllocatorType;
 
 /**
@@ -77,7 +107,7 @@ class Int : public Value {
   /// \brief Construct a new number value generator with given maximum and minimum value.
   explicit Int(T max = std::numeric_limits<T>::max(),
                T min = std::numeric_limits<T>::min()) {
-    dist_ = std::uniform_int_distribution<T>(min, max);
+    dist_ = UniformIntDistribution<T>(min, max);
   }
 
   /// \brief Returns a numeric value representing an integer.
@@ -89,28 +119,27 @@ class Int : public Value {
 
  private:
   /// The distribution to pull from for integer generation.
-  std::uniform_int_distribution<T> dist_;
+  UniformIntDistribution<T> dist_;
 };
 
-/// \brief String value generator. Lengths follow a normal distribution.
+/// \brief String value generator.
 struct String : public Value {
  public:
   /// \brief Construct a new string value generator.
-  explicit String(double length_mean = 16., double length_stddev = 8.,
-                  size_t length_clip_max = 256, size_t length_clip_min = 0);
+  explicit String(size_t length_min = 1, size_t length_max = 16);
 
   /// \brief Returns a string value with some random characters between a-z.
   auto Get() -> rj::Value override;
 
  private:
   /// Maximum length for generated stings.
-  size_t length_clip_max_;
+  size_t length_max_;
   /// Minimum length for generated strings.
-  size_t length_clip_min_;
+  size_t length_min_;
   /// The normal distribution to pull the length from.
-  std::normal_distribution<> len_dist_;
+  UniformIntDistribution<size_t> len_dist_;
   /// The uniform distribution to pull characters from.
-  std::uniform_int_distribution<> chars_dist_;
+  UniformIntDistribution<char> chars_dist_;
 };
 
 /// \brief String value generator for ISO 8601-like date and time.
@@ -122,19 +151,19 @@ struct DateString : public Value {
 
  private:
   /// Year distribution.
-  std::uniform_int_distribution<int32_t> year;
+  UniformIntDistribution<int64_t> year;
   /// Month distribution.
-  std::uniform_int_distribution<uint8_t> month;
+  UniformIntDistribution<uint8_t> month;
   /// Day distribution.
-  std::uniform_int_distribution<uint8_t> day;
+  UniformIntDistribution<uint8_t> day;
   /// Hour distribution.
-  std::uniform_int_distribution<uint8_t> hour;
+  UniformIntDistribution<uint8_t> hour;
   /// Minute distribution.
-  std::uniform_int_distribution<uint8_t> min;
+  UniformIntDistribution<uint8_t> min;
   /// Second distribution.
-  std::uniform_int_distribution<uint8_t> sec;
+  UniformIntDistribution<uint8_t> sec;
   /// Timezone distribution.
-  std::uniform_int_distribution<int8_t> timezone;
+  UniformIntDistribution<int8_t> timezone;
 };
 
 /// \brief Array value generator for fixed-length arrays.
@@ -165,7 +194,7 @@ struct Array : public Value {
   /// The generator for the array values.
   std::shared_ptr<Value> item_;
   /// Length distribution
-  std::uniform_int_distribution<int32_t> length;
+  UniformIntDistribution<int32_t> length;
 };
 
 /// \brief Member generator.
