@@ -29,6 +29,9 @@ namespace rj = rapidjson;
 void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
                            size_t num_batches, size_t num_items, ProductionQueue* q,
                            std::promise<size_t>&& size) {
+  using PrettyWriter = rapidjson::PrettyWriter<rapidjson::StringBuffer>;
+  using NormalWriter = rapidjson::Writer<rapidjson::StringBuffer>;
+
   // Accumulator for total number of characters generated.
   size_t drone_size = 0;
 
@@ -44,11 +47,11 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
   rapidjson::StringBuffer buffer;
   std::shared_ptr<rapidjson::Writer<rapidjson::StringBuffer>> writer;
   if (opt.pretty) {
-    auto pw = std::make_shared<rapidjson::PrettyWriter<rapidjson::StringBuffer>>(buffer);
+    auto pw = std::make_shared<PrettyWriter>(buffer);
     pw->SetFormatOptions(rj::PrettyFormatOptions::kFormatSingleLineArray);
     writer = pw;
   } else {
-    writer = std::make_shared<rapidjson::Writer<rapidjson::StringBuffer>>(buffer);
+    writer = std::make_shared<NormalWriter>(buffer);
   }
 
   for (size_t b = 0; b < num_batches; b++) {
@@ -59,7 +62,11 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
       auto json = gen.Get();
       // Reset writer and write it to the buffer.
       writer->Reset(buffer);
-      json.Accept(*writer);
+      if (opt.pretty) {
+        json.Accept(*std::static_pointer_cast<PrettyWriter>(writer));
+      } else {
+        json.Accept(*writer);
+      }
       // Check if we need to append whitespace.
       if (opt.whitespace) {
         buffer.Put(opt.whitespace_char);

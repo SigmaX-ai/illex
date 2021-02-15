@@ -42,4 +42,24 @@ TEST(File, File) {
   ASSERT_TRUE(std::filesystem::remove(path));
 }
 
+TEST(File, PrettyFile) {
+  auto path =
+      std::string(::testing::UnitTest::GetInstance()->current_test_info()->name());
+  FileOptions opts;
+  opts.production.schema = arrow::schema(
+      {arrow::field("a", arrow::null(), false), arrow::field("b", arrow::null(), false)});
+  opts.production.num_jsons = 1;
+  opts.production.verbose = true;
+  opts.production.pretty = true;
+  opts.out_path = path;
+  std::stringstream ss;
+  RunFile(opts, &ss);
+  auto str0 = ss.str();
+  ASSERT_EQ(str0,
+            "{\n"
+            "    \"a\": null,\n"
+            "    \"b\": null\n"
+            "}\n");
+}
+
 }  // namespace illex
