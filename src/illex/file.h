@@ -16,6 +16,7 @@
 
 #include <arrow/api.h>
 
+#include <iostream>
 #include <string>
 
 #include "illex/document.h"
@@ -32,7 +33,12 @@ struct FileOptions {
   std::string out_path;
 };
 
-/// \brief Run the file subcommand.
-auto RunFile(const FileOptions& opt) -> Status;
+/**
+ * \brief Run the file subcommand.
+ * \param opt   The options.
+ * \param o     The output for verbose mode or if no output path is specified.
+ * \return      Status::OK() if successful, some error otherwise.
+ */
+auto RunFile(const FileOptions& opt, std::ostream* o = &std::cout) -> Status;
 
 }  // namespace illex
