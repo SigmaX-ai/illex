@@ -2,7 +2,7 @@ var searchData=
 [
   ['capacity',['capacity',['../classillex_1_1_j_s_o_n_buffer.html#ae72975c10be835e5c49843d56e0a1110',1,'illex::JSONBuffer']]],
   ['capacity_5f',['capacity_',['../classillex_1_1_j_s_o_n_buffer.html#aa1b15f3641a5a847415fe155718b42a0',1,'illex::JSONBuffer']]],
-  ['chars_5fdist_5f',['chars_dist_',['../structillex_1_1_string.html#a345cb70b13e63a1cba453d09c07a7bab',1,'illex::String']]],
+  ['chars_5fdist_5f',['chars_dist_',['../structillex_1_1_string.html#a7c32d8c20f5de1afafb06d49fc63e1c8',1,'illex::String']]],
   ['cli_2ecpp',['cli.cpp',['../cli_8cpp.html',1,'']]],
   ['cli_2eh',['cli.h',['../cli_8h.html',1,'']]],
   ['client',['Client',['../classillex_1_1_client.html',1,'illex::Client'],['../classillex_1_1_buffering_client.html#ab0b7358881a47aa30b43a21e782aa572',1,'illex::BufferingClient::client()'],['../structillex_1_1_queueing_client.html#a7eb81c270864a0efc777f19b3fc23efa',1,'illex::QueueingClient::client()']]],

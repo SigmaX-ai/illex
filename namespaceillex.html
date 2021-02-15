@@ -93,7 +93,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structillex_1_1_context.html" title="Context for generators to operate in. ">Context</a> for generators to operate in.  <a href="structillex_1_1_context.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html">DateString</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structillex_1_1_string.html" title="String value generator. Lengths follow a normal distribution. ">String</a> value generator for ISO 8601-like date and time.  <a href="structillex_1_1_date_string.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structillex_1_1_string.html" title="String value generator. ">String</a> value generator for ISO 8601-like date and time.  <a href="structillex_1_1_date_string.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_document_generator.html">DocumentGenerator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows the generation of a JSON DOM root.  <a href="classillex_1_1_document_generator.html#details">More...</a><br /></td></tr>
@@ -162,7 +162,9 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Streaming statistics.  <a href="structillex_1_1_stream_statistics.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_string.html">String</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structillex_1_1_string.html" title="String value generator. Lengths follow a normal distribution. ">String</a> value generator. Lengths follow a normal distribution.  <a href="structillex_1_1_string.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structillex_1_1_string.html" title="String value generator. ">String</a> value generator.  <a href="structillex_1_1_string.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_value.html">Value</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract class representing a value generator.  <a href="classillex_1_1_value.html#details">More...</a><br /></td></tr>
@@ -236,9 +238,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a8abb03bf2ab9dd155ea0f151acd4db08"><td class="memItemLeft" align="right" valign="top">static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a8abb03bf2ab9dd155ea0f151acd4db08">EnqueueAllJSONsInBuffer</a> (std::string *json_buffer, std::byte *recv_buffer, size_t tcp_valid_bytes, <a class="el" href="namespaceillex.html#a81dc650d07599ac532864dc81ed3ef67">JSONQueue</a> *queue, uint64_t *seq, <a class="el" href="namespaceillex.html#a6c93539a83df4c13ed1c19dc77ff2289">TimePoint</a> receive_time, <a class="el" href="classillex_1_1_latency_tracker.html">LatencyTracker</a> *tracker=nullptr) -&gt; size_t</td></tr>
 <tr class="memdesc:a8abb03bf2ab9dd155ea0f151acd4db08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueue all JSONs in the TCP buffer.  <a href="#a8abb03bf2ab9dd155ea0f151acd4db08">More...</a><br /></td></tr>
 <tr class="separator:a8abb03bf2ab9dd155ea0f151acd4db08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36db3575f6c9f676e2f996512e3cbcc9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a36db3575f6c9f676e2f996512e3cbcc9">RunFile</a> (const <a class="el" href="structillex_1_1_file_options.html">FileOptions</a> &amp;opt) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
-<tr class="memdesc:a36db3575f6c9f676e2f996512e3cbcc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the file subcommand.  <a href="#a36db3575f6c9f676e2f996512e3cbcc9">More...</a><br /></td></tr>
-<tr class="separator:a36db3575f6c9f676e2f996512e3cbcc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13eecd65d87dffb46822e5de71126b11"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a13eecd65d87dffb46822e5de71126b11">RunFile</a> (const <a class="el" href="structillex_1_1_file_options.html">FileOptions</a> &amp;opt, std::ostream *o=&amp;std::cout) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td></tr>
+<tr class="memdesc:a13eecd65d87dffb46822e5de71126b11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the file subcommand.  <a href="#a13eecd65d87dffb46822e5de71126b11">More...</a><br /></td></tr>
+<tr class="separator:a13eecd65d87dffb46822e5de71126b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ce95e1487109601311cdc1ba71ecc77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a3ce95e1487109601311cdc1ba71ecc77">StartLogger</a> ()</td></tr>
 <tr class="memdesc:a3ce95e1487109601311cdc1ba71ecc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the logging facility.  <a href="#a3ce95e1487109601311cdc1ba71ecc77">More...</a><br /></td></tr>
 <tr class="separator:a3ce95e1487109601311cdc1ba71ecc77"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -907,8 +909,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a36db3575f6c9f676e2f996512e3cbcc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36db3575f6c9f676e2f996512e3cbcc9">&#9670;&nbsp;</a></span>RunFile()</h2>
+<a id="a13eecd65d87dffb46822e5de71126b11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13eecd65d87dffb46822e5de71126b11">&#9670;&nbsp;</a></span>RunFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -917,13 +919,31 @@ Functions</h2></td></tr>
           <td class="memname">auto illex::RunFile </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structillex_1_1_file_options.html">FileOptions</a> &amp;&#160;</td>
-          <td class="paramname"><em>opt</em></td><td>)</td>
-          <td> -&gt;  <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td>
+          <td class="paramname"><em>opt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::ostream *&#160;</td>
+          <td class="paramname"><em>o</em> = <code>&amp;std::cout</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt;  <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Run the file subcommand. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">opt</td><td>The options. </td></tr>
+    <tr><td class="paramname">o</td><td>The output for verbose mode or if no output path is specified. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status::OK() if successful, some error otherwise. </dd></dl>
 
 </div>
 </div>

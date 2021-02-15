@@ -13,5 +13,5 @@ var searchData=
   ['setvalue',['SetValue',['../classillex_1_1_member.html#a313220bb37668f3ddbef4f1fc70353a1',1,'illex::Member']]],
   ['size',['size',['../classillex_1_1_j_s_o_n_buffer.html#af8f8237a9bb2d1042bde73f2c6960f74',1,'illex::JSONBuffer']]],
   ['startlogger',['StartLogger',['../namespaceillex.html#a3ce95e1487109601311cdc1ba71ecc77',1,'illex']]],
-  ['string',['String',['../structillex_1_1_string.html#af1ce2c0e5fc8cbedb7db0e2c6812a902',1,'illex::String']]]
+  ['string',['String',['../structillex_1_1_string.html#aca397feaae8c2f01bb45cbb7babade14',1,'illex::String']]]
 ];

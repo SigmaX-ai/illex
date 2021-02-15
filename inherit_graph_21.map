@@ -1,11 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classillex_1_1_value.html" title="Abstract class representing a value generator. " alt="" coords="5,183,100,209"/>
-<area shape="rect" id="node2" href="$structillex_1_1_array.html" title="Array value generator for variable&#45;length arrays. " alt="" coords="179,5,272,32"/>
-<area shape="rect" id="node3" href="$classillex_1_1_bool.html" title="Boolean value generator. " alt="" coords="182,56,269,83"/>
-<area shape="rect" id="node4" href="$structillex_1_1_date_string.html" title="String value generator for ISO 8601&#45;like date and time. " alt="" coords="162,107,289,133"/>
-<area shape="rect" id="node5" href="$structillex_1_1_fixed_size_array.html" title="Array value generator for fixed&#45;length arrays. " alt="" coords="148,157,303,184"/>
-<area shape="rect" id="node6" href="$classillex_1_1_int.html" title="Number value generator for integers. " alt="" coords="169,208,282,235"/>
-<area shape="rect" id="node7" href="$classillex_1_1_null.html" title="Null value generator. " alt="" coords="183,259,267,285"/>
-<area shape="rect" id="node8" href="$classillex_1_1_object.html" title="Object value generator. " alt="" coords="175,309,275,336"/>
-<area shape="rect" id="node9" href="$structillex_1_1_string.html" title="String value generator. Lengths follow a normal distribution. " alt="" coords="177,360,273,387"/>
+<area shape="rect" id="node1" href="$classillex_1_1_uniform_int_distribution.html" title="illex::UniformIntDistribution\l\&lt; char \&gt;" alt="" coords="5,5,209,47"/>
 </map>

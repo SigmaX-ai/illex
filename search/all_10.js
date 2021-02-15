@@ -10,11 +10,12 @@ var searchData=
   ['repeat',['repeat',['../structillex_1_1_stream_options.html#af34df5e57982c4489fb82aeb5e5fe009',1,'illex::StreamOptions']]],
   ['repeat_5fserver',['repeat_server',['../structillex_1_1_stream_options.html#ab1df9fbf55f4acb4f1bcfb1926b250ca',1,'illex::StreamOptions']]],
   ['repeatoptions',['RepeatOptions',['../structillex_1_1_repeat_options.html',1,'illex']]],
-  ['reset',['Reset',['../classillex_1_1_j_s_o_n_buffer.html#a797ea9ccaf42481807cdefb02d13f523',1,'illex::JSONBuffer']]],
+  ['reset',['Reset',['../classillex_1_1_j_s_o_n_buffer.html#a797ea9ccaf42481807cdefb02d13f523',1,'illex::JSONBuffer::Reset()'],['../classillex_1_1_uniform_int_distribution.html#aac14d8a87a8271c91765ae2265a2ceb0',1,'illex::UniformIntDistribution::reset()']]],
+  ['result_5ftype',['result_type',['../classillex_1_1_uniform_int_distribution.html#a44851bb79ce5011b1a6dde76cd53e166',1,'illex::UniformIntDistribution']]],
   ['return_5fvalue',['return_value',['../structillex_1_1_app_options.html#a8e1ffb08c3828fddd386e00a19123758',1,'illex::AppOptions']]],
   ['root',['root',['../classillex_1_1_document_generator.html#acdbfa729da5c7d46705dc448615d0dbd',1,'illex::DocumentGenerator']]],
   ['root_5f',['root_',['../classillex_1_1_document_generator.html#a84aabbb6f060aa98c316470daa901051',1,'illex::DocumentGenerator']]],
-  ['runfile',['RunFile',['../namespaceillex.html#a36db3575f6c9f676e2f996512e3cbcc9',1,'illex']]],
+  ['runfile',['RunFile',['../namespaceillex.html#a13eecd65d87dffb46822e5de71126b11',1,'illex']]],
   ['runserver',['RunServer',['../namespaceillex.html#af439ec40ba77fbbebd9b4ba87173cdd4',1,'illex']]],
   ['runstream',['RunStream',['../namespaceillex.html#a1a7d55bd26e692018470e8749e06b3f8',1,'illex']]]
 ];

@@ -4,7 +4,7 @@ var searchData=
   ['scan',['Scan',['../classillex_1_1_j_s_o_n_buffer.html#ac3c1dec750005f38ad21f19f201680c5',1,'illex::JSONBuffer']]],
   ['schema',['schema',['../structillex_1_1_production_options.html#a93949df4f40036ee36d9a10828e9a148',1,'illex::ProductionOptions']]],
   ['schemaanalyzer',['SchemaAnalyzer',['../classillex_1_1_schema_analyzer.html',1,'illex::SchemaAnalyzer'],['../classillex_1_1_schema_analyzer.html#a73bf752f8b525ba29e7faa569eacf070',1,'illex::SchemaAnalyzer::SchemaAnalyzer()']]],
-  ['sec',['sec',['../structillex_1_1_date_string.html#aacf5c8d407a067f0e0499d7aaddf24ac',1,'illex::DateString']]],
+  ['sec',['sec',['../structillex_1_1_date_string.html#a84e1e2b07d88574d053654b16a3e0d74',1,'illex::DateString']]],
   ['seed',['seed',['../structillex_1_1_generate_options.html#a757fc60f803aa6bba444a07740a214cd',1,'illex::GenerateOptions']]],
   ['sendjsons',['SendJSONs',['../classillex_1_1_server.html#a1df835398fb83e4fcb3c6cf5fc7d9483',1,'illex::Server']]],
   ['seq',['seq',['../structillex_1_1_client_options.html#aea5f0731a5af08fe134ac1c6290b4074',1,'illex::ClientOptions::seq()'],['../classillex_1_1_buffering_client.html#a6aa636d035172a93255538e8f4e9f105',1,'illex::BufferingClient::seq()'],['../structillex_1_1_j_s_o_n_item.html#ac42f50f5657741c589546dbaeb2fd2c5',1,'illex::JSONItem::seq()'],['../structillex_1_1_queueing_client.html#ac477cc9035ed9218c05136ced6e303c5',1,'illex::QueueingClient::seq()'],['../namespaceillex.html#ac238cc1dc95473f599930aa8191a6a83',1,'illex::Seq()']]],
@@ -36,7 +36,7 @@ var searchData=
   ['stream_2eh',['stream.h',['../stream_8h.html',1,'']]],
   ['streamoptions',['StreamOptions',['../structillex_1_1_stream_options.html',1,'illex']]],
   ['streamstatistics',['StreamStatistics',['../structillex_1_1_stream_statistics.html',1,'illex']]],
-  ['string',['String',['../structillex_1_1_string.html',1,'illex::String'],['../structillex_1_1_j_s_o_n_item.html#a1ea81dd8dfbb6241bd83dbe73123932b',1,'illex::JSONItem::string()'],['../structillex_1_1_string.html#af1ce2c0e5fc8cbedb7db0e2c6812a902',1,'illex::String::String()']]],
+  ['string',['String',['../structillex_1_1_string.html',1,'illex::String'],['../structillex_1_1_j_s_o_n_item.html#a1ea81dd8dfbb6241bd83dbe73123932b',1,'illex::JSONItem::string()'],['../structillex_1_1_string.html#aca397feaae8c2f01bb45cbb7babade14',1,'illex::String::String()']]],
   ['sub',['sub',['../structillex_1_1_app_options.html#a357e54c8062831217e08c20f2aca4dcb',1,'illex::AppOptions']]],
   ['subcommand',['SubCommand',['../namespaceillex.html#ab8fff30d055af311ffab6d46b1f7bf38',1,'illex']]]
 ];

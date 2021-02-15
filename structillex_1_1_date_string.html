@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="structillex_1_1_string.html" title="String value generator. Lengths follow a normal distribution. ">String</a> value generator for ISO 8601-like date and time.  
+<p><a class="el" href="structillex_1_1_string.html" title="String value generator. ">String</a> value generator for ISO 8601-like date and time.  
  <a href="structillex_1_1_date_string.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="value_8h_source.html">value.h</a>&gt;</code></p>
@@ -90,8 +90,11 @@ Collaboration diagram for illex::DateString:</div>
 <div class="dyncontent">
 <div class="center"><img src="structillex_1_1_date_string__coll__graph.png" border="0" usemap="#illex_1_1_date_string_coll__map" alt="Collaboration graph"/></div>
 <map name="illex_1_1_date_string_coll__map" id="illex_1_1_date_string_coll__map">
-<area shape="rect" id="node2" href="classillex_1_1_value.html" title="Abstract class representing a value generator. " alt="" coords="21,95,116,121"/>
-<area shape="rect" id="node3" href="structillex_1_1_context.html" title="Context for generators to operate in. " alt="" coords="14,5,123,32"/>
+<area shape="rect" id="node2" href="classillex_1_1_value.html" title="Abstract class representing a value generator. " alt="" coords="279,7,373,33"/>
+<area shape="rect" id="node3" href="structillex_1_1_context.html" title="Context for generators to operate in. " alt="" coords="5,7,115,33"/>
+<area shape="rect" id="node4" href="classillex_1_1_uniform_int_distribution.html" title="illex::UniformIntDistribution\l\&lt; int64_t \&gt;" alt="" coords="224,58,428,99"/>
+<area shape="rect" id="node5" href="classillex_1_1_uniform_int_distribution.html" title="illex::UniformIntDistribution\l\&lt; int8_t \&gt;" alt="" coords="224,123,428,165"/>
+<area shape="rect" id="node6" href="classillex_1_1_uniform_int_distribution.html" title="illex::UniformIntDistribution\l\&lt; uint8_t \&gt;" alt="" coords="224,217,428,258"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -109,27 +112,27 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a7a35c2d6f371899da627313815f1be6c"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; int32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a7a35c2d6f371899da627313815f1be6c">year</a></td></tr>
-<tr class="memdesc:a7a35c2d6f371899da627313815f1be6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Year distribution.  <a href="#a7a35c2d6f371899da627313815f1be6c">More...</a><br /></td></tr>
-<tr class="separator:a7a35c2d6f371899da627313815f1be6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac257cf8c977e04639382794995ce4c5c"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#ac257cf8c977e04639382794995ce4c5c">month</a></td></tr>
-<tr class="memdesc:ac257cf8c977e04639382794995ce4c5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Month distribution.  <a href="#ac257cf8c977e04639382794995ce4c5c">More...</a><br /></td></tr>
-<tr class="separator:ac257cf8c977e04639382794995ce4c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bc2e69ace5bb3d921f8cfa3b2cf323c"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a1bc2e69ace5bb3d921f8cfa3b2cf323c">day</a></td></tr>
-<tr class="memdesc:a1bc2e69ace5bb3d921f8cfa3b2cf323c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Day distribution.  <a href="#a1bc2e69ace5bb3d921f8cfa3b2cf323c">More...</a><br /></td></tr>
-<tr class="separator:a1bc2e69ace5bb3d921f8cfa3b2cf323c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6108e6e49aeb2b998a78ed6cffc2e4b7"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a6108e6e49aeb2b998a78ed6cffc2e4b7">hour</a></td></tr>
-<tr class="memdesc:a6108e6e49aeb2b998a78ed6cffc2e4b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hour distribution.  <a href="#a6108e6e49aeb2b998a78ed6cffc2e4b7">More...</a><br /></td></tr>
-<tr class="separator:a6108e6e49aeb2b998a78ed6cffc2e4b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1669c4d79720ffc0a570146a5e59c94f"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a1669c4d79720ffc0a570146a5e59c94f">min</a></td></tr>
-<tr class="memdesc:a1669c4d79720ffc0a570146a5e59c94f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minute distribution.  <a href="#a1669c4d79720ffc0a570146a5e59c94f">More...</a><br /></td></tr>
-<tr class="separator:a1669c4d79720ffc0a570146a5e59c94f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacf5c8d407a067f0e0499d7aaddf24ac"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#aacf5c8d407a067f0e0499d7aaddf24ac">sec</a></td></tr>
-<tr class="memdesc:aacf5c8d407a067f0e0499d7aaddf24ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second distribution.  <a href="#aacf5c8d407a067f0e0499d7aaddf24ac">More...</a><br /></td></tr>
-<tr class="separator:aacf5c8d407a067f0e0499d7aaddf24ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1eb03efe2ca047fc4ac9ea36f7db7c3"><td class="memItemLeft" align="right" valign="top">std::uniform_int_distribution&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#ae1eb03efe2ca047fc4ac9ea36f7db7c3">timezone</a></td></tr>
-<tr class="memdesc:ae1eb03efe2ca047fc4ac9ea36f7db7c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timezone distribution.  <a href="#ae1eb03efe2ca047fc4ac9ea36f7db7c3">More...</a><br /></td></tr>
-<tr class="separator:ae1eb03efe2ca047fc4ac9ea36f7db7c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1703623500cb39365bee8c28f6859de8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt; int64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a1703623500cb39365bee8c28f6859de8">year</a></td></tr>
+<tr class="memdesc:a1703623500cb39365bee8c28f6859de8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Year distribution.  <a href="#a1703623500cb39365bee8c28f6859de8">More...</a><br /></td></tr>
+<tr class="separator:a1703623500cb39365bee8c28f6859de8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77649d361237dc1f812c3414bb87ae70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a77649d361237dc1f812c3414bb87ae70">month</a></td></tr>
+<tr class="memdesc:a77649d361237dc1f812c3414bb87ae70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Month distribution.  <a href="#a77649d361237dc1f812c3414bb87ae70">More...</a><br /></td></tr>
+<tr class="separator:a77649d361237dc1f812c3414bb87ae70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e62383a4b519df91116bc3631ad4229"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a8e62383a4b519df91116bc3631ad4229">day</a></td></tr>
+<tr class="memdesc:a8e62383a4b519df91116bc3631ad4229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Day distribution.  <a href="#a8e62383a4b519df91116bc3631ad4229">More...</a><br /></td></tr>
+<tr class="separator:a8e62383a4b519df91116bc3631ad4229"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5898bd0ce3529761bdf2b725d6c0199"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#ac5898bd0ce3529761bdf2b725d6c0199">hour</a></td></tr>
+<tr class="memdesc:ac5898bd0ce3529761bdf2b725d6c0199"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hour distribution.  <a href="#ac5898bd0ce3529761bdf2b725d6c0199">More...</a><br /></td></tr>
+<tr class="separator:ac5898bd0ce3529761bdf2b725d6c0199"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a934310529f663823eadc23fd47046a28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a934310529f663823eadc23fd47046a28">min</a></td></tr>
+<tr class="memdesc:a934310529f663823eadc23fd47046a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minute distribution.  <a href="#a934310529f663823eadc23fd47046a28">More...</a><br /></td></tr>
+<tr class="separator:a934310529f663823eadc23fd47046a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84e1e2b07d88574d053654b16a3e0d74"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#a84e1e2b07d88574d053654b16a3e0d74">sec</a></td></tr>
+<tr class="memdesc:a84e1e2b07d88574d053654b16a3e0d74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second distribution.  <a href="#a84e1e2b07d88574d053654b16a3e0d74">More...</a><br /></td></tr>
+<tr class="separator:a84e1e2b07d88574d053654b16a3e0d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf460d65eb85fdc59ef678f2ce193013"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_date_string.html#abf460d65eb85fdc59ef678f2ce193013">timezone</a></td></tr>
+<tr class="memdesc:abf460d65eb85fdc59ef678f2ce193013"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timezone distribution.  <a href="#abf460d65eb85fdc59ef678f2ce193013">More...</a><br /></td></tr>
+<tr class="separator:abf460d65eb85fdc59ef678f2ce193013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -139,7 +142,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a0ae04047e2a718a88063732a92ae6ba0 inherit pro_attribs_classillex_1_1_value"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="structillex_1_1_string.html" title="String value generator. Lengths follow a normal distribution. ">String</a> value generator for ISO 8601-like date and time. </p>
+<div class="textblock"><p><a class="el" href="structillex_1_1_string.html" title="String value generator. ">String</a> value generator for ISO 8601-like date and time. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a73e411d888cfe8c351e55e9b7314f744"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73e411d888cfe8c351e55e9b7314f744">&#9670;&nbsp;</a></span>DateString()</h2>
@@ -189,8 +192,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a1bc2e69ace5bb3d921f8cfa3b2cf323c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bc2e69ace5bb3d921f8cfa3b2cf323c">&#9670;&nbsp;</a></span>day</h2>
+<a id="a8e62383a4b519df91116bc3631ad4229"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e62383a4b519df91116bc3631ad4229">&#9670;&nbsp;</a></span>day</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +202,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::day</td>
+          <td class="memname"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt;uint8_t&gt; illex::DateString::day</td>
         </tr>
       </table>
   </td>
@@ -213,8 +216,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a6108e6e49aeb2b998a78ed6cffc2e4b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6108e6e49aeb2b998a78ed6cffc2e4b7">&#9670;&nbsp;</a></span>hour</h2>
+<a id="ac5898bd0ce3529761bdf2b725d6c0199"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5898bd0ce3529761bdf2b725d6c0199">&#9670;&nbsp;</a></span>hour</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,7 +226,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::hour</td>
+          <td class="memname"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt;uint8_t&gt; illex::DateString::hour</td>
         </tr>
       </table>
   </td>
@@ -237,8 +240,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1669c4d79720ffc0a570146a5e59c94f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1669c4d79720ffc0a570146a5e59c94f">&#9670;&nbsp;</a></span>min</h2>
+<a id="a934310529f663823eadc23fd47046a28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a934310529f663823eadc23fd47046a28">&#9670;&nbsp;</a></span>min</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -247,7 +250,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::min</td>
+          <td class="memname"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt;uint8_t&gt; illex::DateString::min</td>
         </tr>
       </table>
   </td>
@@ -261,8 +264,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ac257cf8c977e04639382794995ce4c5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac257cf8c977e04639382794995ce4c5c">&#9670;&nbsp;</a></span>month</h2>
+<a id="a77649d361237dc1f812c3414bb87ae70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77649d361237dc1f812c3414bb87ae70">&#9670;&nbsp;</a></span>month</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,7 +274,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::month</td>
+          <td class="memname"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt;uint8_t&gt; illex::DateString::month</td>
         </tr>
       </table>
   </td>
@@ -285,8 +288,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aacf5c8d407a067f0e0499d7aaddf24ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacf5c8d407a067f0e0499d7aaddf24ac">&#9670;&nbsp;</a></span>sec</h2>
+<a id="a84e1e2b07d88574d053654b16a3e0d74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84e1e2b07d88574d053654b16a3e0d74">&#9670;&nbsp;</a></span>sec</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,7 +298,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uniform_int_distribution&lt;uint8_t&gt; illex::DateString::sec</td>
+          <td class="memname"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt;uint8_t&gt; illex::DateString::sec</td>
         </tr>
       </table>
   </td>
@@ -309,8 +312,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ae1eb03efe2ca047fc4ac9ea36f7db7c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1eb03efe2ca047fc4ac9ea36f7db7c3">&#9670;&nbsp;</a></span>timezone</h2>
+<a id="abf460d65eb85fdc59ef678f2ce193013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf460d65eb85fdc59ef678f2ce193013">&#9670;&nbsp;</a></span>timezone</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +322,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uniform_int_distribution&lt;int8_t&gt; illex::DateString::timezone</td>
+          <td class="memname"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt;int8_t&gt; illex::DateString::timezone</td>
         </tr>
       </table>
   </td>
@@ -333,8 +336,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a7a35c2d6f371899da627313815f1be6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a35c2d6f371899da627313815f1be6c">&#9670;&nbsp;</a></span>year</h2>
+<a id="a1703623500cb39365bee8c28f6859de8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1703623500cb39365bee8c28f6859de8">&#9670;&nbsp;</a></span>year</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -343,7 +346,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uniform_int_distribution&lt;int32_t&gt; illex::DateString::year</td>
+          <td class="memname"><a class="el" href="classillex_1_1_uniform_int_distribution.html">UniformIntDistribution</a>&lt;int64_t&gt; illex::DateString::year</td>
         </tr>
       </table>
   </td>
