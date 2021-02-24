@@ -102,6 +102,7 @@ class LatencyTracker {
     return diff.count();
   }
 
+  /// Return the number of samples.
   [[nodiscard]] inline auto num_samples() const -> size_t { return num_samples_; }
 
  private:

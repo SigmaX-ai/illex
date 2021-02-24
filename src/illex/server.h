@@ -46,7 +46,9 @@ struct RepeatOptions {
   size_t interval_ms = 250;
 };
 
+/// Server options.
 struct ServerOptions {
+  /// The port to listen on.
   uint16_t port = ILLEX_DEFAULT_PORT;
 };
 

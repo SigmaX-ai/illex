@@ -84,7 +84,6 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
 
   // Handle subcommands. All of them require to load a serialized Arrow schema, so we
   // can just return the status of attempting to load that.
-  // TODO(johanpel): push this down
   Status status;
   if (file->parsed()) {
     result.sub = SubCommand::FILE;

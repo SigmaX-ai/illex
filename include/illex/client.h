@@ -68,9 +68,9 @@ class Client {
 
 /**
  * \brief Initialize a socket, by creating it and attempting to connect.
- * \param host  The host to connect to.
- * \param port  The port to connect to.
- * \param out   A shared ptr to the created socket, if successful.
+ * \param[in]  host The host to connect to.
+ * \param[in]  port The port to connect to.
+ * \param[out] out  A shared ptr to the created socket, if successful.
  * \return Status::OK() if successful, some error otherwise.
  */
 auto InitSocket(const std::string& host, uint16_t port, std::shared_ptr<Socket>* out)

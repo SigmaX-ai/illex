@@ -26,8 +26,11 @@
 
 namespace illex {
 
+/// A batch of JSONs.
 struct JSONBatch {
+  /// The JSON data.
   std::string data;
+  /// The number of JSON objects contained within the batch.
   size_t num_jsons;
 };
 
@@ -129,26 +132,17 @@ class Producer {
 
 /**
  * \brief A thread producing JSONs
- * \param thread_id   The ID of this thread.
- * \param opt         Production options for this thread.
- * \param num_batches Number of batches to produce.
- * \param num_items   Number of JSONs to produce per batch.
- * \param q           The queue to store the produced JSONs in.
- * \param shutdown    Shutdown signal in case other threads encountered errors.
- * \param size        Production metrics from this single thread.
+ * \param thread_id       The ID of this thread.
+ * \param opt             Production options for this thread.
+ * \param num_batches     Number of batches to produce.
+ * \param num_items       Number of JSONs to produce per batch.
+ * \param queue           The queue to store the produced JSONs in.
+ * \param shutdown        Shutdown signal in case other threads encountered errors.
+ * \param metrics_promise Production metrics from this single thread.
  */
 void ProductionThread(size_t thread_id, const ProducerOptions& opt, size_t num_batches,
                       size_t num_items, ProductionQueue* queue,
                       std::atomic<bool>* shutdown,
                       std::promise<ProductionMetrics>&& metrics_promise);
-
-/**
- * \brief Produce JSONs and push them onto a queue.
- * \param[in]  opt       Options related to how to produce the JSONs
- * \param[out] queue     The concurrent queue to operate on.
- * \param[out] stats_out Statistics about producing JSONs.
- * \returns Status::OK() if successful, some error otherwise.
- */
-auto ProduceJSONs() -> Status;
 
 }  // namespace illex
