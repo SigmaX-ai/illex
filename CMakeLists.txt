@@ -72,6 +72,7 @@ add_compile_unit(
   SRCS
     src/illex/client_queueing.cpp
     src/illex/client_buffering.cpp
+    src/illex/client.cpp
     src/illex/document.cpp
     src/illex/arrow.cpp
     src/illex/value.cpp
