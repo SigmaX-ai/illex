@@ -6,6 +6,7 @@ var searchData=
   ['cli_2ecpp',['cli.cpp',['../cli_8cpp.html',1,'']]],
   ['cli_2eh',['cli.h',['../cli_8h.html',1,'']]],
   ['client',['Client',['../classillex_1_1_client.html',1,'illex::Client'],['../classillex_1_1_buffering_client.html#ab0b7358881a47aa30b43a21e782aa572',1,'illex::BufferingClient::client()'],['../structillex_1_1_queueing_client.html#a7eb81c270864a0efc777f19b3fc23efa',1,'illex::QueueingClient::client()']]],
+  ['client_2ecpp',['client.cpp',['../client_8cpp.html',1,'']]],
   ['client_2eh',['client.h',['../client_8h.html',1,'']]],
   ['client_5fbuffering_2ecpp',['client_buffering.cpp',['../client__buffering_8cpp.html',1,'']]],
   ['client_5fbuffering_2eh',['client_buffering.h',['../client__buffering_8h.html',1,'']]],

@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['time',['time',['../structillex_1_1_production_stats.html#ab075870f6e2b0d70cab674e653fb056e',1,'illex::ProductionStats::time()'],['../structillex_1_1_stream_statistics.html#a5cae60f84630a5e5a8dbc96cefa466c4',1,'illex::StreamStatistics::time()']]],
+  ['thread_5fmetrics_5f',['thread_metrics_',['../classillex_1_1_producer.html#a55efc8583cc4eb8282a9a5ffc38338a7',1,'illex::Producer']]],
+  ['threads_5f',['threads_',['../classillex_1_1_producer.html#ad9ffdca599017a7a4af2189ebd9bef71',1,'illex::Producer']]],
+  ['time',['time',['../structillex_1_1_production_metrics.html#a241995375e33b68dc9bf033b2c0bb69a',1,'illex::ProductionMetrics::time()'],['../structillex_1_1_stream_metrics.html#abf0bc24517382cb6969a28b46c68ce1c',1,'illex::StreamMetrics::time()']]],
   ['timepoint',['TimePoint',['../namespaceillex.html#a6c93539a83df4c13ed1c19dc77ff2289',1,'illex']]],
   ['timer',['Timer',['../namespaceillex.html#a276e2f42b8cd0e5876936d23bf34233b',1,'illex']]],
   ['times',['times',['../structillex_1_1_repeat_options.html#a01a44840c2b3657410697f62fc4869d5',1,'illex::RepeatOptions']]],

@@ -71,7 +71,7 @@ $(function() {
 
 <h3><a id="index_b"></a>- b -</h3><ul>
 <li>batching
-: <a class="el" href="structillex_1_1_production_options.html#a5430856eec1fa318077364545e36ef7c">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#a599c0f8277dfeec629b40db01e136924">illex::ProducerOptions</a>
 </li>
 <li>buffer
 : <a class="el" href="structillex_1_1_queueing_client.html#ad23187558f749027099df88681f92f5c">illex::QueueingClient</a>
@@ -115,6 +115,9 @@ $(function() {
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>data
+: <a class="el" href="structillex_1_1_j_s_o_n_batch.html#ac590220e557991eb3286923272cf1fa2">illex::JSONBatch</a>
+</li>
 <li>day
 : <a class="el" href="structillex_1_1_date_string.html#a8e62383a4b519df91116bc3631ad4229">illex::DateString</a>
 </li>
@@ -156,7 +159,7 @@ $(function() {
 
 <h3><a id="index_g"></a>- g -</h3><ul>
 <li>gen
-: <a class="el" href="structillex_1_1_production_options.html#a5a134b06b5ac7c190285707af1686b46">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#aa27167f9213e16611e4faa18d7bd9e8a">illex::ProducerOptions</a>
 </li>
 </ul>
 
@@ -224,6 +227,9 @@ $(function() {
 <li>members_
 : <a class="el" href="classillex_1_1_object.html#a320b6b756881d277a53ffbabd0bb82bd">illex::Object</a>
 </li>
+<li>metrics_
+: <a class="el" href="classillex_1_1_producer.html#adf930a1e08f2b0ea28519c4937c53c8e">illex::Producer</a>
+</li>
 <li>min
 : <a class="el" href="structillex_1_1_date_string.html#a934310529f663823eadc23fd47046a28">illex::DateString</a>
 </li>
@@ -254,16 +260,22 @@ $(function() {
 : <a class="el" href="classillex_1_1_member.html#a6db2bbab48947ad65fd469045a3242a8">illex::Member</a>
 </li>
 <li>num_batches
-: <a class="el" href="structillex_1_1_production_options.html#a6d7edaaf57cabff95dbcdda8a460e1e1">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#a5c08ffdeeaca839e392d4da222be40d0">illex::ProducerOptions</a>
+, <a class="el" href="structillex_1_1_production_metrics.html#a0d17d3a9dad7a3075efc1393c673358c">illex::ProductionMetrics</a>
 </li>
 <li>num_bytes
-: <a class="el" href="structillex_1_1_stream_statistics.html#a60ec914616050870cc9528af14370bef">illex::StreamStatistics</a>
+: <a class="el" href="structillex_1_1_stream_metrics.html#a22a4e70b89f37d8b0e5afd50ed6e92ec">illex::StreamMetrics</a>
+</li>
+<li>num_chars
+: <a class="el" href="structillex_1_1_production_metrics.html#abae1b710fb035eb1c8e4a81f215f9200">illex::ProductionMetrics</a>
 </li>
 <li>num_jsons
-: <a class="el" href="structillex_1_1_production_options.html#a6742a196a66c890bbccb1105b9ef7d3f">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_j_s_o_n_batch.html#abbf0460a00bfad1e2dc1e79545be86ff">illex::JSONBatch</a>
+, <a class="el" href="structillex_1_1_producer_options.html#ab49e2134a86fe221447d719386528a0a">illex::ProducerOptions</a>
+, <a class="el" href="structillex_1_1_production_metrics.html#a5d57278c6c7eb9a3331e6f16f4fb3656">illex::ProductionMetrics</a>
 </li>
 <li>num_messages
-: <a class="el" href="structillex_1_1_stream_statistics.html#a8de2bf49b2ce92df0043a18d5b1d71e1">illex::StreamStatistics</a>
+: <a class="el" href="structillex_1_1_stream_metrics.html#a21b967216a4b0f12d0851b4aaafaaa4b">illex::StreamMetrics</a>
 </li>
 <li>num_samples_
 : <a class="el" href="classillex_1_1_latency_tracker.html#ac4f03da7cd9db74685c89df0d7ea0d2d">illex::LatencyTracker</a>
@@ -272,12 +284,15 @@ $(function() {
 : <a class="el" href="classillex_1_1_latency_tracker.html#ac135c58b8a814b26ce6fd34afea0c774">illex::LatencyTracker</a>
 </li>
 <li>num_threads
-: <a class="el" href="structillex_1_1_production_options.html#a5b887168ee4e95da5f570bfb2350e774">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#acca80f1e3a647aa675ebf441dcfa7725">illex::ProducerOptions</a>
 </li>
 </ul>
 
 
 <h3><a id="index_o"></a>- o -</h3><ul>
+<li>opts_
+: <a class="el" href="classillex_1_1_producer.html#a4c7c5c0f4a64b07acb0cbeb90da9fefa">illex::Producer</a>
+</li>
 <li>out_
 : <a class="el" href="classillex_1_1_schema_analyzer.html#a9992b1d9912c60a7b2982628c3b0b167">illex::SchemaAnalyzer</a>
 </li>
@@ -296,14 +311,14 @@ $(function() {
 , <a class="el" href="structillex_1_1_server_options.html#ada036e4a3d4886e2540479a0fa7e660c">illex::ServerOptions</a>
 </li>
 <li>pretty
-: <a class="el" href="structillex_1_1_production_options.html#a5c476aa60b04935bc7e00794727296fe">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#a1e9b4fbf51d16059bcb8e6414e551de0">illex::ProducerOptions</a>
 </li>
 <li>producer
-: <a class="el" href="structillex_1_1_stream_statistics.html#ad8c6323ebfa9ee845386ffa97f432dc9">illex::StreamStatistics</a>
+: <a class="el" href="structillex_1_1_stream_metrics.html#ae182a41d19c666b5f414b65640bca791">illex::StreamMetrics</a>
 </li>
 <li>production
-: <a class="el" href="structillex_1_1_file_options.html#ab0bd9d7da91614d1571326cec5e0d9c0">illex::FileOptions</a>
-, <a class="el" href="structillex_1_1_stream_options.html#a10df5cedf1033eb919db2f0ea35a70ab">illex::StreamOptions</a>
+: <a class="el" href="structillex_1_1_file_options.html#a2515b43b9fc2c4a1fe3348a11175da21">illex::FileOptions</a>
+, <a class="el" href="structillex_1_1_stream_options.html#aea518bb88dd023812e9baa2d3966707c">illex::StreamOptions</a>
 </li>
 <li>protocol
 : <a class="el" href="structillex_1_1_client_options.html#a62c800783d3a366e6d2e74b0b6110d31">illex::ClientOptions</a>
@@ -314,6 +329,12 @@ $(function() {
 <h3><a id="index_q"></a>- q -</h3><ul>
 <li>queue
 : <a class="el" href="structillex_1_1_queueing_client.html#a06cff38d434e34f6151a2edf5a107276">illex::QueueingClient</a>
+</li>
+<li>queue_
+: <a class="el" href="classillex_1_1_producer.html#a8bf87deee5b4d0a60c8fa49b1f6bcdff">illex::Producer</a>
+</li>
+<li>queue_full
+: <a class="el" href="structillex_1_1_production_metrics.html#ae3a144b1b164937559672331f97b3da0">illex::ProductionMetrics</a>
 </li>
 </ul>
 
@@ -331,9 +352,6 @@ $(function() {
 <li>repeat_server
 : <a class="el" href="structillex_1_1_stream_options.html#ab1df9fbf55f4acb4f1bcfb1926b250ca">illex::StreamOptions</a>
 </li>
-<li>return_value
-: <a class="el" href="structillex_1_1_app_options.html#a8e1ffb08c3828fddd386e00a19123758">illex::AppOptions</a>
-</li>
 <li>root_
 : <a class="el" href="classillex_1_1_document_generator.html#a84aabbb6f060aa98c316470daa901051">illex::DocumentGenerator</a>
 </li>
@@ -345,7 +363,7 @@ $(function() {
 : <a class="el" href="classillex_1_1_latency_tracker.html#aa59959eca3e5c4d8a54861cae85bd150">illex::LatencyTracker</a>
 </li>
 <li>schema
-: <a class="el" href="structillex_1_1_production_options.html#a93949df4f40036ee36d9a10828e9a148">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#a7a81b498df508d805fbfd3ddf859c014">illex::ProducerOptions</a>
 </li>
 <li>sec
 : <a class="el" href="structillex_1_1_date_string.html#a84e1e2b07d88574d053654b16a3e0d74">illex::DateString</a>
@@ -370,7 +388,7 @@ $(function() {
 : <a class="el" href="classillex_1_1_j_s_o_n_buffer.html#ac72e565073ab0fba8a632342d9ca041e">illex::JSONBuffer</a>
 </li>
 <li>statistics
-: <a class="el" href="structillex_1_1_production_options.html#a0798f84ca41655ad4abb1f23df9475e1">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#a75df5055e47149848197b174757db1b9">illex::ProducerOptions</a>
 , <a class="el" href="structillex_1_1_stream_options.html#a60821e893370db70c0a68b2043d94ab5">illex::StreamOptions</a>
 </li>
 <li>stream
@@ -386,9 +404,15 @@ $(function() {
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>thread_metrics_
+: <a class="el" href="classillex_1_1_producer.html#a55efc8583cc4eb8282a9a5ffc38338a7">illex::Producer</a>
+</li>
+<li>threads_
+: <a class="el" href="classillex_1_1_producer.html#ad9ffdca599017a7a4af2189ebd9bef71">illex::Producer</a>
+</li>
 <li>time
-: <a class="el" href="structillex_1_1_production_stats.html#ab075870f6e2b0d70cab674e653fb056e">illex::ProductionStats</a>
-, <a class="el" href="structillex_1_1_stream_statistics.html#a5cae60f84630a5e5a8dbc96cefa466c4">illex::StreamStatistics</a>
+: <a class="el" href="structillex_1_1_production_metrics.html#a241995375e33b68dc9bf033b2c0bb69a">illex::ProductionMetrics</a>
+, <a class="el" href="structillex_1_1_stream_metrics.html#abf0bc24517382cb6969a28b46c68ce1c">illex::StreamMetrics</a>
 </li>
 <li>times
 : <a class="el" href="structillex_1_1_repeat_options.html#a01a44840c2b3657410697f62fc4869d5">illex::RepeatOptions</a>
@@ -404,17 +428,17 @@ $(function() {
 : <a class="el" href="classillex_1_1_member.html#ae42e7f07359b368013244cfedae90a05">illex::Member</a>
 </li>
 <li>verbose
-: <a class="el" href="structillex_1_1_production_options.html#acb16731c5b8bf10b51bf58d6338d4863">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#a171f873ac20b4408bac8a9b13fc310a4">illex::ProducerOptions</a>
 </li>
 </ul>
 
 
 <h3><a id="index_w"></a>- w -</h3><ul>
 <li>whitespace
-: <a class="el" href="structillex_1_1_production_options.html#a3ec1cb149bee72e53c2aff9ad809f0d5">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#a5875067f56bfba666275f0deb001c989">illex::ProducerOptions</a>
 </li>
 <li>whitespace_char
-: <a class="el" href="structillex_1_1_production_options.html#a3787b95311e3e8c75cde4f4e74c043b4">illex::ProductionOptions</a>
+: <a class="el" href="structillex_1_1_producer_options.html#ade38f10f3f668ad47369f8fd51fc9242">illex::ProducerOptions</a>
 </li>
 </ul>
 

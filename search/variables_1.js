@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['batching',['batching',['../structillex_1_1_production_options.html#a5430856eec1fa318077364545e36ef7c',1,'illex::ProductionOptions']]],
+  ['batching',['batching',['../structillex_1_1_producer_options.html#a599c0f8277dfeec629b40db01e136924',1,'illex::ProducerOptions']]],
   ['buffer',['buffer',['../structillex_1_1_queueing_client.html#ad23187558f749027099df88681f92f5c',1,'illex::QueueingClient']]],
   ['buffer_5f',['buffer_',['../classillex_1_1_j_s_o_n_buffer.html#a428750a610981f4dc11480484cf6648d',1,'illex::JSONBuffer']]],
   ['buffer_5fidx',['buffer_idx',['../classillex_1_1_buffering_client.html#a3734ec9840dbda208e8f7141320cd6a8',1,'illex::BufferingClient']]],

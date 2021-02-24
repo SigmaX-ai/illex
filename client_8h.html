@@ -68,7 +68,8 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">client.h File Reference</div>  </div>
 </div><!--header-->
@@ -91,17 +92,18 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="client_8h__dep__incl.png" border="0" usemap="#include_2illex_2client_8hdep" alt=""/></div>
 <map name="include_2illex_2client_8hdep" id="include_2illex_2client_8hdep">
-<area shape="rect" id="node2" href="server_8h.html" title="src/illex/server.h" alt="" coords="175,87,305,114"/>
-<area shape="rect" id="node9" href="client__buffering_8h.html" title="include/illex/client\l_buffering.h" alt="" coords="416,80,557,121"/>
-<area shape="rect" id="node11" href="client__queueing_8h.html" title="include/illex/client\l_queueing.h" alt="" coords="613,80,755,121"/>
-<area shape="rect" id="node3" href="server_8cpp.html" title="src/illex/server.cpp" alt="" coords="5,169,149,196"/>
-<area shape="rect" id="node4" href="stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="89,244,239,271"/>
-<area shape="rect" id="node5" href="stream_8h.html" title="src/illex/stream.h" alt="" coords="225,169,359,196"/>
-<area shape="rect" id="node6" href="cli_8h.html" title="src/illex/cli.h" alt="" coords="264,244,368,271"/>
-<area shape="rect" id="node8" href="main_8cpp.html" title="src/illex/main.cpp" alt="" coords="337,319,474,345"/>
-<area shape="rect" id="node7" href="cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="194,319,313,345"/>
-<area shape="rect" id="node10" href="client__buffering_8cpp.html" title="src/illex/client_buffering.cpp" alt="" coords="384,169,589,196"/>
-<area shape="rect" id="node12" href="client__queueing_8cpp.html" title="src/illex/client_queueing.cpp" alt="" coords="614,169,821,196"/>
+<area shape="rect" id="node2" href="client_8cpp.html" title="src/illex/client.cpp" alt="" coords="63,87,203,114"/>
+<area shape="rect" id="node3" href="server_8h.html" title="src/illex/server.h" alt="" coords="227,87,357,114"/>
+<area shape="rect" id="node10" href="client__buffering_8h.html" title="include/illex/client\l_buffering.h" alt="" coords="399,80,540,121"/>
+<area shape="rect" id="node12" href="client__queueing_8h.html" title="include/illex/client\l_queueing.h" alt="" coords="615,80,756,121"/>
+<area shape="rect" id="node4" href="server_8cpp.html" title="src/illex/server.cpp" alt="" coords="5,169,149,196"/>
+<area shape="rect" id="node5" href="stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="89,244,239,271"/>
+<area shape="rect" id="node6" href="stream_8h.html" title="src/illex/stream.h" alt="" coords="225,169,359,196"/>
+<area shape="rect" id="node7" href="cli_8h.html" title="src/illex/cli.h" alt="" coords="264,244,368,271"/>
+<area shape="rect" id="node9" href="main_8cpp.html" title="src/illex/main.cpp" alt="" coords="337,319,474,345"/>
+<area shape="rect" id="node8" href="cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="194,319,313,345"/>
+<area shape="rect" id="node11" href="client__buffering_8cpp.html" title="src/illex/client_buffering.cpp" alt="" coords="384,169,589,196"/>
+<area shape="rect" id="node13" href="client__queueing_8cpp.html" title="src/illex/client_queueing.cpp" alt="" coords="614,169,821,196"/>
 </map>
 </div>
 </div>
@@ -113,11 +115,13 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic options for client implementations.  <a href="structillex_1_1_client_options.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_client.html">illex::Client</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract class for client implementations.  <a href="classillex_1_1_client.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceillex"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html">illex</a></td></tr>
+<tr class="memdesc:namespaceillex"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains all constructs related to Illex. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -137,6 +141,12 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ae402a3ff5bfe252f7cb6a509640ad096"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#ae402a3ff5bfe252f7cb6a509640ad096">illex::Socket</a> = kissnet::socket&lt; kissnet::protocol::tcp &gt;</td></tr>
 <tr class="memdesc:ae402a3ff5bfe252f7cb6a509640ad096"><td class="mdescLeft">&#160;</td><td class="mdescRight">A TCP socket.  <a href="namespaceillex.html#ae402a3ff5bfe252f7cb6a509640ad096">More...</a><br /></td></tr>
 <tr class="separator:ae402a3ff5bfe252f7cb6a509640ad096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a847a1a722429bb4df6c9bc3762210b42"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceillex.html#a847a1a722429bb4df6c9bc3762210b42">illex::InitSocket</a> (const std::string &amp;host, uint16_t port, std::shared_ptr&lt; Socket &gt; *out) -&gt; Status</td></tr>
+<tr class="memdesc:a847a1a722429bb4df6c9bc3762210b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a socket, by creating it and attempting to connect.  <a href="namespaceillex.html#a847a1a722429bb4df6c9bc3762210b42">More...</a><br /></td></tr>
+<tr class="separator:a847a1a722429bb4df6c9bc3762210b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a6b3b46dba84c162c6ea006ab290109c1"></a>

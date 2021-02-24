@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Illex: illex::ProductionStats Struct Reference</title>
+<title>Illex: illex::JSONBatch Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,78 +60,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespaceillex.html">illex</a></li><li class="navelem"><a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceillex.html">illex</a></li><li class="navelem"><a class="el" href="structillex_1_1_j_s_o_n_batch.html">JSONBatch</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structillex_1_1_production_stats-members.html">List of all members</a>  </div>
+<a href="structillex_1_1_j_s_o_n_batch-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">illex::ProductionStats Struct Reference</div>  </div>
+<div class="title">illex::JSONBatch Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Statistics on JSON production.  
- <a href="structillex_1_1_production_stats.html#details">More...</a></p>
+<p>A batch of JSONs.  
+ <a href="structillex_1_1_j_s_o_n_batch.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="producer_8h_source.html">producer.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a349dd8f07e7ea1f49a065252a6f6e93c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_production_stats.html#a349dd8f07e7ea1f49a065252a6f6e93c">operator+=</a> (const <a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a> &amp;rhs) -&gt; <a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a> &amp;</td></tr>
-<tr class="separator:a349dd8f07e7ea1f49a065252a6f6e93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab075870f6e2b0d70cab674e653fb056e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_production_stats.html#ab075870f6e2b0d70cab674e653fb056e">time</a> = 0.0</td></tr>
-<tr class="memdesc:ab075870f6e2b0d70cab674e653fb056e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time spent producing all JSONs.  <a href="#ab075870f6e2b0d70cab674e653fb056e">More...</a><br /></td></tr>
-<tr class="separator:ab075870f6e2b0d70cab674e653fb056e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac590220e557991eb3286923272cf1fa2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_j_s_o_n_batch.html#ac590220e557991eb3286923272cf1fa2">data</a></td></tr>
+<tr class="memdesc:ac590220e557991eb3286923272cf1fa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">The JSON data.  <a href="#ac590220e557991eb3286923272cf1fa2">More...</a><br /></td></tr>
+<tr class="separator:ac590220e557991eb3286923272cf1fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbf0460a00bfad1e2dc1e79545be86ff"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structillex_1_1_j_s_o_n_batch.html#abbf0460a00bfad1e2dc1e79545be86ff">num_jsons</a></td></tr>
+<tr class="memdesc:abbf0460a00bfad1e2dc1e79545be86ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of JSON objects contained within the batch.  <a href="#abbf0460a00bfad1e2dc1e79545be86ff">More...</a><br /></td></tr>
+<tr class="separator:abbf0460a00bfad1e2dc1e79545be86ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Statistics on JSON production. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a349dd8f07e7ea1f49a065252a6f6e93c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a349dd8f07e7ea1f49a065252a6f6e93c">&#9670;&nbsp;</a></span>operator+=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto illex::ProductionStats::operator+= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
-          <td> -&gt; <a class="el" href="structillex_1_1_production_stats.html">ProductionStats</a>&amp; </td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab075870f6e2b0d70cab674e653fb056e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab075870f6e2b0d70cab674e653fb056e">&#9670;&nbsp;</a></span>time</h2>
+<div class="textblock"><p>A batch of JSONs. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac590220e557991eb3286923272cf1fa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac590220e557991eb3286923272cf1fa2">&#9670;&nbsp;</a></span>data</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double illex::ProductionStats::time = 0.0</td>
+          <td class="memname">std::string illex::JSONBatch::data</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The time spent producing all JSONs. </p>
+<p>The JSON data. </p>
+
+</div>
+</div>
+<a id="abbf0460a00bfad1e2dc1e79545be86ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbf0460a00bfad1e2dc1e79545be86ff">&#9670;&nbsp;</a></span>num_jsons</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t illex::JSONBatch::num_jsons</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The number of JSON objects contained within the batch. </p>
 
 </div>
 </div>

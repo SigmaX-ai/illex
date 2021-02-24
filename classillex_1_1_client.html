@@ -72,6 +72,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract class for client implementations.  
+ <a href="classillex_1_1_client.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="client_8h_source.html">client.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for illex::Client:</div>
@@ -86,8 +89,10 @@ Inheritance diagram for illex::Client:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b525dd3de56ea5b6dd7ee23c338bd87"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_client.html#a4b525dd3de56ea5b6dd7ee23c338bd87">ReceiveJSONs</a> (<a class="el" href="classillex_1_1_latency_tracker.html">LatencyTracker</a> *lat_tracker=nullptr) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a>=0</td></tr>
+<tr class="memdesc:a4b525dd3de56ea5b6dd7ee23c338bd87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive JSONs on this raw stream client and put them in a queue.  <a href="#a4b525dd3de56ea5b6dd7ee23c338bd87">More...</a><br /></td></tr>
 <tr class="separator:a4b525dd3de56ea5b6dd7ee23c338bd87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f257ad2bd9b4c92ff3f50b7da09e309"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_client.html#a0f257ad2bd9b4c92ff3f50b7da09e309">Close</a> () -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a>=0</td></tr>
+<tr class="memdesc:a0f257ad2bd9b4c92ff3f50b7da09e309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close this raw client.  <a href="#a0f257ad2bd9b4c92ff3f50b7da09e309">More...</a><br /></td></tr>
 <tr class="separator:a0f257ad2bd9b4c92ff3f50b7da09e309"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e3316160f402f88b413181335c1dfa8"><td class="memItemLeft" align="right" valign="top">virtual auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_client.html#a1e3316160f402f88b413181335c1dfa8">jsons_received</a> () const -&gt; size_t=0</td></tr>
 <tr class="memdesc:a1e3316160f402f88b413181335c1dfa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of received JSONs.  <a href="#a1e3316160f402f88b413181335c1dfa8">More...</a><br /></td></tr>
@@ -96,7 +101,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a35778b806ff9ae5a6301d246281fc160"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of received bytes.  <a href="#a35778b806ff9ae5a6301d246281fc160">More...</a><br /></td></tr>
 <tr class="separator:a35778b806ff9ae5a6301d246281fc160"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract class for client implementations. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a35778b806ff9ae5a6301d246281fc160"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35778b806ff9ae5a6301d246281fc160">&#9670;&nbsp;</a></span>bytes_received()</h2>
 
@@ -148,6 +155,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Close this raw client. </p>
+<dl class="section return"><dt>Returns</dt><dd>Status::OK() if successful, some error otherwise. </dd></dl>
 
 <p>Implemented in <a class="el" href="classillex_1_1_buffering_client.html#a330436da7859f8f1884a0b66dd90d25c">illex::BufferingClient</a>, and <a class="el" href="structillex_1_1_queueing_client.html#ada09c1ccd87ae8bc0aecc8cb74320503">illex::QueueingClient</a>.</p>
 
@@ -205,6 +215,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Receive JSONs on this raw stream client and put them in a queue. </p>
+<dl class="section return"><dt>Returns</dt><dd>Status::OK() if successful, some error otherwise. </dd></dl>
 
 <p>Implemented in <a class="el" href="classillex_1_1_buffering_client.html#a120de3ed4636dd215f415abd4c4a2dc7">illex::BufferingClient</a>, and <a class="el" href="structillex_1_1_queueing_client.html#ac54be43ac317ae9b4e7a0e98c57bc301">illex::QueueingClient</a>.</p>
 

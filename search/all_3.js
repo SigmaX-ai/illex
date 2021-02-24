@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['data',['data',['../classillex_1_1_j_s_o_n_buffer.html#a6292d59faa9fd8d8726f1fa2df846c3f',1,'illex::JSONBuffer']]],
+  ['data',['data',['../structillex_1_1_j_s_o_n_batch.html#ac590220e557991eb3286923272cf1fa2',1,'illex::JSONBatch::data()'],['../classillex_1_1_j_s_o_n_buffer.html#a6292d59faa9fd8d8726f1fa2df846c3f',1,'illex::JSONBuffer::data()']]],
   ['datestring',['DateString',['../structillex_1_1_date_string.html',1,'illex::DateString'],['../structillex_1_1_date_string.html#a73e411d888cfe8c351e55e9b7314f744',1,'illex::DateString::DateString()']]],
   ['day',['day',['../structillex_1_1_date_string.html#a8e62383a4b519df91116bc3631ad4229',1,'illex::DateString']]],
   ['desc',['desc',['../structillex_1_1_app_options.html#abaf4493fb02a632e99c2780a467c17d3',1,'illex::AppOptions']]],

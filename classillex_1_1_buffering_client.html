@@ -83,7 +83,7 @@ Inheritance diagram for illex::BufferingClient:</div>
 <div class="dyncontent">
 <div class="center"><img src="classillex_1_1_buffering_client__inherit__graph.png" border="0" usemap="#illex_1_1_buffering_client_inherit__map" alt="Inheritance graph"/></div>
 <map name="illex_1_1_buffering_client_inherit__map" id="illex_1_1_buffering_client_inherit__map">
-<area shape="rect" id="node2" href="classillex_1_1_client.html" title="illex::Client" alt="" coords="35,5,131,32"/>
+<area shape="rect" id="node2" href="classillex_1_1_client.html" title="Abstract class for client implementations. " alt="" coords="35,5,131,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -91,7 +91,7 @@ Collaboration diagram for illex::BufferingClient:</div>
 <div class="dyncontent">
 <div class="center"><img src="classillex_1_1_buffering_client__coll__graph.png" border="0" usemap="#illex_1_1_buffering_client_coll__map" alt="Collaboration graph"/></div>
 <map name="illex_1_1_buffering_client_coll__map" id="illex_1_1_buffering_client_coll__map">
-<area shape="rect" id="node2" href="classillex_1_1_client.html" title="illex::Client" alt="" coords="35,5,131,32"/>
+<area shape="rect" id="node2" href="classillex_1_1_client.html" title="Abstract class for client implementations. " alt="" coords="35,5,131,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -100,8 +100,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3781b9a81b30cfaa28b8e1dd60096f69"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_buffering_client.html#a3781b9a81b30cfaa28b8e1dd60096f69">~BufferingClient</a> ()</td></tr>
 <tr class="separator:a3781b9a81b30cfaa28b8e1dd60096f69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a120de3ed4636dd215f415abd4c4a2dc7"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_buffering_client.html#a120de3ed4636dd215f415abd4c4a2dc7">ReceiveJSONs</a> (<a class="el" href="classillex_1_1_latency_tracker.html">LatencyTracker</a> *lat_tracker=nullptr) -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a> override</td></tr>
+<tr class="memdesc:a120de3ed4636dd215f415abd4c4a2dc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receive JSONs on this raw stream client and put them in a queue.  <a href="#a120de3ed4636dd215f415abd4c4a2dc7">More...</a><br /></td></tr>
 <tr class="separator:a120de3ed4636dd215f415abd4c4a2dc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a330436da7859f8f1884a0b66dd90d25c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_buffering_client.html#a330436da7859f8f1884a0b66dd90d25c">Close</a> () -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a> override</td></tr>
+<tr class="memdesc:a330436da7859f8f1884a0b66dd90d25c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close this raw client.  <a href="#a330436da7859f8f1884a0b66dd90d25c">More...</a><br /></td></tr>
 <tr class="separator:a330436da7859f8f1884a0b66dd90d25c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35cb97652d273ba9e78b46d8d9ac2ddf"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classillex_1_1_buffering_client.html#a35cb97652d273ba9e78b46d8d9ac2ddf">jsons_received</a> () const -&gt; size_t override</td></tr>
 <tr class="memdesc:a35cb97652d273ba9e78b46d8d9ac2ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of received JSONs.  <a href="#a35cb97652d273ba9e78b46d8d9ac2ddf">More...</a><br /></td></tr>
@@ -206,7 +208,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">auto illex::BufferingClient::Close </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td>
+          <td> -&gt;  <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td>
         </tr>
       </table>
   </td>
@@ -215,6 +217,9 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Close this raw client. </p>
+<dl class="section return"><dt>Returns</dt><dd>Status::OK() if successful, some error otherwise. </dd></dl>
 
 <p>Implements <a class="el" href="classillex_1_1_client.html#a0f257ad2bd9b4c92ff3f50b7da09e309">illex::Client</a>.</p>
 
@@ -323,7 +328,7 @@ Private Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classillex_1_1_latency_tracker.html">LatencyTracker</a> *&#160;</td>
           <td class="paramname"><em>lat_tracker</em> = <code>nullptr</code></td><td>)</td>
-          <td> -&gt; <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td>
+          <td> -&gt;  <a class="el" href="namespaceillex.html#ae68b6eb40b40a1dfdc75d67f8838b31e">Status</a></td>
         </tr>
       </table>
   </td>
@@ -332,6 +337,9 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Receive JSONs on this raw stream client and put them in a queue. </p>
+<dl class="section return"><dt>Returns</dt><dd>Status::OK() if successful, some error otherwise. </dd></dl>
 
 <p>Implements <a class="el" href="classillex_1_1_client.html#a4b525dd3de56ea5b6dd7ee23c338bd87">illex::Client</a>.</p>
 

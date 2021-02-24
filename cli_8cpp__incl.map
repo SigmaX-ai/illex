@@ -1,14 +1,14 @@
 <map id="src/illex/cli.cpp" name="src/illex/cli.cpp">
-<area shape="rect" id="node2" href="$cli_8h.html" title="illex/cli.h" alt="" coords="349,80,430,107"/>
-<area shape="rect" id="node8" href="$file_8h.html" title="illex/file.h" alt="" coords="483,229,570,256"/>
-<area shape="rect" id="node20" href="$status_8h.html" title="illex/status.h" alt="" coords="1241,453,1348,480"/>
-<area shape="rect" id="node32" href="$arrow_8h.html" title="illex/arrow.h" alt="" coords="103,304,206,331"/>
-<area shape="rect" id="node22" href="$stream_8h.html" title="illex/stream.h" alt="" coords="825,155,937,181"/>
+<area shape="rect" id="node2" href="$cli_8h.html" title="illex/cli.h" alt="" coords="466,80,547,107"/>
+<area shape="rect" id="node8" href="$file_8h.html" title="illex/file.h" alt="" coords="545,229,631,256"/>
+<area shape="rect" id="node21" href="$status_8h.html" title="illex/status.h" alt="" coords="1565,453,1672,480"/>
+<area shape="rect" id="node33" href="$arrow_8h.html" title="illex/arrow.h" alt="" coords="91,304,194,331"/>
+<area shape="rect" id="node23" href="$stream_8h.html" title="illex/stream.h" alt="" coords="813,155,925,181"/>
 <area shape="rect" id="node10" href="$document_8h.html" title="illex/document.h" alt="" coords="281,379,412,405"/>
-<area shape="rect" id="node17" href="$producer_8h.html" title="illex/producer.h" alt="" coords="820,304,943,331"/>
+<area shape="rect" id="node17" href="$producer_8h.html" title="illex/producer.h" alt="" coords="808,304,931,331"/>
 <area shape="rect" id="node13" href="$value_8h.html" title="illex/value.h" alt="" coords="181,453,283,480"/>
-<area shape="rect" id="node23" href="$protocol_8h.html" title="illex/protocol.h" alt="" coords="1011,379,1130,405"/>
-<area shape="rect" id="node27" href="$server_8h.html" title="illex/server.h" alt="" coords="1017,229,1124,256"/>
-<area shape="rect" id="node28" href="$client_8h.html" title="illex/client.h" alt="" coords="1179,304,1282,331"/>
-<area shape="rect" id="node29" href="$latency_8h.html" title="illex/latency.h" alt="" coords="1459,379,1571,405"/>
+<area shape="rect" id="node24" href="$protocol_8h.html" title="illex/protocol.h" alt="" coords="1263,379,1382,405"/>
+<area shape="rect" id="node28" href="$server_8h.html" title="illex/server.h" alt="" coords="1043,229,1149,256"/>
+<area shape="rect" id="node29" href="$client_8h.html" title="illex/client.h" alt="" coords="1387,304,1490,331"/>
+<area shape="rect" id="node30" href="$latency_8h.html" title="illex/latency.h" alt="" coords="1405,379,1517,405"/>
 </map>

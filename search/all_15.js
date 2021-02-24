@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['whitespace',['whitespace',['../structillex_1_1_production_options.html#a3ec1cb149bee72e53c2aff9ad809f0d5',1,'illex::ProductionOptions']]],
-  ['whitespace_5fchar',['whitespace_char',['../structillex_1_1_production_options.html#a3787b95311e3e8c75cde4f4e74c043b4',1,'illex::ProductionOptions']]]
+  ['whitespace',['whitespace',['../structillex_1_1_producer_options.html#a5875067f56bfba666275f0deb001c989',1,'illex::ProducerOptions']]],
+  ['whitespace_5fchar',['whitespace_char',['../structillex_1_1_producer_options.html#ade38f10f3f668ad47369f8fd51fc9242',1,'illex::ProducerOptions']]]
 ];

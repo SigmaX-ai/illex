@@ -8,6 +8,7 @@ var searchData=
   ['length_5f',['length_',['../structillex_1_1_fixed_size_array.html#af2f92fa2db8abe2e992529b806b38a2c',1,'illex::FixedSizeArray']]],
   ['length_5fmax_5f',['length_max_',['../structillex_1_1_string.html#aad1ff709c80a96d75c531405c961a76b',1,'illex::String']]],
   ['length_5fmin_5f',['length_min_',['../structillex_1_1_string.html#a4c9754f19444e23be3779d69c2d91f73',1,'illex::String']]],
+  ['log',['Log',['../structillex_1_1_production_metrics.html#a9ecbf8c5a59d050b34daa638729cd51e',1,'illex::ProductionMetrics']]],
   ['log_2eh',['log.h',['../log_8h.html',1,'']]],
-  ['logsendstats',['LogSendStats',['../namespaceillex.html#a98ba4566075b49517b0866f07ab9071d',1,'illex']]]
+  ['logsendstats',['LogSendStats',['../namespaceillex.html#aa3c9bda12cfd72a02493588dbe24ecee',1,'illex']]]
 ];

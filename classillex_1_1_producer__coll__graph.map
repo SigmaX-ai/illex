@@ -1,0 +1,5 @@
+<map id="illex::Producer" name="illex::Producer">
+<area shape="rect" id="node2" href="$structillex_1_1_production_metrics.html" title="Metrics on JSON production. " alt="" coords="5,95,180,121"/>
+<area shape="rect" id="node3" href="$structillex_1_1_producer_options.html" title="Options for the Producer. " alt="" coords="205,95,370,121"/>
+<area shape="rect" id="node4" href="$structillex_1_1_generate_options.html" title="Options for pseudo&#45;random generators. " alt="" coords="203,5,371,32"/>
+</map>
