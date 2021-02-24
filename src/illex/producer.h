@@ -15,7 +15,7 @@
 #pragma once
 
 #include <arrow/api.h>
-#include <concurrentqueue.h>
+#include <blockingconcurrentqueue.h>
 
 #include <cstdint>
 #include <future>
@@ -25,7 +25,7 @@
 
 namespace illex {
 
-using ProductionQueue = moodycamel::ConcurrentQueue<std::string>;
+using ProductionQueue = moodycamel::BlockingConcurrentQueue<std::string>;
 
 /// Options for the random JSON production facility.
 struct ProductionOptions {

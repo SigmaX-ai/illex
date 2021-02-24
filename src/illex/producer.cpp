@@ -78,9 +78,8 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
     // Accumulate the number of bytes in the batch to all that this drone has produced.
     drone_size += batch.size();
     // Place the batch in the queue.
-    if (!q->enqueue(std::move(batch))) {
-      spdlog::error("Drone {} could not place JSON string in queue.", thread_id);
-      // TODO(johanpel): allow threads to return with an error state.
+    while (!q->try_enqueue(batch)) {
+      std::this_thread::sleep_for(std::chrono::microseconds(100));
     }
   }
   SPDLOG_DEBUG("Drone {} done.", thread_id);
