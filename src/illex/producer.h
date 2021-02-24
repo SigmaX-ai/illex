@@ -57,8 +57,6 @@ struct ProducerOptions {
   bool batching = false;
   /// Number of batches to produce.
   size_t num_batches = 1;
-  /// Produced JSON batches queue size.
-  size_t queue_size = 32;
 };
 
 /// Metrics on JSON production.

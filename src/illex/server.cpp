@@ -55,7 +55,7 @@ auto Server::SendJSONs(const ProducerOptions& prod_opts, const RepeatOptions& re
   }
 
   // Create a concurrent queue for the JSON production threads.
-  ProductionQueue production_queue(prod_opts.queue_size);
+  ProductionQueue production_queue(1, prod_opts.num_threads, 0);
   ProducerOptions prod_opts_int = prod_opts;
 
   // Set signal handler for server->accept()
@@ -82,6 +82,7 @@ auto Server::SendJSONs(const ProducerOptions& prod_opts, const RepeatOptions& re
 
   for (size_t repeats = 0; repeats < repeat_opts.times; repeats++) {
     size_t num_messages = 0;
+    size_t total_messages = prod_opts.num_batches * prod_opts.num_jsons;
     // Set up and start producer concurrently.
     std::atomic<bool> shutdown = false;
     std::shared_ptr<Producer> producer;
@@ -92,10 +93,10 @@ auto Server::SendJSONs(const ProducerOptions& prod_opts, const RepeatOptions& re
     t.Start();
     // Attempt to pull all produced batches from the production queue and send them over
     // the socket.
-    while (num_messages != prod_opts.num_batches * prod_opts.num_jsons) {
+    while ((num_messages != total_messages) && !shutdown.load()) {
       // Pop a batch from the queue.
       JSONBatch batch;
-      while (!production_queue.try_dequeue(batch)) {
+      while (!production_queue.try_dequeue(batch) && !shutdown.load()) {
 #ifndef NDEBUG
         // Slow this down a bit in debug.
         SPDLOG_DEBUG("Nothing in queue...");
@@ -128,14 +129,15 @@ auto Server::SendJSONs(const ProducerOptions& prod_opts, const RepeatOptions& re
         std::cout << "\033[39m";
       }
 
-      num_messages += prod_opts.num_jsons;
+      num_messages += batch.num_jsons;
 
       // Log some progress for large amounts.
-      if (num_messages %
-              std::min(1024ul, (prod_opts.num_batches * prod_opts.num_jsons) / 100) ==
-          0) {
-        spdlog::info("{}/{} sent.", num_messages,
-                     (prod_opts.num_batches * prod_opts.num_jsons));
+      size_t log_every = std::max(1ul, total_messages / 10);
+      if (num_messages % log_every < prod_opts.num_jsons) {
+        spdlog::info("{:.0}% | {}/{}",
+                     static_cast<double>(num_messages) /
+                         static_cast<double>(total_messages) * 100.,
+                     num_messages, total_messages);
       }
     }
     producer->Finish();

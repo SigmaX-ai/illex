@@ -73,13 +73,13 @@ void ProductionThread(size_t thread_id, const ProducerOptions& opt, size_t num_b
       if (opt.whitespace) {
         buffer.Put(opt.whitespace_char);
       }
-      metrics.num_jsons++;
     }
 
     // Put the batch of JSON strings in the queue.
-    auto batch = JSONBatch{std::string(buffer.GetString()), num_items};
+    JSONBatch batch = {std::string(buffer.GetString()), num_items};
     // Accumulate the number of bytes in the batch to all that this drone has produced.
     metrics.num_chars += batch.data.size();
+    metrics.num_jsons += num_items;
     metrics.num_batches++;
     // Place the batch in the queue.
     while (!queue->try_enqueue(batch) && !shutdown->load()) {
@@ -127,8 +127,6 @@ auto Producer::Start(std::atomic<bool>* shutdown) -> Status {
       batches_remainder = opts_.num_batches % batches_per_thread;
     }
   }
-
-  SPDLOG_DEBUG("Starting {} JSON producer threads.", opts_.num_threads);
 
   threads_.reserve(opts_.num_threads);
   thread_metrics_.reserve(opts_.num_threads);

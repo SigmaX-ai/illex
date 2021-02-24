@@ -21,7 +21,6 @@
 namespace illex::test {
 
 TEST(Producer, Producer) {
-  ProductionQueue queue;
   ProducerOptions opts;
   opts.gen.seed = 0;
   opts.num_batches = 4;
@@ -35,9 +34,11 @@ TEST(Producer, Producer) {
   opts.schema =
       arrow::schema({arrow::field("test", arrow::uint64(), false)->WithMetadata(meta)});
   std::atomic<bool> shutdown = false;
+
+  ProductionQueue queue(opts.num_batches, 1, 0);
   ProductionThread(0, opts, opts.num_batches, opts.num_jsons, &queue, &shutdown,
                    std::move(metrics));
-  std::string test;
+  JSONBatch test;
   // Pull all batches from the queue.
   for (size_t i = 0; i < opts.num_batches; i++) {
     ASSERT_TRUE(queue.try_dequeue(test));
