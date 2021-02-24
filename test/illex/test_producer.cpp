@@ -20,22 +20,23 @@
 
 namespace illex::test {
 
-TEST(Generators, ProductionDroneThread) {
+TEST(Producer, Producer) {
   ProductionQueue queue;
-  ProductionOptions opts;
+  ProducerOptions opts;
   opts.gen.seed = 0;
   opts.num_batches = 4;
   opts.num_jsons = 4;
-  std::promise<size_t> size_p;
-  auto size_f = size_p.get_future();
+  std::promise<ProductionMetrics> metrics;
+  auto metrics_f = metrics.get_future();
 
   std::vector<std::string> keys = {"illex_MIN", "illex_MAX"};
   std::vector<std::string> values = {"0", "9"};
   auto meta = std::make_shared<arrow::KeyValueMetadata>(keys, values);
   opts.schema =
       arrow::schema({arrow::field("test", arrow::uint64(), false)->WithMetadata(meta)});
-  ProductionDroneThread(0, opts, opts.num_batches, opts.num_jsons, &queue,
-                        std::move(size_p));
+  std::atomic<bool> shutdown = false;
+  ProductionThread(0, opts, opts.num_batches, opts.num_jsons, &queue, &shutdown,
+                   std::move(metrics));
   std::string test;
   // Pull all batches from the queue.
   for (size_t i = 0; i < opts.num_batches; i++) {
@@ -43,7 +44,8 @@ TEST(Generators, ProductionDroneThread) {
   }
 
   // And if it returned the right number of produced bytes.
-  ASSERT_EQ(size_f.get(), opts.num_batches * opts.num_jsons * strlen("{\"test\":0}\n"));
+  ASSERT_EQ(metrics_f.get().num_chars,
+            opts.num_batches * opts.num_jsons * strlen("{\"test\":0}\n"));
 
   ASSERT_FALSE(queue.try_dequeue(test));
 }

@@ -28,7 +28,7 @@ namespace illex {
 /// \brief Options for the file subcommand.
 struct FileOptions {
   /// Production options
-  ProductionOptions production;
+  ProducerOptions production;
   /// The output file path.
   std::string out_path;
 };

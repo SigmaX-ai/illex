@@ -16,6 +16,7 @@
 
 #include <arrow/api.h>
 #include <blockingconcurrentqueue.h>
+#include <putong/timer.h>
 
 #include <cstdint>
 #include <future>
@@ -25,10 +26,15 @@
 
 namespace illex {
 
-using ProductionQueue = moodycamel::BlockingConcurrentQueue<std::string>;
+struct JSONBatch {
+  std::string data;
+  size_t num_jsons;
+};
 
-/// Options for the random JSON production facility.
-struct ProductionOptions {
+using ProductionQueue = moodycamel::BlockingConcurrentQueue<JSONBatch>;
+
+/// Options for the Producer.
+struct ProducerOptions {
   /// Random generation options.
   GenerateOptions gen;
   /// The Arrow schema to base the JSONs on.
@@ -51,17 +57,76 @@ struct ProductionOptions {
   bool batching = false;
   /// Number of batches to produce.
   size_t num_batches = 1;
+  /// Produced JSON batches queue size.
+  size_t queue_size = 32;
 };
 
-/// Statistics on JSON production.
-struct ProductionStats {
+/// Metrics on JSON production.
+struct ProductionMetrics {
   /// The time spent producing all JSONs
   double time = 0.0;
+  /// The number of characters produced.
+  size_t num_chars = 0;
+  /// The number of JSONs produced;
+  size_t num_jsons = 0;
+  /// The number of batches produced;
+  size_t num_batches = 0;
+  /// Number of times the production queue was full.
+  size_t queue_full = 0;
 
-  auto operator+=(const ProductionStats& rhs) -> ProductionStats& {
-    this->time += rhs.time;
+  inline auto operator+=(const ProductionMetrics& rhs) -> ProductionMetrics& {
+    time += rhs.time;
+    num_chars += rhs.num_chars;
+    num_jsons += rhs.num_jsons;
+    queue_full += rhs.queue_full;
+    num_batches += rhs.num_batches;
     return *this;
   }
+
+  void Log(size_t num_threads) const;
+};
+
+/// Producer managing concurrent production of random JSONs.
+class Producer {
+ public:
+  /**
+   * \brief Create a JSON producer.
+   * \param opt   The production options.
+   * \param queue The queue to produce JSON batches into.
+   * \param out   A shared ptr in which to store the producer.
+   * \return Status::OK() if successful, some error otherwise.
+   */
+  static auto Make(const ProducerOptions& opt, ProductionQueue* queue,
+                   std::shared_ptr<Producer>* out) -> Status;
+
+  /**
+   * \brief Start the producer, spawning its threads in the background. Non-blocking.
+   * \param shutdown A signal for threads they need to shut down early, can be asserted
+   *                 by the threads of this producer.
+   * \return Status::OK() if successful, some error otherwise.
+   */
+  auto Start(std::atomic<bool>* shutdown) -> Status;
+
+  /**
+   * \brief Stop the producer, joining all threads once they are finished.
+   *
+   * If for some reason the producer needs to stop early, assert the shutdown signal
+   * before calling this.
+   *
+   * \return Status::OK() if successful, some error otherwise.
+   */
+  auto Finish() -> Status;
+
+  /// Return the accumulated metrics of the production threads.
+  [[nodiscard]] auto metrics() const -> ProductionMetrics { return metrics_; }
+
+ private:
+  Producer() = default;
+  ProducerOptions opts_;
+  std::vector<std::thread> threads_;
+  std::vector<std::future<ProductionMetrics>> thread_metrics_;
+  ProductionMetrics metrics_;
+  ProductionQueue* queue_ = nullptr;
 };
 
 /**
@@ -71,11 +136,13 @@ struct ProductionStats {
  * \param num_batches Number of batches to produce.
  * \param num_items   Number of JSONs to produce per batch.
  * \param q           The queue to store the produced JSONs in.
- * \param size        The number of characters generated.
+ * \param shutdown    Shutdown signal in case other threads encountered errors.
+ * \param size        Production metrics from this single thread.
  */
-void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
-                           size_t num_batches, size_t num_items, ProductionQueue* q,
-                           std::promise<size_t>&& size);
+void ProductionThread(size_t thread_id, const ProducerOptions& opt, size_t num_batches,
+                      size_t num_items, ProductionQueue* queue,
+                      std::atomic<bool>* shutdown,
+                      std::promise<ProductionMetrics>&& metrics_promise);
 
 /**
  * \brief Produce JSONs and push them onto a queue.
@@ -84,7 +151,6 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
  * \param[out] stats_out Statistics about producing JSONs.
  * \returns Status::OK() if successful, some error otherwise.
  */
-auto ProduceJSONs(const ProductionOptions& opt, ProductionQueue* queue,
-                  ProductionStats* stats_out) -> Status;
+auto ProduceJSONs() -> Status;
 
 }  // namespace illex

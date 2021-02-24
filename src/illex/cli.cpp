@@ -21,7 +21,7 @@
 namespace illex {
 
 /// \brief Common options for all subcommands
-static void AddCommonOpts(CLI::App* sub, ProductionOptions* prod,
+static void AddCommonOpts(CLI::App* sub, ProducerOptions* prod,
                           std::string* schema_file) {
   sub->add_option("input,-i,--input", *schema_file,
                   "An Arrow schema to generate the JSON from.")

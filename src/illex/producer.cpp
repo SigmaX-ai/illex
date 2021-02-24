@@ -26,14 +26,16 @@ namespace illex {
 
 namespace rj = rapidjson;
 
-void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
-                           size_t num_batches, size_t num_items, ProductionQueue* q,
-                           std::promise<size_t>&& size) {
+void ProductionThread(size_t thread_id, const ProducerOptions& opt, size_t num_batches,
+                      size_t num_items, ProductionQueue* queue,
+                      std::atomic<bool>* shutdown,
+                      std::promise<ProductionMetrics>&& metrics_promise) {
   using PrettyWriter = rapidjson::PrettyWriter<rapidjson::StringBuffer>;
   using NormalWriter = rapidjson::Writer<rapidjson::StringBuffer>;
 
-  // Accumulator for total number of characters generated.
-  size_t drone_size = 0;
+  putong::Timer<> t(true);
+
+  ProductionMetrics metrics;
 
   // Generation options. We increment the seed by the thread id, so we get different
   // values from each thread.
@@ -71,100 +73,105 @@ void ProductionDroneThread(size_t thread_id, const ProductionOptions& opt,
       if (opt.whitespace) {
         buffer.Put(opt.whitespace_char);
       }
+      metrics.num_jsons++;
     }
 
     // Put the batch of JSON strings in the queue.
-    auto batch = std::string(buffer.GetString());
+    auto batch = JSONBatch{std::string(buffer.GetString()), num_items};
     // Accumulate the number of bytes in the batch to all that this drone has produced.
-    drone_size += batch.size();
+    metrics.num_chars += batch.data.size();
+    metrics.num_batches++;
     // Place the batch in the queue.
-    while (!q->try_enqueue(batch)) {
+    while (!queue->try_enqueue(batch) && !shutdown->load()) {
+      metrics.queue_full++;
       std::this_thread::sleep_for(std::chrono::microseconds(100));
     }
   }
-  SPDLOG_DEBUG("Drone {} done.", thread_id);
-  size.set_value(drone_size);
+  t.Stop();
+  metrics.time = t.seconds();
+
+  metrics_promise.set_value(metrics);
 }
 
-auto ProduceJSONs(const ProductionOptions& opt, ProductionQueue* queue,
-                  ProductionStats* stats_out) -> Status {
-  assert(stats_out != nullptr);
-  putong::Timer t;
-  ProductionStats result;
+auto Producer::Make(const ProducerOptions& opt, ProductionQueue* queue,
+                    std::shared_ptr<Producer>* out) -> Status {
+  auto result = std::shared_ptr<Producer>(new Producer());
+  result->opts_ = opt;
+  result->queue_ = queue;
+  *out = result;
+  return Status::OK();
+}
 
+auto Producer::Start(std::atomic<bool>* shutdown) -> Status {
+  assert(shutdown != nullptr);
   // Number of JSONs to produce per thread
   size_t batches_per_thread = 1;
   size_t batches_remainder = 0;
-  auto jsons_per_thread = opt.num_jsons / opt.num_threads;
+  auto jsons_per_thread = opts_.num_jsons / opts_.num_threads;
   // Remainder for the first thread.
   size_t jsons_remainder = 0;
   if (jsons_per_thread == 0) {
-    jsons_remainder = opt.num_jsons;
+    jsons_remainder = opts_.num_jsons;
   } else {
-    jsons_remainder = opt.num_jsons % jsons_per_thread;
+    jsons_remainder = opts_.num_jsons % jsons_per_thread;
   }
 
   // Recalculate if batching is enabled.
-  if (opt.batching) {
-    jsons_per_thread = opt.num_jsons;
-    batches_per_thread = opt.num_batches / opt.num_threads;
+  if (opts_.batching) {
+    jsons_per_thread = opts_.num_jsons;
+    batches_per_thread = opts_.num_batches / opts_.num_threads;
     // Remainder for the first thread.
     if (batches_per_thread == 0) {
-      batches_remainder = opt.num_batches;
+      batches_remainder = opts_.num_batches;
     } else {
-      batches_remainder = opt.num_batches % batches_per_thread;
+      batches_remainder = opts_.num_batches % batches_per_thread;
     }
   }
 
-  SPDLOG_DEBUG("Starting {} JSON producer drones.", opt.num_threads);
+  SPDLOG_DEBUG("Starting {} JSON producer threads.", opts_.num_threads);
 
-  // Set up some vectors for the threads and futures.
-  std::vector<std::thread> threads;
-  std::vector<std::future<size_t>> futures;
-  threads.reserve(opt.num_threads);
-  futures.reserve(opt.num_threads);
+  threads_.reserve(opts_.num_threads);
+  thread_metrics_.reserve(opts_.num_threads);
 
   // Spawn threads
-  t.Start();
-  for (int thread = 0; thread < opt.num_threads; thread++) {
+  for (int thread = 0; thread < opts_.num_threads; thread++) {
     // Set up promise for the number of characters produced
-    std::promise<size_t> promise_num_chars;
-    futures.push_back(promise_num_chars.get_future());
+    std::promise<ProductionMetrics> metrics_promise;
+    thread_metrics_.push_back(metrics_promise.get_future());
 
     // Spawn the threads and let the first thread do the remainder of the work.
     size_t thread_jsons = jsons_per_thread + (thread == 0 ? jsons_remainder : 0);
     size_t thread_batches = batches_per_thread + (thread == 0 ? batches_remainder : 0);
 
-    threads.emplace_back(ProductionDroneThread, thread, opt, thread_batches, thread_jsons,
-                         queue, std::move(promise_num_chars));
+    threads_.emplace_back(ProductionThread, thread, opts_, thread_batches, thread_jsons,
+                          queue_, shutdown, std::move(metrics_promise));
   }
 
+  return Status::OK();
+}
+
+auto Producer::Finish() -> Status {
   // Wait for all threads to complete.
-  for (auto& thread : threads) {
+  for (auto& thread : threads_) {
     if (thread.joinable()) {
       thread.join();
     }
   }
-  t.Stop();
-
   // Get all futures and calculate total number of characters generated.
-  size_t total_size = 0;
-  for (auto& f : futures) {
-    total_size += f.get();
+  for (auto& f : thread_metrics_) {
+    metrics_ += f.get();
   }
-  result.time = t.seconds();
-
-  // Print some stats.
-  if (opt.statistics) {
-    spdlog::info("Produced {} JSONs in {:.4f} seconds.", opt.num_jsons, result.time);
-    spdlog::info("  {:.1f} JSON/s (avg).", opt.num_jsons / result.time);
-    spdlog::info("  {:.2f} GB/s   (avg).",
-                 (static_cast<double>(total_size) * 1E-9) / result.time);
-  }
-
-  *stats_out = result;
 
   return Status::OK();
+}
+
+void ProductionMetrics::Log(size_t threads) const {
+  double t_avg = time / threads;
+  spdlog::info("Produced {} batches of {} JSONs.", num_batches, num_jsons);
+  spdlog::info("Spent average of {:.4f} seconds/thread in {} threads.", t_avg, threads);
+  spdlog::info("  {:.1f} JSON/s (avg).", num_jsons / t_avg);
+  spdlog::info("  {:.2f} GB/s   (avg).", (static_cast<double>(num_chars) * 1E-9) / t_avg);
+  spdlog::info("  Queue was full {} times.", queue_full);
 }
 
 }  // namespace illex
