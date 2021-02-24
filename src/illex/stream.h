@@ -29,11 +29,11 @@ struct StreamOptions {
   /// Properties of the message protocol.
   ServerOptions server;
   /// Options for the JSON production facilities.
-  ProductionOptions production;
+  ProducerOptions production;
   /// Options for repeated streaming mode
   RepeatOptions repeat;
   /// Whether to log statistics
-  bool statistics = false;
+  bool statistics = true;
   /// Repeat server creation, connecting, and sending JSONs indefinitely
   bool repeat_server = false;
 };

@@ -14,8 +14,10 @@
 
 #include "illex/file.h"
 
+#include <chrono>
 #include <fstream>
 #include <iostream>
+#include <thread>
 
 #include "illex/status.h"
 
@@ -23,9 +25,12 @@ namespace illex {
 
 auto RunFile(const FileOptions& opt, std::ostream* o) -> Status {
   // Produce JSON data.
-  ProductionQueue queue;
-  ProductionStats stats;
-  auto produce_stats = ProduceJSONs(opt.production, &queue, &stats);
+  ProductionQueue queue(1, opt.production.num_threads, 0);
+
+  std::atomic<bool> shutdown = false;
+  std::shared_ptr<Producer> producer;
+  ILLEX_ROE(Producer::Make(opt.production, &queue, &producer));
+  producer->Start(&shutdown);
 
   // Open file for writing, if required.
   std::ofstream ofs;
@@ -37,17 +42,29 @@ auto RunFile(const FileOptions& opt, std::ostream* o) -> Status {
   }
 
   // Dump all JSONs.
-  std::string json;
-  while (queue.try_dequeue(json)) {
-    // Print it to stdout if requested.
-    if (opt.production.verbose || opt.out_path.empty()) {
-      (*o) << json;
+  size_t num_jsons = 0;
+  JSONBatch batch;
+  while ((num_jsons < (opt.production.num_batches * opt.production.num_jsons)) &&
+         !shutdown.load()) {
+    if (queue.try_dequeue(batch)) {
+      // Print it to stdout if requested.
+      if (opt.production.verbose || opt.out_path.empty()) {
+        (*o) << batch.data;
+      }
+      // Write it to a file.
+      if (!opt.out_path.empty()) {
+        ofs << batch.data;
+      }
+      num_jsons += batch.num_jsons;
+    } else {
+      std::this_thread::sleep_for(std::chrono::microseconds(100));
     }
+  }
 
-    // Write it to a file.
-    if (!opt.out_path.empty()) {
-      ofs << json;
-    }
+  producer->Finish();
+
+  if (!opt.out_path.empty()) {
+    producer->metrics().Log(opt.production.num_threads);
   }
 
   return Status::OK();

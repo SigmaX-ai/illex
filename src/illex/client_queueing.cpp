@@ -20,7 +20,6 @@
 #include <memory>
 
 #include "illex/latency.h"
-#include "illex/protocol.h"
 
 namespace illex {
 
@@ -54,14 +53,7 @@ auto QueueingClient::Create(const ClientOptions& options, JSONQueue* queue,
   out->buffer_size = buffer_size;
   out->queue = queue;
 
-  auto endpoint = options.host + ":" + std::to_string(options.port);
-  out->client = std::make_shared<Socket>(kissnet::endpoint(endpoint));
-
-  SPDLOG_DEBUG("Client connecting to {}...", endpoint);
-  auto success = out->client->connect();
-  if (!success) {
-    return Status(Error::ClientError, "Unable to connect to server.");
-  }
+  InitSocket(options.host, options.port, &out->client);
 
   out->must_be_closed = true;
 

@@ -14,12 +14,10 @@
 
 #include "illex/client_buffering.h"
 
-#include <string.h>
-
-#include <algorithm>
 #include <chrono>
 #include <cstddef>
 #include <mutex>
+#include <string>
 #include <thread>
 #include <vector>
 
@@ -56,7 +54,6 @@ auto BufferingClient::Create(const ClientOptions& options,
                              const std::vector<std::mutex*>& mutexes,
                              BufferingClient* out) -> Status {
   // Sanity check.
-  // TODO: we could also get a vector of a buffer-mutex pair
   if (mutexes.size() != buffers.size()) {
     return Status(Error::ClientError,
                   "Cannot create client. "
@@ -65,22 +62,9 @@ auto BufferingClient::Create(const ClientOptions& options,
   out->mutexes = mutexes;
   out->buffers = buffers;
   out->seq = options.seq;
-  // Create an endpoint.
-  auto endpoint = options.host + ":" + std::to_string(options.port);
-  try {
-    out->client = std::make_shared<Socket>(kissnet::endpoint(endpoint));
-  } catch (std::exception& e) {
-    return Status(Error::ClientError,
-                  "Unable to create socket."
-                  "\nException: " +
-                      std::string(e.what()) + "\nWith: " + endpoint);
-  }
-  // Attempt to connect.
-  SPDLOG_DEBUG("Client connecting to {}...", endpoint);
-  auto success = out->client->connect();
-  if (!success) {
-    return Status(Error::ClientError, "Unable to connect to server.");
-  }
+
+  ILLEX_ROE(InitSocket(options.host, options.port, &out->client));
+
   // Connect successful, remember we have to close it on deconstruction.
   out->must_be_closed = true;
 

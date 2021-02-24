@@ -24,6 +24,7 @@
 #include "illex/file.h"
 #include "illex/stream.h"
 
+/// Contains all constructs related to Illex.
 namespace illex {
 
 /// \brief The subcommands that can be run.
@@ -41,16 +42,12 @@ struct AppOptions {
 
   /// The subcommand to run.
   SubCommand sub = SubCommand::NONE;
-
   /// The file subcommand parameters.
   FileOptions file;
   /// The stream subcommand parameters.
   StreamOptions stream;
-
   /// Whether to immediately exit the application after parsing the CLI options.
   bool exit = false;
-  /// The return value in case immediate exit is required.
-  int return_value = 0;
 };
 
 }  // namespace illex

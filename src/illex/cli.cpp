@@ -21,7 +21,7 @@
 namespace illex {
 
 /// \brief Common options for all subcommands
-static void AddCommonOpts(CLI::App* sub, ProductionOptions* prod,
+static void AddCommonOpts(CLI::App* sub, ProducerOptions* prod,
                           std::string* schema_file) {
   sub->add_option("input,-i,--input", *schema_file,
                   "An Arrow schema to generate the JSON from.")
@@ -36,6 +36,8 @@ static void AddCommonOpts(CLI::App* sub, ProductionOptions* prod,
                 "Print the JSONs to stdout, even if -o or --output is used.");
   sub->add_option("-t,--threads", prod->num_threads,
                   "Number of threads to use to generate JSONs (default=1).");
+  sub->add_flag("--batch", prod->batching, "Enable batching.");
+  sub->add_option("-m", prod->num_batches, "Number of batches to produce.");
 }
 
 auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Status {
@@ -69,10 +71,6 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
                    "(milliseconds).")
       ->default_val(250);
 
-  stream->add_flag("--batch", result.stream.production.batching, "Enable batching.");
-  stream->add_option("-m", result.stream.production.num_batches,
-                     "Number of batches to send.");
-
   // Attempt to parse the CLI arguments.
   try {
     app.parse(argc, argv);
@@ -86,7 +84,6 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
 
   // Handle subcommands. All of them require to load a serialized Arrow schema, so we
   // can just return the status of attempting to load that.
-  // TODO(johanpel): push this down
   Status status;
   if (file->parsed()) {
     result.sub = SubCommand::FILE;

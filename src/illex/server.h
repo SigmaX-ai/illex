@@ -27,7 +27,7 @@
 namespace illex {
 
 /// Streaming statistics.
-struct StreamStatistics {
+struct StreamMetrics {
   /// Number of messages transmitted.
   size_t num_messages = 0;
   /// Number of bytes transmitted.
@@ -35,7 +35,7 @@ struct StreamStatistics {
   /// Total time spent transmitting.
   double time = 0.0;
   /// Statistics of the production facilities.
-  ProductionStats producer;
+  ProductionMetrics producer;
 };
 
 /// Repeat mode options.
@@ -46,7 +46,9 @@ struct RepeatOptions {
   size_t interval_ms = 250;
 };
 
+/// Server options.
 struct ServerOptions {
+  /// The port to listen on.
   uint16_t port = ILLEX_DEFAULT_PORT;
 };
 
@@ -68,11 +70,11 @@ class Server {
    * \brief Send JSONs using this Server.
    * \param[in] prod_opts Options for the JSON production facilities.
    * \param[in] repeat_opts Options for repeated streaming mode
-   * \param[out] stats Server statistics.
+   * \param[out] metrics Server statistics.
    * \return Status::OK() if successful, some error status otherwise.
    */
-  auto SendJSONs(const ProductionOptions& prod_opts, const RepeatOptions& repeat_opts,
-                 StreamStatistics* stats) -> Status;
+  auto SendJSONs(const ProducerOptions& prod_opts, const RepeatOptions& repeat_opts,
+                 StreamMetrics* metrics) -> Status;
 
   /**
    * \brief Close the Server.
@@ -93,7 +95,7 @@ class Server {
  * \return Status::OK if successful, some error otherwise.
  */
 auto RunServer(const ServerOptions& server_options,
-               const ProductionOptions& production_options,
+               const ProducerOptions& production_options,
                const RepeatOptions& repeat_options, bool statistics) -> Status;
 
 }  // namespace illex

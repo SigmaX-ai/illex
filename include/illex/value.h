@@ -33,6 +33,7 @@ using RandomEngine = std::ranlux48_base;
 // Need to roll our own distributions, since the STL distributions give implementation
 // defined results and may differ between platforms.
 // Also see: https://stackoverflow.com/questions/34903356
+/// A cross-platform uniform integer distribution.
 template <typename T>
 class UniformIntDistribution {
  public:

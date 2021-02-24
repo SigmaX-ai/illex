@@ -55,22 +55,9 @@ struct QueueingClient : public Client {
   static auto Create(const ClientOptions& options, JSONQueue* queue, QueueingClient* out,
                      size_t buffer_size = ILLEX_DEFAULT_TCP_BUFSIZE) -> Status;
 
-  /**
-   * \brief Receive JSONs on this raw stream client and put them in a queue.
-   * \return Status::OK() if successful, some error otherwise.
-   */
   auto ReceiveJSONs(LatencyTracker* lat_tracker = nullptr) -> Status override;
-
-  /**
-   * \brief Close this raw client.
-   * \return Status::OK() if successful, some error otherwise.
-   */
   auto Close() -> Status override;
-
-  /// \brief Return the number of received JSONs
   [[nodiscard]] auto jsons_received() const -> size_t override { return received_; }
-
-  /// \brief Return the number of received bytes
   [[nodiscard]] auto bytes_received() const -> size_t override { return bytes_received_; }
 
  private:

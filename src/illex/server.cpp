@@ -46,18 +46,17 @@ auto Server::Create(const ServerOptions& options, Server* out) -> Status {
   return Status::OK();
 }
 
-auto Server::SendJSONs(const ProductionOptions& prod_opts,
-                       const RepeatOptions& repeat_opts, StreamStatistics* stats)
-    -> Status {
+auto Server::SendJSONs(const ProducerOptions& prod_opts, const RepeatOptions& repeat_opts,
+                       StreamMetrics* metrics) -> Status {
   // Check for some potential misuse.
-  assert(stats != nullptr);
+  assert(metrics != nullptr);
   if (this->server == nullptr) {
     return Status(Error::ServerError, "Server uninitialized. Use RawServer::Create().");
   }
 
   // Create a concurrent queue for the JSON production threads.
-  ProductionQueue production_queue;
-  ProductionOptions prod_opts_int = prod_opts;
+  ProductionQueue production_queue(1, prod_opts.num_threads, 0);
+  ProducerOptions prod_opts_int = prod_opts;
 
   // Set signal handler for server->accept()
   std::signal(SIGINT, [](int) {
@@ -76,38 +75,45 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
     spdlog::info("  Interval: {} ms (+ production time).", repeat_opts.interval_ms);
   }
 
-  StreamStatistics result;
+  StreamMetrics result;
   putong::Timer t;
 
   bool color = false;
 
   for (size_t repeats = 0; repeats < repeat_opts.times; repeats++) {
     size_t num_messages = 0;
-    // Produce JSONs.
-    ProductionStats production_stats;
-    auto produce_stats =
-        ProduceJSONs(prod_opts_int, &production_queue, &production_stats);
+    size_t total_messages = prod_opts.num_batches * prod_opts.num_jsons;
+    // Set up and start producer concurrently.
+    std::atomic<bool> shutdown = false;
+    std::shared_ptr<Producer> producer;
+    ILLEX_ROE(Producer::Make(prod_opts_int, &production_queue, &producer));
+    producer->Start(&shutdown);
 
     // Start a timer.
     t.Start();
-    // Attempt to pull all produced messages from the production queue and send them over
+    // Attempt to pull all produced batches from the production queue and send them over
     // the socket.
-    while (num_messages != prod_opts.num_batches * prod_opts.num_jsons) {
-      // Pop a message from the queue.
-      std::string message;
-      while (!production_queue.try_dequeue(message)) {
+    while ((num_messages != total_messages) && !shutdown.load()) {
+      // Pop a batch from the queue.
+      JSONBatch batch;
+      while (!production_queue.try_dequeue(batch) && !shutdown.load()) {
 #ifndef NDEBUG
         // Slow this down a bit in debug.
-        SPDLOG_DEBUG("Nothing in queue... {}");
+        SPDLOG_DEBUG("Nothing in queue...");
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
 #else
-        std::this_thread::sleep_for(std::chrono::microseconds(1));
+        std::this_thread::sleep_for(std::chrono::microseconds(100));
 #endif
+        // Check if the client is still alive while producing.
+        if (!client.get_status()) {
+          shutdown.store(true);
+          return Status(Error::ServerError, "Client socket error.");
+        }
       }
 
       // Attempt to send the message.
-      auto send_result =
-          client.send(reinterpret_cast<std::byte*>(message.data()), message.length());
+      auto send_result = client.send(reinterpret_cast<std::byte*>(batch.data.data()),
+                                     batch.data.length());
 
       auto send_result_socket = std::get<1>(send_result);
       if (send_result_socket != kissnet::socket_status::valid) {
@@ -119,18 +125,29 @@ auto Server::SendJSONs(const ProductionOptions& prod_opts,
       if (prod_opts.verbose) {
         std::cout << (color ? "\033[34m" : "\033[35m");
         color = !color;
-        std::cout << message.substr(0, message.length() - 1) << std::endl;
+        std::cout << batch.data.substr(0, batch.data.length() - 1) << std::endl;
         std::cout << "\033[39m";
       }
 
-      num_messages += prod_opts.num_jsons;
+      num_messages += batch.num_jsons;
+
+      // Log some progress for large amounts.
+      size_t log_every = std::max(1ul, total_messages / 10);
+      if (num_messages % log_every < prod_opts.num_jsons) {
+        spdlog::info("{:.0}% | {}/{}",
+                     static_cast<double>(num_messages) /
+                         static_cast<double>(total_messages) * 100.,
+                     num_messages, total_messages);
+      }
     }
+    producer->Finish();
+
     // Stop the timer after sending all messages and update statistics.
     t.Stop();
     result.num_messages += num_messages;
     result.time += t.seconds();
-    result.producer += production_stats;
-    *stats = result;
+    result.producer += producer->metrics();
+    *metrics = result;
 
     std::this_thread::sleep_for(std::chrono::milliseconds(repeat_opts.interval_ms));
 
@@ -151,26 +168,27 @@ auto Server::Close() -> Status {
   return Status::OK();
 }
 
-static void LogSendStats(const StreamStatistics& result) {
+static void LogSendStats(const StreamMetrics& result, size_t num_threads) {
   spdlog::info("Streamed {} messages in {:.4f} seconds.", result.num_messages,
                result.time);
   spdlog::info("  {:.1f} messages/second (avg).", result.num_messages / result.time);
   spdlog::info("  {:.2f} gigabits/second (avg).",
                static_cast<double>(result.num_bytes * 8) / result.time * 1E-9);
+  result.producer.Log(num_threads);
 }
 
 auto RunServer(const ServerOptions& server_options,
-               const ProductionOptions& production_options,
+               const ProducerOptions& production_options,
                const RepeatOptions& repeat_options, bool statistics) -> Status {
   spdlog::info("Starting server...");
   Server server;
   ILLEX_ROE(Server::Create(server_options, &server));
 
-  StreamStatistics stats;
+  StreamMetrics stats;
   ILLEX_ROE(server.SendJSONs(production_options, repeat_options, &stats));
 
   if (statistics) {
-    LogSendStats(stats);
+    LogSendStats(stats, production_options.num_threads);
   }
 
   spdlog::info("Server shutting down...");

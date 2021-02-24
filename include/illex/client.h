@@ -44,14 +44,36 @@ struct ClientOptions {
   Protocol protocol = {};
 };
 
+/// Abstract class for client implementations.
 class Client {
  public:
+  /**
+   * \brief Receive JSONs on this raw stream client and put them in a queue.
+   * \return Status::OK() if successful, some error otherwise.
+   */
   virtual auto ReceiveJSONs(LatencyTracker* lat_tracker = nullptr) -> Status = 0;
+
+  /**
+   * \brief Close this raw client.
+   * \return Status::OK() if successful, some error otherwise.
+   */
   virtual auto Close() -> Status = 0;
+
   /// \brief Return the number of received JSONs.
   [[nodiscard]] virtual auto jsons_received() const -> size_t = 0;
+
   /// \brief Return the number of received bytes.
   [[nodiscard]] virtual auto bytes_received() const -> size_t = 0;
 };
+
+/**
+ * \brief Initialize a socket, by creating it and attempting to connect.
+ * \param[in]  host The host to connect to.
+ * \param[in]  port The port to connect to.
+ * \param[out] out  A shared ptr to the created socket, if successful.
+ * \return Status::OK() if successful, some error otherwise.
+ */
+auto InitSocket(const std::string& host, uint16_t port, std::shared_ptr<Socket>* out)
+    -> Status;
 
 }  // namespace illex

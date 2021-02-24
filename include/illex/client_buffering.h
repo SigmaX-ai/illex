@@ -24,8 +24,11 @@
 
 namespace illex {
 
+/// Range of sequence numbers.
 struct SeqRange {
+  /// The first sequence number in the range.
   Seq first;
+  /// The last sequence number in the range.
   Seq last;
 };
 
@@ -79,6 +82,8 @@ class JSONBuffer {
 
   /// \brief Set the receive time of this buffer.
   void SetRecvTime(TimePoint time) { this->recv_time_ = time; }
+
+  /// \brief Get the receive time of this buffer.
   auto recv_time() -> TimePoint { return this->recv_time_; }
 
   /// \brief Reset the buffer.
