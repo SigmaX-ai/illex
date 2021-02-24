@@ -39,7 +39,12 @@ void DocumentGenerator::SetRoot(std::shared_ptr<Value> root) {
 
 auto DocumentGenerator::root() -> std::shared_ptr<Value> { return root_; }
 
-auto DocumentGenerator::Get() -> rj::Value { return root_->Get(); }
+auto DocumentGenerator::Get() -> rj::Value {
+  // Clean up for each value, as rapidjson objects dont clean up after they go out of
+  // scope.
+  context_.allocator_->Clear();
+  return root_->Get();
+}
 
 auto DocumentGenerator::GetString(bool pretty) -> std::string {
   rapidjson::StringBuffer buffer;
