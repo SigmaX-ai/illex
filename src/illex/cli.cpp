@@ -36,6 +36,8 @@ static void AddCommonOpts(CLI::App* sub, ProducerOptions* prod,
                 "Print the JSONs to stdout, even if -o or --output is used.");
   sub->add_option("-t,--threads", prod->num_threads,
                   "Number of threads to use to generate JSONs (default=1).");
+  sub->add_flag("--batch", prod->batching, "Enable batching.");
+  sub->add_option("-m", prod->num_batches, "Number of batches to produce.");
 }
 
 auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Status {
@@ -68,10 +70,6 @@ auto AppOptions::FromArguments(int argc, char* argv[], AppOptions* out) -> Statu
                    " Time to wait between streaming messages when using --repeat-jsons "
                    "(milliseconds).")
       ->default_val(250);
-
-  stream->add_flag("--batch", result.stream.production.batching, "Enable batching.");
-  stream->add_option("-m", result.stream.production.num_batches,
-                     "Number of batches to send.");
 
   // Attempt to parse the CLI arguments.
   try {
