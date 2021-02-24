@@ -41,6 +41,7 @@ auto main(int argc, char* argv[]) -> int {
   if (!status.ok()) {
     spdlog::error("{} exiting with errors.", illex::AppOptions::name);
     spdlog::error("  {}", status.msg());
+    return -1;
   }
 
   return 0;
