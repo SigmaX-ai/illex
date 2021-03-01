@@ -59,7 +59,7 @@ FetchContent_MakeAvailable(kissnet)
 # putong
 FetchContent_Declare(putong
   GIT_REPOSITORY  https://github.com/abs-tudelft/putong.git
-  GIT_TAG         master
+  GIT_TAG         4a2bf644f899bb46dd8512edf95235280dc484bc
 )
 FetchContent_MakeAvailable(putong)
 
