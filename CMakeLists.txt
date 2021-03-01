@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
-project(illex VERSION 0.1.0 LANGUAGES CXX)
+project(illex VERSION 0.1.1 LANGUAGES CXX)
 
 find_package(Arrow 3.0.0 CONFIG REQUIRED)
 
