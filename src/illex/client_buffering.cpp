@@ -153,40 +153,49 @@ auto BufferingClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
             client->recv(buf->mutable_data() + remaining, buf->capacity() - remaining);
         // Set receive time point.
         buf->SetRecvTime(Timer::now());
-
-        // Get some stats from recv() return value.
-        auto bytes_received = std::get<0>(recv_status);
+        // Get the status
         auto sock_status = std::get<1>(recv_status).get_value();
-        this->bytes_received_ += bytes_received;
 
-        // Scan the buffer for JSONs.
-        auto scan_size = remaining + bytes_received;
-        auto scan = buf->Scan(scan_size, this->seq);
+        // Check if there is anything to do.
+        if (sock_status != kissnet::socket_status::non_blocking_would_have_blocked) {
+          // Check if there are any actual bytes to process.
+          auto bytes_received = std::get<0>(recv_status);
+          this->bytes_received_ += bytes_received;
 
-        // Increase current sequence number.
-        this->seq += scan.first;
-        // Increase number of received JSONs.
-        this->jsons_received_ += scan.first;
+          if (bytes_received > 0) {
+            // Scan the buffer for JSONs.
+            auto scan_size = remaining + bytes_received;
+            auto scan = buf->Scan(scan_size, this->seq);
 
-        // Deal with the remaining bytes.
-        remaining = scan.second;
-        ILLEX_ROE(buf->SetSize(scan_size - remaining));
-        // Copy leftover bytes to temporary buffer.
-        if (remaining > 0) {
-          std::memcpy(spill, buf->data() + buf->size(), remaining);
-        }
+            // Increase current sequence number.
+            this->seq += scan.first;
+            // Increase number of received JSONs.
+            this->jsons_received_ += scan.first;
 
-        // Perhaps the server disconnected because it's done sending JSONs, check the
-        // status.
-        if (sock_status == kissnet::socket_status::cleanly_disconnected) {
-          SPDLOG_DEBUG("Server has cleanly disconnected.");
-          mutexes[lock_idx]->unlock();
-          free(spill);
-          return Status::OK();
-        } else if (sock_status != kissnet::socket_status::valid) {
-          // Otherwise, if it's not valid, there is something wrong.
-          return Status(Error::ClientError,
-                        "Server error. Status: " + std::to_string(sock_status));
+            // Deal with the remaining bytes.
+            remaining = scan.second;
+            ILLEX_ROE(buf->SetSize(scan_size - remaining));
+            // Copy leftover bytes to temporary buffer.
+            if (remaining > 0) {
+              std::memcpy(spill, buf->data() + buf->size(), remaining);
+            }
+          }
+
+          // Perhaps the server disconnected because it's done sending JSONs, check the
+          // status.
+          if (sock_status == kissnet::socket_status::cleanly_disconnected) {
+            SPDLOG_DEBUG("Server has cleanly disconnected.");
+            mutexes[lock_idx]->unlock();
+            free(spill);
+            return Status::OK();
+          } else if (sock_status != kissnet::socket_status::valid) {
+            // Otherwise, if it's not valid, there is something wrong.
+            return Status(Error::ClientError,
+                          "Server error. Status: " + std::to_string(sock_status));
+          }
+        } else {
+          // Socket would have blocked, wait a bit.
+          std::this_thread::sleep_for(std::chrono::microseconds(100));
         }
 
         // Unlock the buffer.

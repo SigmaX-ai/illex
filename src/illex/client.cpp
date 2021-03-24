@@ -30,6 +30,9 @@ auto InitSocket(const std::string& host, uint16_t port, std::shared_ptr<Socket>*
                   "\nException: " +
                       std::string(e.what()) + "\nWith: " + endpoint);
   }
+  // Set to non-blocking mode
+  (*out)->set_non_blocking();
+
   // Attempt to connect.
   spdlog::info("Client connecting to {}...", endpoint);
 

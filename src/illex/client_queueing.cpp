@@ -141,28 +141,37 @@ auto QueueingClient::ReceiveJSONs(LatencyTracker* lat_tracker) -> Status {
       auto recv_status = client->recv(buffer, buffer_size);
       auto receive_time = Timer::now();
 
-      // Perhaps the server disconnected because it's done sending JSONs, check the
-      // status.
-      auto bytes_received = std::get<0>(recv_status);
+      // Get the status
       auto sock_status = std::get<1>(recv_status).get_value();
 
-      this->bytes_received_ += bytes_received;
-      // We must now handle the received bytes in the TCP buffer.
-      auto num_enqueued =
-          EnqueueAllJSONsInBuffer(&json_string, buffer, bytes_received, queue, &this->seq,
-                                  receive_time, lat_tracker);
-      this->received_ += num_enqueued;
+      // Check if there is anything to do.
+      if (sock_status != kissnet::socket_status::non_blocking_would_have_blocked) {
+        // Check if there are any actual bytes to process.
+        auto bytes_received = std::get<0>(recv_status);
+        this->bytes_received_ += bytes_received;
 
-      if (sock_status == kissnet::socket_status::cleanly_disconnected) {
-        SPDLOG_DEBUG("Server has cleanly disconnected.");
-        return Status::OK();
-      } else if (sock_status != kissnet::socket_status::valid) {
-        // Otherwise, if it's not valid, there is something wrong.
-        return Status(Error::ClientError,
-                      "Server error. Status: " + std::to_string(sock_status));
+        if (bytes_received > 0) {
+          // We must now handle the received bytes in the TCP buffer.
+          auto num_enqueued =
+              EnqueueAllJSONsInBuffer(&json_string, buffer, bytes_received, queue,
+                                      &this->seq, receive_time, lat_tracker);
+          this->received_ += num_enqueued;
+        }
+
+        if (sock_status == kissnet::socket_status::cleanly_disconnected) {
+          SPDLOG_DEBUG("Server has cleanly disconnected.");
+          return Status::OK();
+        } else if (sock_status != kissnet::socket_status::valid) {
+          // Otherwise, if it's not valid, there is something wrong.
+          return Status(Error::ClientError,
+                        "Server error. Status: " + std::to_string(sock_status));
+        }
+      } else {
+        // Socket would have blocked, wait a bit.
+        std::this_thread::sleep_for(std::chrono::microseconds(100));
       }
     } catch (const std::exception& e) {
-      // But first we catch any exceptions.
+      // Catch any exceptions.
       return Status(Error::ClientError, e.what());
     }
   }
