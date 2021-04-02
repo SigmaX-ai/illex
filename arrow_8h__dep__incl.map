@@ -1,6 +1,7 @@
 <map id="include/illex/arrow.h" name="include/illex/arrow.h">
-<area shape="rect" id="node2" href="$arrow_8cpp.html" title="src/illex/arrow.cpp" alt="" coords="5,80,145,107"/>
-<area shape="rect" id="node3" href="$cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="169,80,288,107"/>
-<area shape="rect" id="node4" href="$producer_8cpp.html" title="src/illex/producer.cpp" alt="" coords="311,80,471,107"/>
-<area shape="rect" id="node5" href="$server_8cpp.html" title="src/illex/server.cpp" alt="" coords="495,80,639,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="233,5,387,32"/>
+<area shape="rect" id="node2" href="$arrow_8cpp.html" title=" " alt="" coords="5,80,145,107"/>
+<area shape="rect" id="node3" href="$cli_8cpp.html" title=" " alt="" coords="169,80,288,107"/>
+<area shape="rect" id="node4" href="$producer_8cpp.html" title=" " alt="" coords="311,80,471,107"/>
+<area shape="rect" id="node5" href="$server_8cpp.html" title=" " alt="" coords="495,80,639,107"/>
 </map>

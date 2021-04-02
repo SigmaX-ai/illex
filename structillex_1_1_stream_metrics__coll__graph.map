@@ -1,3 +1,4 @@
 <map id="illex::StreamMetrics" name="illex::StreamMetrics">
-<area shape="rect" id="node2" href="$structillex_1_1_production_metrics.html" title="Metrics on JSON production. " alt="" coords="5,5,180,32"/>
+<area shape="rect" id="node1" title="Streaming statistics." alt="" coords="16,95,169,121"/>
+<area shape="rect" id="node2" href="$structillex_1_1_production_metrics.html" title="Metrics on JSON production." alt="" coords="5,5,180,32"/>
 </map>

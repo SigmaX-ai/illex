@@ -1,6 +1,7 @@
 <map id="illex::StreamOptions" name="illex::StreamOptions">
-<area shape="rect" id="node2" href="$structillex_1_1_server_options.html" title="Server options. " alt="" coords="5,95,156,121"/>
-<area shape="rect" id="node3" href="$structillex_1_1_repeat_options.html" title="Repeat mode options. " alt="" coords="180,95,333,121"/>
-<area shape="rect" id="node4" href="$structillex_1_1_producer_options.html" title="Options for the Producer. " alt="" coords="358,95,523,121"/>
-<area shape="rect" id="node5" href="$structillex_1_1_generate_options.html" title="Options for pseudo&#45;random generators. " alt="" coords="357,5,525,32"/>
+<area shape="rect" id="node1" title="Options for the stream subcommand." alt="" coords="181,184,335,211"/>
+<area shape="rect" id="node2" href="$structillex_1_1_server_options.html" title="Server options." alt="" coords="5,95,156,121"/>
+<area shape="rect" id="node3" href="$structillex_1_1_repeat_options.html" title="Repeat mode options." alt="" coords="181,95,335,121"/>
+<area shape="rect" id="node4" href="$structillex_1_1_producer_options.html" title="Options for the Producer." alt="" coords="359,95,525,121"/>
+<area shape="rect" id="node5" href="$structillex_1_1_generate_options.html" title="Options for pseudo&#45;random generators." alt="" coords="358,5,526,32"/>
 </map>

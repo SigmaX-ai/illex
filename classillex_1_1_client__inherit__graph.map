@@ -1,4 +1,5 @@
 <map id="illex::Client" name="illex::Client">
-<area shape="rect" id="node2" href="$classillex_1_1_buffering_client.html" title="A client that buffers received JSONs. " alt="" coords="5,80,160,107"/>
-<area shape="rect" id="node3" href="$structillex_1_1_queueing_client.html" title="A client that attempts to immediately queue received JSONs. " alt="" coords="185,80,343,107"/>
+<area shape="rect" id="node1" title="Abstract class for client implementations." alt="" coords="125,5,221,32"/>
+<area shape="rect" id="node2" href="$classillex_1_1_buffering_client.html" title="A client that buffers received JSONs." alt="" coords="5,80,160,107"/>
+<area shape="rect" id="node3" href="$structillex_1_1_queueing_client.html" title="A client that attempts to immediately queue received JSONs." alt="" coords="185,80,343,107"/>
 </map>

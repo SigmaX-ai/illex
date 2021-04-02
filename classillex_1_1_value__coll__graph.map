@@ -1,3 +1,4 @@
 <map id="illex::Value" name="illex::Value">
-<area shape="rect" id="node2" href="$structillex_1_1_context.html" title="Context for generators to operate in. " alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node1" title="Abstract class representing a value generator." alt="" coords="13,95,107,121"/>
+<area shape="rect" id="node2" href="$structillex_1_1_context.html" title="Context for generators to operate in." alt="" coords="5,5,115,32"/>
 </map>

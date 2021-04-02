@@ -1,3 +1,4 @@
 <map id="illex::ClientOptions" name="illex::ClientOptions">
-<area shape="rect" id="node2" href="$structillex_1_1_protocol.html" title="Protocol options for the raw streaming client/server. " alt="" coords="23,5,134,32"/>
+<area shape="rect" id="node1" title="Basic options for client implementations." alt="" coords="5,95,152,121"/>
+<area shape="rect" id="node2" href="$structillex_1_1_protocol.html" title="Protocol options for the raw streaming client/server." alt="" coords="23,5,134,32"/>
 </map>

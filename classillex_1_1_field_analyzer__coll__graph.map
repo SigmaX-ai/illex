@@ -1,4 +1,6 @@
 <map id="illex::FieldAnalyzer" name="illex::FieldAnalyzer">
-<area shape="rect" id="node3" href="$classillex_1_1_member.html" title="Member generator. " alt="" coords="169,95,279,121"/>
-<area shape="rect" id="node4" href="$structillex_1_1_context.html" title="Context for generators to operate in. " alt="" coords="169,5,279,32"/>
+<area shape="rect" id="node1" title="Class to analyze an Arrow field, and populate a Member generator." alt="" coords="49,184,196,211"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,144,121"/>
+<area shape="rect" id="node3" href="$classillex_1_1_member.html" title="Member generator." alt="" coords="168,95,280,121"/>
+<area shape="rect" id="node4" href="$structillex_1_1_context.html" title="Context for generators to operate in." alt="" coords="169,5,279,32"/>
 </map>

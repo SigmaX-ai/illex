@@ -1,11 +1,12 @@
 <map id="src/illex/log.h" name="src/illex/log.h">
-<area shape="rect" id="node2" href="$arrow_8cpp.html" title="src/illex/arrow.cpp" alt="" coords="5,87,145,114"/>
-<area shape="rect" id="node3" href="$client_8cpp.html" title="src/illex/client.cpp" alt="" coords="169,87,309,114"/>
-<area shape="rect" id="node4" href="$client__buffering_8cpp.html" title="src/illex/client_buffering.cpp" alt="" coords="334,87,539,114"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title="src/illex/main.cpp" alt="" coords="564,87,701,114"/>
-<area shape="rect" id="node6" href="$producer_8cpp.html" title="src/illex/producer.cpp" alt="" coords="726,87,886,114"/>
-<area shape="rect" id="node7" href="$server_8cpp.html" title="src/illex/server.cpp" alt="" coords="910,87,1054,114"/>
-<area shape="rect" id="node8" href="$value_8cpp.html" title="src/illex/value.cpp" alt="" coords="1079,87,1219,114"/>
-<area shape="rect" id="node9" href="$client__queueing_8h.html" title="include/illex/client\l_queueing.h" alt="" coords="1243,80,1385,121"/>
-<area shape="rect" id="node10" href="$client__queueing_8cpp.html" title="src/illex/client_queueing.cpp" alt="" coords="1211,169,1417,196"/>
+<area shape="rect" id="node1" title=" " alt="" coords="665,5,774,32"/>
+<area shape="rect" id="node2" href="$arrow_8cpp.html" title=" " alt="" coords="5,87,145,114"/>
+<area shape="rect" id="node3" href="$client_8cpp.html" title=" " alt="" coords="169,87,309,114"/>
+<area shape="rect" id="node4" href="$client__buffering_8cpp.html" title=" " alt="" coords="334,87,539,114"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="564,87,701,114"/>
+<area shape="rect" id="node6" href="$producer_8cpp.html" title=" " alt="" coords="726,87,886,114"/>
+<area shape="rect" id="node7" href="$server_8cpp.html" title=" " alt="" coords="910,87,1054,114"/>
+<area shape="rect" id="node8" href="$value_8cpp.html" title=" " alt="" coords="1079,87,1219,114"/>
+<area shape="rect" id="node9" href="$client__queueing_8h.html" title=" " alt="" coords="1243,80,1385,121"/>
+<area shape="rect" id="node10" href="$client__queueing_8cpp.html" title=" " alt="" coords="1211,169,1417,196"/>
 </map>

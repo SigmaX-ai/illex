@@ -1,3 +1,4 @@
 <map id="illex::DateString" name="illex::DateString">
-<area shape="rect" id="node2" href="$classillex_1_1_value.html" title="Abstract class representing a value generator. " alt="" coords="21,5,116,32"/>
+<area shape="rect" id="node1" title="String value generator for ISO 8601&#45;like date and time." alt="" coords="5,80,132,107"/>
+<area shape="rect" id="node2" href="$classillex_1_1_value.html" title="Abstract class representing a value generator." alt="" coords="21,5,116,32"/>
 </map>

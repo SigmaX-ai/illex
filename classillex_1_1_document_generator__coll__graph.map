@@ -1,3 +1,4 @@
 <map id="illex::DocumentGenerator" name="illex::DocumentGenerator">
-<area shape="rect" id="node2" href="$structillex_1_1_context.html" title="Context for generators to operate in. " alt="" coords="46,5,155,32"/>
+<area shape="rect" id="node1" title="Allows the generation of a JSON DOM root." alt="" coords="5,95,196,121"/>
+<area shape="rect" id="node2" href="$structillex_1_1_context.html" title="Context for generators to operate in." alt="" coords="46,5,155,32"/>
 </map>

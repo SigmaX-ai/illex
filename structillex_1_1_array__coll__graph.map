@@ -1,5 +1,6 @@
 <map id="illex::Array" name="illex::Array">
-<area shape="rect" id="node2" href="$classillex_1_1_value.html" title="Abstract class representing a value generator. " alt="" coords="13,102,107,129"/>
-<area shape="rect" id="node3" href="$structillex_1_1_context.html" title="Context for generators to operate in. " alt="" coords="5,5,115,32"/>
-<area shape="rect" id="node4" href="$classillex_1_1_uniform_int_distribution.html" title="illex::UniformIntDistribution\l\&lt; int32_t \&gt;" alt="" coords="131,95,335,136"/>
+<area shape="rect" id="node1" title="Array value generator for variable&#45;length arrays." alt="" coords="143,199,236,225"/>
+<area shape="rect" id="node2" href="$classillex_1_1_value.html" title="Abstract class representing a value generator." alt="" coords="13,102,107,129"/>
+<area shape="rect" id="node3" href="$structillex_1_1_context.html" title="Context for generators to operate in." alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node4" href="$classillex_1_1_uniform_int_distribution.html" title=" " alt="" coords="131,95,335,136"/>
 </map>

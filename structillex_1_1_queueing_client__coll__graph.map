@@ -1,3 +1,4 @@
 <map id="illex::QueueingClient" name="illex::QueueingClient">
-<area shape="rect" id="node2" href="$classillex_1_1_client.html" title="Abstract class for client implementations. " alt="" coords="37,5,133,32"/>
+<area shape="rect" id="node1" title="A client that attempts to immediately queue received JSONs." alt="" coords="5,80,164,107"/>
+<area shape="rect" id="node2" href="$classillex_1_1_client.html" title="Abstract class for client implementations." alt="" coords="37,5,133,32"/>
 </map>

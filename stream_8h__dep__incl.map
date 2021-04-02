@@ -1,6 +1,7 @@
 <map id="src/illex/stream.h" name="src/illex/stream.h">
-<area shape="rect" id="node2" href="$cli_8h.html" title="src/illex/cli.h" alt="" coords="75,80,179,107"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="src/illex/main.cpp" alt="" coords="148,155,285,181"/>
-<area shape="rect" id="node5" href="$stream_8cpp.html" title="src/illex/stream.cpp" alt="" coords="255,80,405,107"/>
-<area shape="rect" id="node3" href="$cli_8cpp.html" title="src/illex/cli.cpp" alt="" coords="5,155,124,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="149,5,284,32"/>
+<area shape="rect" id="node2" href="$cli_8h.html" title=" " alt="" coords="75,80,179,107"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title=" " alt="" coords="148,155,285,181"/>
+<area shape="rect" id="node5" href="$stream_8cpp.html" title=" " alt="" coords="255,80,405,107"/>
+<area shape="rect" id="node3" href="$cli_8cpp.html" title=" " alt="" coords="5,155,124,181"/>
 </map>
